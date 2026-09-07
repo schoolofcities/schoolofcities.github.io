@@ -1,0 +1,14 @@
+{
+	"demographics-grid": {
+		"width": 1080,
+		"height": 785
+	},
+	"spatial-access-map": {
+		"width": 1080,
+		"height": 1353
+	},
+	"travel-time-boxplot": {
+		"width": 1080,
+		"height": 596
+	}
+}
