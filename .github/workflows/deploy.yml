@@ -1,0 +1,63 @@
+# Builds the site and publishes it to GitHub Pages.
+#
+# build/ is gitignored and never committed. This workflow builds it on a runner,
+# uploads it as a Pages artifact, and Pages serves that — GitHub's documentation:
+# "Pages serves uploaded artifacts rather than reading directly from the
+# repository." So the built files never become git objects.
+#
+# Requires Settings -> Pages -> Source set to "GitHub Actions", not "Deploy from
+# a branch". Without that, this runs and publishes nothing.
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+    # Editing notes shouldn't redeploy the site.
+    paths-ignore:
+      - 'notes/**'
+      - '**.md'
+  workflow_dispatch:
+
+# What the workflow is allowed to do. id-token is required by deploy-pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Two quick pushes shouldn't race to publish; the later one wins.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # npm run build is validate.js, then vite build, then strip-css.js. A
+      # validation error exits non-zero, so the build stops, so the deploy job
+      # below never runs and whatever is already published stays online.
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

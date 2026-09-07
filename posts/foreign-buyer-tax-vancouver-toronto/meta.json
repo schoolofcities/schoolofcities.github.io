@@ -1,0 +1,47 @@
+{
+	"title": "Impacts of foreign buyer taxes on housing markets",
+	"type": "post",
+	"summary": "How rents and home ownership in the Toronto and Vancouver areas changed after their foreign buyer tax policies took effect.",
+	"authors": [
+		"Jeff Allen"
+	],
+	"published": "2026-09-08",
+	"license": "CC-BY-4.0",
+	"cardImage": "rent-gap",
+	"geography": [
+		"Canada",
+		"British Columbia",
+		"Ontario",
+		"Vancouver",
+		"Toronto"
+	],
+	"tags": [
+		"urban",
+		"housing",
+		"tax",
+		"policy"
+	],
+	"documents": [
+		{
+			"relation": "from",
+			"type": "paper",
+			"authors": [
+				"Song, T."
+			],
+			"year": 2025,
+			"title": "Anti-immigration and the politics of housing affordability: Examining the evolution and housing market impacts of Foreign Buyer Taxes in British Columbia and Ontario",
+			"publication": "Journal of Urban Affairs",
+			"link": "https://doi.org/10.1080/07352166.2025.2570754",
+			"linkType": "DOI"
+		},
+		{
+			"relation": "for",
+			"type": "brief",
+			"authors": [
+				"School of Cities"
+			],
+			"year": 2026,
+			"title": "Foreign buyer taxes and the rental affordability gap"
+		}
+	]
+}

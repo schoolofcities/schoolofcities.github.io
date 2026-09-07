@@ -1,0 +1,22 @@
+{
+	"title": "Public transit and pedestrian accessibility to public libraries in Toronto",
+	"type": "post",
+	"summary": "How long it takes to reach the nearest public library across Toronto, and whether travel times differ by demographic group.",
+	"authors": ["Polina Gorn", "Jeff Allen"],
+	"published": "2026-09-02",
+	"license": "CC-BY-4.0",
+	"geography": ["Toronto"],
+	"tags": ["urban", "public transit", "accessibility", "public libraries"],
+	"documents": [
+		{
+			"relation": "from",
+			"type": "code",
+			"authors": ["Polina Gorn", "Jeff Allen"],
+			"year": 2026,
+			"title": "Spatial access to public libraries in Toronto",
+			"publication": "School of Cities",
+			"link": "https://github.com/schoolofcities/public-libraries",
+			"linkType": "GitHub"
+		}
+	]
+}

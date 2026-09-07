@@ -1,0 +1,269 @@
+/* Trade Gothic for headings and titles */
+
+@font-face {
+	font-family: TradeGothicBold;
+	src: url("fonts/Trade Gothic LT Bold.ttf");
+}
+
+
+/* Source Serif for body text */
+
+@font-face {
+	font-family: SourceSerif;
+	src: url("fonts/SourceSerifPro-Regular.otf");
+}
+
+@font-face {
+	font-family: SourceSerifItalic;
+	src: url("fonts/SourceSerifPro-It.otf");
+}
+
+@font-face {
+	font-family: SourceSerifBold;
+	src: url("fonts/SourceSerifPro-Bold.otf");
+}
+
+@font-face {
+	font-family: SourceSerifBoldItalic;
+	src: url("fonts/SourceSerifPro-BoldIt.otf");
+}
+
+
+/* Open Sans for smaller text, labels, and UI elements */
+
+@font-face {
+	font-family: OpenSans;
+	src: url("fonts/OpenSans-Regular.ttf");
+}
+
+@font-face {
+	font-family: OpenSansItalic;
+	src: url("fonts/OpenSans-Italic.ttf");
+}
+
+@font-face {
+	font-family: OpenSansBold;
+	src: url("fonts/OpenSans-Bold.ttf");
+}
+
+@font-face {
+	font-family: OpenSansBoldItalic;
+	src: url("fonts/OpenSans-BoldItalic.ttf");
+}
+
+
+/* brand colours */
+
+:root {
+	font-family: OpenSans, sans-serif;
+	--brandDarkBlue: #1E3765;
+	--brandMedBlue: #007FA3;
+	--brandLightBlue: #6FC7EA;
+	--brandPurple: #6D247A;
+	--brandPink: #AB1368;
+	--brandDarkGreen: #0D534D;
+	--brandMedGreen: #00A189;
+	--brandLightGreen: #8DBF2E;
+	--brandRed: #DC4633;
+	--brandYellow: #F1C500;
+	--brandOrange: #EBA00F;
+	--brandBlack: #000000;
+	--brandWhite: #ffffff;
+	--brandGray05: #F2F2F2;
+	--brandGray10: #E6E6E6;
+	--brandGray15: #D9D9D9;
+	--brandGray20: #CCCCCC;
+	--brandGray25: #BFBFBF;
+	--brandGray30: #B3B3B3;
+	--brandGray35: #A6A6A6;
+	--brandGray40: #999999;
+	--brandGray45: #8C8C8C;
+	--brandGray50: #808080;
+	--brandGray55: #737373;	
+	--brandGray60: #666666;
+	--brandGray65: #595959;
+	--brandGray70: #4D4D4D;
+	--brandGray75: #404040;
+	--brandGray80: #333333;
+	--brandGray85: #262626;
+	--brandGray90: #1A1A1A;
+	--brandGray95: #0D0D0D;
+}
+
+
+/* base page and text styling */
+
+body {
+	padding: 0px; 
+	margin: 0px;
+	background-color: #fefeff;
+	min-width: calc(100% - 100dvw + 360px);
+	width: 100%;
+}
+
+main {
+	margin: 0 auto;
+	padding: 0px;
+	width: 100%;
+	min-width: calc(100% - 100dvw + 360px);
+	max-width: 100%;
+	position: relative;
+}
+
+.text {
+	background-color: none;
+	max-width: 680px;
+	margin: 0 auto;
+	position: relative;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 0px;
+}
+
+h1 {
+	font-family: TradeGothicBold;
+	font-weight: normal;
+	font-size: 42px;
+	color: var(--brandGray90);
+	text-decoration: none;
+	margin-bottom: 0px;
+	padding: 0px;
+}
+
+h2 {
+	text-align: left;
+	font-family: TradeGothicBold;
+	font-weight: normal;
+	font-size: 30px;
+	margin-top: 30px;
+	margin-bottom: 0px;
+	color: var(--brandBlack);
+}
+
+h3 {
+	text-align: left;
+	font-family: TradeGothicBold;
+	font-weight: normal;
+	margin-top: 30px;
+	margin-bottom: 0px;
+	font-size: 25px;
+	color: var(--brandBlack);
+}
+
+h4 {
+	text-align: left;
+	font-family: TradeGothicBold;
+	font-weight: normal;
+	font-size: 20px;
+	color: var(--brandBlack);
+}
+
+p {
+	font-family: SourceSerif;
+	font-weight: normal;
+	color: var(--brandGray90);
+	text-align: left;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 18px;
+	line-height: 30px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+@media screen and (max-width: 600px) {
+	.text p {
+		font-size: 17px;
+		line-height: 26px;
+	}
+}
+
+b {
+	font-family: SourceSerifBold;
+	font-weight: normal;
+}
+
+strong {
+	font-family: SourceSerifBold;
+	font-weight: normal;
+}
+
+i {
+	font-family: SourceSerifItalic;
+	font-weight: normal;
+}
+
+em {
+	font-family: SourceSerifItalic;
+	font-weight: normal;
+}
+
+a {
+	color: var(--brandBlack);
+	text-decoration: underline;
+	font-family: SourceSerif;
+	font-weight: normal;
+}
+
+a:hover {
+	color: var(--brandMedBlue);
+}
+
+ul {
+	margin-top: -10px;
+	margin-bottom: -10px;
+	margin-left: 0px;
+	list-style-type: circle;
+}
+
+li {
+	font-family: SourceSerif;
+	font-weight: normal;
+	color: var(--brandGray90);
+	text-align: left;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 17px;
+	line-height: 22px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+.details-block {
+	box-sizing: border-box;
+	max-width: 720px;
+	margin: auto;
+	padding: 20px;
+	border: solid 1px var(--brandGray10);
+	border-radius: 0px;
+	background-color: var(--brandWhite);
+}
+
+.details-block summary {
+	font-family: TradeGothicBold;
+	font-weight: normal;
+	font-size: 17px;
+	color: var(--brandDarkBlue);
+	cursor: pointer;
+	padding-bottom: 8px;
+	border-bottom: solid 1px var(--brandYellow);
+}
+
+.details-block summary:hover {
+	opacity: 0.85;
+}
+
+.details-block[open] summary {
+	margin-bottom: 12px;
+}
+
+.details-block p {
+	font-size: 16px;
+	line-height: 24px;
+}
+
+.details-block p:last-child {
+	padding-bottom: 0;
+}

@@ -1,0 +1,20 @@
+{
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": false,
+		"moduleResolution": "bundler"
+	},
+	"include": [
+		".svelte-kit/ambient.d.ts",
+		".svelte-kit/non-ambient.d.ts",
+		".svelte-kit/types/**/$types.d.ts",
+		"vite.config.js",
+		"svelte.config.js",
+		"src/**/*.js",
+		"src/**/*.svelte",
+		"posts/**/*.js",
+		"posts/**/*.svelte",
+		"scripts/**/*.js"
+	]
+}

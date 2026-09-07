@@ -1,0 +1,39 @@
+# Validates and builds every pull request, so a mistake shows up on the change
+# that caused it rather than after it reaches main.
+#
+# It builds as well as validates because validate.js checks metadata and file
+# relationships without executing components — a post body reading a document
+# that no longer exists passes validation and then dies during prerendering.
+# Compile errors and bad imports are the same class.
+#
+# Nothing is published from here; see deploy.yml.
+
+name: Check
+
+on:
+  pull_request:
+  # Lets you re-run the checks by hand from the Actions tab.
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # ci rather than install: installs exactly what package-lock.json records,
+      # so a dependency publishing a new compatible version can't change the
+      # result between runs of identical code.
+      - run: npm ci
+
+      # Warnings do not fail this. They describe unfinished work — a chart not
+      # yet exported, an image not yet quantised — which shouldn't block a
+      # branch. They print in the log; --strict is available if that changes.
+      - run: npm run validate
+
+      - run: npm run build
