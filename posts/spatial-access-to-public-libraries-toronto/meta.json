@@ -5,6 +5,7 @@
 	"authors": ["Polina Gorn", "Jeff Allen"],
 	"published": "2026-09-02",
 	"license": "CC-BY-4.0",
+	"protected": true,
 	"geography": ["Toronto"],
 	"tags": ["urban", "public transit", "accessibility", "public libraries"],
 	"documents": [

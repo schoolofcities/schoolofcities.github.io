@@ -79,6 +79,10 @@ function checkMeta(slug, meta) {
 		error(slug, `meta.json published "${meta.published}" is not a valid ISO date (YYYY-MM-DD)`);
 	}
 
+	if (typeof meta.protected !== 'boolean') {
+		error(slug, `meta.json "protected" must be true or false, got ${JSON.stringify(meta.protected)}`);
+	}
+
 	for (const entry of meta.changelog ?? []) {
 		if (!isValidDate(entry.date)) {
 			error(slug, `meta.json changelog date "${entry.date}" is not a valid ISO date (YYYY-MM-DD)`);

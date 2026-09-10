@@ -10,7 +10,7 @@
 <div class="text">
 
 <p>
-	Placeholder text — replace with the post's introduction.
+	
 </p>
 
 </div>
