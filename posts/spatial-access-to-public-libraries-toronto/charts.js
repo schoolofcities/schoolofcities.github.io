@@ -15,7 +15,9 @@ const charts = {
 	'spatial-access-map': {
 		title: 'Spatial access to public libraries in Toronto',
 		subtitle: 'Shortest travel time to the nearest library by public transit and walking',
-		source: 'Toronto Public Libraries, City of Toronto, Toronto Transit Commission (2026)',
+		source:
+			'Toronto Public Libraries, City of Toronto, Toronto Transit Commission, OpenStreetMap (2026)',
+		note: 'Public transit travel times were based on average on Tuesday morning 10-1030am and Saturday 10-1030am',
 		alt: 'Two maps of Toronto showing travel time to the nearest public library in three bands, under 15 minutes, 15 to 30 minutes, and 30 minutes or more, by walking and by public transit, with library locations and major transit lines overlaid.',
 		widths: [1080],
 		graphicVerb: 'created'

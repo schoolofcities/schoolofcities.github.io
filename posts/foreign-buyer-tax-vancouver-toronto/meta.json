@@ -7,6 +7,7 @@
 	],
 	"published": "2026-09-08",
 	"license": "CC-BY-4.0",
+	"protected": false,
 	"cardImage": "rent-gap",
 	"geography": [
 		"Canada",
@@ -19,6 +20,7 @@
 		"urban",
 		"housing",
 		"tax",
+		"immigration",
 		"policy"
 	],
 	"documents": [
@@ -41,7 +43,9 @@
 				"School of Cities"
 			],
 			"year": 2026,
-			"title": "Foreign buyer taxes and the rental affordability gap"
+			"title": "Foreign buyer taxes and the rental affordability gap",
+			"link": "https://schoolofcities.utoronto.ca/wp-content/uploads/2026/09/SofC-Policy-Brief-6-Foreign-Buyer-Taxes-and-the-Rental-Affordability-Gap.pdf",
+			"linkType": "PDF"
 		}
 	]
 }

@@ -1,6 +1,7 @@
 <script>
 	import ChartFrame from '$lib/ChartFrame.svelte';
 	import PostMeta from '$lib/PostMeta.svelte';
+	import Password from '$lib/Password.svelte';
 
 	let { data } = $props();
 
@@ -23,12 +24,14 @@
 	noindex={true}
 />
 
-<ChartFrame
-	meta={data.meta}
-	authors={data.post.authors}
-	license={data.post.license}
-	chartKey={data.chartKey}
-	standalone={true}
->
-	<data.Chart />
-</ChartFrame>
+<Password slug={data.slug} locked={data.post.protected !== false}>
+	<ChartFrame
+		meta={data.meta}
+		authors={data.post.authors}
+		license={data.post.license}
+		chartKey={data.chartKey}
+		standalone={true}
+	>
+		<data.Chart />
+	</ChartFrame>
+</Password>
