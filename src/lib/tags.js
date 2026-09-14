@@ -12,7 +12,7 @@
 // existing term over adding a near-synonym.
 
 /** Topic tags. Lowercase. */
-export const TAGS = ['urban', 'housing', 'tax', 'policy', 'public transit', 'accessibility', 'demographics', 'public libraries'];
+export const TAGS = ['urban', 'housing', 'tax', 'policy', 'public transit', 'accessibility', 'demographics', 'public libraries', 'immigration'];
 
 /**
  * Place names, written as they should appear to a reader — these are published

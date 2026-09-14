@@ -6,7 +6,6 @@
 	const documentLabels = {
 		report: 'Report',
 		brief: 'Policy brief',
-		slides: 'Slides',
 		'project-site': 'Project',
 		paper: 'Academic paper',
 		explorer: 'Data explorer',
@@ -19,9 +18,11 @@
 		return documentLabels[doc.type] ?? doc.type;
 	}
 
-	// APA joins multiple authors with "&" before the last one, not a plain comma list.
+	// APA joins multiple authors with "&" before the last one, not a plain comma list —
+	// but the comma before "&" only appears with 3+ authors; exactly two is "A & B".
 	function formatApaAuthors(authors) {
 		if (authors.length <= 1) return authors[0] ?? '';
+		if (authors.length === 2) return `${authors[0]} & ${authors[1]}`;
 		return `${authors.slice(0, -1).join(', ')}, & ${authors[authors.length - 1]}`;
 	}
 
@@ -32,9 +33,14 @@
 	const groups = $derived(documentGroups(meta.documents));
 
 	const documentColors = {
-		paper: 'var(--brandMedGreen)',
+		paper: 'var(--brandLightBlue)',
+		report: 'var(--brandLightBlue)',
 		brief: 'var(--brandLightGreen)',
-		report: 'var(--brandLightGreen)'
+		code: 'var(--brandGray15)',
+		dataset: 'var(--brandOrange)',
+		explorer: 'var(--brandYellow)',
+		'project-site': 'var(--brandMedBlue)',
+		post: 'var(--brandMedGreen)'
 	};
 
 	function documentColor(doc) {
@@ -195,8 +201,8 @@
 
 	.dot {
 		flex-shrink: 0;
-		width: 9px;
-		height: 9px;
+		width: 11px;
+		height: 11px;
 		border-radius: 50%;
 		margin-top: 5px;
 	}
