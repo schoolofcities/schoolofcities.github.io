@@ -47,6 +47,11 @@ const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 // the densest legitimate map here is 2.14 MB.
 const MAX_PNG_BYTES = 5 * 1024 * 1024;
 
+// The widths a chart is allowed to snap to (see widthSnapCss in ChartFrame.svelte).
+// Keeping every chart on this shared set means a handful of container-query
+// breakpoints in ChartFrame.svelte can be tuned once instead of per chart.
+const CORE_WIDTHS = [1440, 1080, 720, 540, 360];
+
 const problems = [];
 const error = (post, message) => problems.push({ level: 'error', post, message });
 const warn = (post, message) => problems.push({ level: 'warning', post, message });
@@ -147,6 +152,15 @@ function checkCharts(slug, charts) {
 		// `npm run export-pngs` has run, the Download menu offers no image.
 		if (chart.widths?.length && !chart.images?.length) {
 			warn(slug, `chart "${key}" declares widths but has no exported PNG — run npm run export-pngs`);
+		}
+
+		for (const width of chart.widths ?? []) {
+			if (!CORE_WIDTHS.includes(width)) {
+				warn(
+					slug,
+					`chart "${key}" has width ${width}, which is not one of the core widths (${CORE_WIDTHS.join(', ')})`
+				);
+			}
 		}
 	}
 

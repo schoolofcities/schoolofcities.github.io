@@ -25,7 +25,6 @@
 	// paths.relative is a relative prefix like '../../..', so a built page keeps
 	// working wherever it ends up being served from.
 	const postPath = $derived(postRoute ? `${base}${postRoute}` : undefined);
-	const embedPath = $derived(chartRoute ? `${base}${chartRoute}` : undefined);
 
 	// Everything offered in the Download menu, resolved in charts.js against what
 	// actually exists on disk (see $lib/downloads.js). Either list can be empty:
@@ -152,7 +151,12 @@
 	</noscript>
 </svelte:head>
 
-<div class="chart-scroll">
+<!-- tabindex/role/aria-label: this scrolls horizontally whenever the frame is
+     wider than the page (charts with a fixed meta.widths, e.g. the 1080px
+     maps), and a scroll container that is not focusable cannot be scrolled
+     by keyboard at all — WCAG 2.1.1. Focusable unconditionally, since
+     whether it actually overflows depends on the viewport. -->
+<div class="chart-scroll" tabindex="0" role="group" aria-label={meta.title}>
 	<div
 		id="chart-frame-{uid}"
 		class="chart-frame"
@@ -170,7 +174,10 @@
 {/if}
 
 {#snippet frameContent()}
-	<img src={sofcMark} alt="School of Cities" class="chart-mark" />
+	<!-- Decorative: branding, not chart content. The credit line below names the
+	     authors, so a real alt here just prefixes every figure with "School of
+	     Cities, image" before its title. -->
+	<img src={sofcMark} alt="" class="chart-mark" />
 
 	<h3 class="chart-title">{meta.title}</h3>
 
@@ -198,37 +205,47 @@
 		</div>
 
 		<div class="chart-buttons">
-			{#if chartLicense}
-				<p class="chart-source chart-license-inline">
-					{#if licenseUrl(chartLicense)}
-						<a href={licenseUrl(chartLicense)} target="_blank" rel="noopener noreferrer"
-							>{licenseLabel(chartLicense)}</a
-						>
-					{:else}
-						{chartLicense}
+			{#if chartLicense || (standalone && postPath)}
+				<div class="chart-buttons-top">
+					{#if chartLicense}
+						<p class="chart-source chart-license-inline">
+							{#if licenseUrl(chartLicense)}
+								<a href={licenseUrl(chartLicense)} target="_blank" rel="noopener noreferrer"
+									>{licenseLabel(chartLicense)}</a
+								>
+							{:else}
+								{chartLicense}
+							{/if}
+						</p>
 					{/if}
-				</p>
+					{#if standalone && postPath}
+						<a class="chart-read-more" href={postPath} target="_blank" rel="noopener noreferrer"
+							>Read more</a
+						>
+					{/if}
+				</div>
 			{/if}
-			{#if standalone && postPath}
-				<a href={postPath} target="_blank" rel="noopener noreferrer">Read more</a>
-			{/if}
-			<button
-				type="button"
-				command="show-modal"
-				commandfor={downloadId}
-				onclick={openDownloadDialog}
-				disabled={!hasDownloads}>Download</button
-			>
-			{#if postPath && embedPath}
+			<div class="chart-action-buttons">
 				<button
 					type="button"
+					class="chart-download-button"
 					command="show-modal"
-					commandfor={shareId}
-					onclick={openShareDialog}>Share</button
+					commandfor={downloadId}
+					onclick={openDownloadDialog}
+					disabled={!hasDownloads}>Download</button
 				>
-			{:else}
-				<button type="button" disabled>Share</button>
-			{/if}
+				{#if postPath && chartRoute}
+					<button
+						type="button"
+						class="chart-share-button"
+						command="show-modal"
+						commandfor={shareId}
+						onclick={openShareDialog}>Share</button
+					>
+				{:else}
+					<button type="button" class="chart-share-button" disabled>Share</button>
+				{/if}
+			</div>
 		</div>
 	</div>
 {/snippet}
@@ -419,10 +436,52 @@
 		width: 100%;
 	}
 
+	/* The wrapper divs exist only to group license+Read more and Download+Share
+	   in the markup (so each pair can be reasoned about together); `contents`
+	   removes them from layout entirely so their children sit directly in
+	   .chart-buttons's own grid/flex — one shared set of tracks at narrow
+	   widths, and the original flat row again at wider ones. */
+	.chart-buttons-top,
+	.chart-action-buttons {
+		display: contents;
+	}
+
+	/* Narrow view: a plain 2-column grid, rather than two independent flex
+	   rows, so Read more/license and Download/Share resolve to the same
+	   column widths — otherwise each row sizes itself off only its own two
+	   items and the columns drift out of alignment between rows. */
 	.chart-buttons {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 10px;
+	}
+
+	.chart-license-inline {
+		grid-column: 1 / -1;
+		grid-row: 1;
+	}
+
+	.chart-read-more {
+		grid-column: 1;
+		grid-row: 1;
+	}
+
+	.chart-download-button {
+		grid-column: 1;
+		grid-row: 2;
+	}
+
+	.chart-share-button {
+		grid-column: 2;
+		grid-row: 2;
+	}
+
+	/* Only when Read more is present does the license line share row 1 with
+	   it instead of spanning the row alone — moved to column 2, above Share,
+	   and right-aligned to match. */
+	.chart-buttons:has(.chart-read-more) .chart-license-inline {
+		grid-column: 2;
+		text-align: right;
 	}
 
 	/* 498px, not 540px: container queries measure .chart-frame's content-box,
@@ -430,11 +489,22 @@
 	@container (min-width: 498px) {
 		.chart-buttons {
 			display: flex;
+			flex-direction: row;
 			align-items: center;
+			justify-content: flex-end;
+		}
+
+		.chart-buttons:has(.chart-read-more) .chart-license-inline {
+			text-align: left;
 		}
 	}
 
-	@container (min-width: 720px) {
+	/* 678px, not 720px: container queries measure .chart-frame's content-box,
+	   which is its 720px outer width (the smallest core width above 540 — see
+	   scripts/validate.js) minus its own 40px padding + 2px border. Using the
+	   adjusted value means every chart at 720px or wider gets the same
+	   source-text-left / buttons-right split, not just the 1080px+ ones. */
+	@container (min-width: 678px) {
 		.chart-footer {
 			flex-direction: row;
 			align-items: center;
@@ -444,6 +514,7 @@
 
 		.chart-source-group {
 			flex: 1 1 360px;
+			max-width: 360px;
 			min-width: 0;
 		}
 
@@ -452,6 +523,16 @@
 			flex: 0 0 360px;
 			width: 360px;
 			justify-content: flex-end;
+		}
+	}
+
+	/* 1038px, not 1080px: same content-box adjustment as above, for the next
+	   core width up. The text column gets more room to breathe once there's
+	   this much extra space next to the fixed 360px button column. */
+	@container (min-width: 1038px) {
+		.chart-source-group {
+			flex-basis: 540px;
+			max-width: 540px;
 		}
 	}
 
@@ -470,6 +551,16 @@
 		color: var(--brandGray55);
 		margin: 0;
 		padding: 0;
+	}
+
+	/* 318px, not 360px: container queries measure .chart-frame's content-box,
+	   which is its 360px outer width (the smallest snap width configured for
+	   this chart) minus its own 40px padding + 2px border. */
+	@container (max-width: 400px) {
+		.chart-source,
+		.chart-credit {
+			font-size: 11px;
+		}
 	}
 
 	.chart-source strong {

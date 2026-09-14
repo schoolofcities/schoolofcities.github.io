@@ -124,7 +124,7 @@ h1 {
 	font-family: TradeGothicBold;
 	font-weight: normal;
 	font-size: 42px;
-	color: var(--brandGray90);
+	color: var(--brandDarkBlue);
 	text-decoration: none;
 	margin-bottom: 0px;
 	padding: 0px;
@@ -137,7 +137,7 @@ h2 {
 	font-size: 30px;
 	margin-top: 30px;
 	margin-bottom: 0px;
-	color: var(--brandBlack);
+	color: var(--brandDarkBlue);
 }
 
 h3 {
@@ -147,7 +147,7 @@ h3 {
 	margin-top: 30px;
 	margin-bottom: 0px;
 	font-size: 25px;
-	color: var(--brandBlack);
+	color: var(--brandDarkBlue);
 }
 
 h4 {
@@ -155,7 +155,7 @@ h4 {
 	font-family: TradeGothicBold;
 	font-weight: normal;
 	font-size: 20px;
-	color: var(--brandBlack);
+	color: var(--brandDarkBlue);
 }
 
 p {
@@ -173,7 +173,8 @@ p {
 }
 
 @media screen and (max-width: 600px) {
-	.text p {
+	.text p,
+	.text li {
 		font-size: 17px;
 		line-height: 26px;
 	}
@@ -222,10 +223,10 @@ li {
 	font-weight: normal;
 	color: var(--brandGray90);
 	text-align: left;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	font-size: 17px;
-	line-height: 22px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	font-size: 18px;
+	line-height: 30px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
