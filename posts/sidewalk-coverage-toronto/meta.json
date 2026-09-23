@@ -1,0 +1,12 @@
+{
+	"title": "Mapping sidewalk coverage in Toronto",
+	"type": "post",
+	"summary": "71% of streets have sidewalks on both sides; 13% have no sidewalks at all.",
+	"authors": ["Kosta Diochnos", "Jeff Allen"],
+	"published": "2026-10-15",
+	"license": "CC-BY-4.0",
+	"protected": true,
+	"geography": ["Toronto"],
+	"tags": ["urban","active travel","walking", "accessibility"],
+	"documents": []
+}

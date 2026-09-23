@@ -260,11 +260,33 @@ li {
 	margin-bottom: 12px;
 }
 
-.details-block p {
+.data-methods h2 {
+	font-size: 22px;
+	margin-top: 24px;
+	margin-bottom: 12px;
+	padding-bottom: 8px;
+	border-bottom: solid 1px var(--brandYellow);
+}
+
+.data-methods h2:first-child {
+	margin-top: 0;
+}
+
+.data-methods h3 {
+	font-size: 18px;
+	margin-top: 20px;
+}
+
+.data-methods h4 {
+	font-size: 16px;
+}
+
+.data-methods p,
+.data-methods li {
 	font-size: 16px;
 	line-height: 24px;
 }
 
-.details-block p:last-child {
+.data-methods p:last-child {
 	padding-bottom: 0;
 }

@@ -65,7 +65,7 @@
 
 <div class="text">
 
-<details class="details-block" style="margin-bottom: 60px;">
+<details class="details-block data-methods" style="margin-bottom: 60px;">
 	<summary>About the dynamic difference-in-differences models</summary>
 	<p>
 		A standard difference-in-differences model compares one group's change over time to another group's change, before and after a policy, and treats the gap between them as the estimated effect. A dynamic version, also called an event study, estimates that gap separately for each year rather than assuming one constant effect for the whole post-policy period. That makes it possible to see how the effect builds or fades over time, and to check that taxed and untaxed areas were not already trending apart before the tax existed. 
