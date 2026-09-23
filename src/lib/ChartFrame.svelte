@@ -14,6 +14,10 @@
 	// same override pattern as meta.graphicVerb ?? 'created' below.
 	const chartLicense = $derived(meta.license ?? license);
 
+	// meta.authors (set per-chart in charts.js) overrides the post-level author
+	// list, for posts where not every listed author worked on every chart.
+	const chartAuthors = $derived(meta.authors ?? authors);
+
 
 	// Derived from the current route's slug so a folder rename (which changes the
 	// slug) updates these links everywhere automatically, with nothing hardcoded.
@@ -199,8 +203,8 @@
 			{#if meta.note}
 				<p class="chart-source"><strong>Note:</strong> {meta.note}</p>
 			{/if}
-			{#if authors && authors.length > 0}
-				<p class="chart-credit">Graphic {meta.graphicVerb ?? 'created'} by {formatAuthorList(authors)}</p>
+			{#if chartAuthors && chartAuthors.length > 0}
+				<p class="chart-credit">Graphic {meta.graphicVerb ?? 'created'} by {formatAuthorList(chartAuthors)}</p>
 			{/if}
 		</div>
 
