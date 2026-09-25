@@ -1,6 +1,5 @@
 <script>
-	import mapImageWalk from '../images/toronto-libraries-access-walk-1080.png';
-	import mapImageTransit from '../images/toronto-libraries-access-transit-1080.png';
+	import mapImage from '../images/toronto-libraries-access.png';
 
 	// Sampled from the pre-rendered PNGs' own fill colors, so the legend bar matches what's drawn.
 	const bandColors = ['#4d6185', '#42a7c4', '#93d9f5'];
@@ -55,21 +54,27 @@
 		{ name: 'Downtown', x: 925, y: 997 }
 	];
 
-	// Each panel is its own image now (previously one combined PNG with walk on
-	// top, transit below). legendBottom is measured against its own panel's
-	// bottom edge — the walking map's content (Lake Ontario's shoreline) ends
+	// One quantized PNG (2160x2400) holds both panels, walk on top and transit
+	// below; each panel shows its own half via imageTop. legendBottom is measured
+	// against its own panel's bottom edge — the walking map's content (Lake Ontario's shoreline) ends
 	// slightly above its panel's bottom edge, hence the extra 3% lift, which the
 	// transit map's content doesn't need.
 	const panels = [
-		{ image: mapImageWalk, modeText: 'walking', legendBottom: 'calc(3% + 22px)' },
-		{ image: mapImageTransit, modeText: 'public transit', legendBottom: '22px' }
+		{ imageTop: '0', modeText: 'walking', legendMode: 'walking', legendBottom: 'calc(3% + 22px)' },
+		{ imageTop: '-100%', modeText: 'public transit', legendMode: 'transit', legendBottom: '22px' }
 	];
 </script>
 
 <div class="maps">
 	{#each panels as panel}
 		<div class="map">
-			<img src={panel.image} width="1080" height="600" alt="" />
+			<img
+					src={mapImage}
+					style="top: {panel.imageTop};"
+					width="2160"
+					height="2400"
+					alt=""
+				/>
 
 			<svg class="ward-labels" viewBox="0 0 2160 1200" preserveAspectRatio="none">
 				{#each wards as ward}
@@ -90,7 +95,7 @@
 					<span class="library-swatch"></span>
 					<span class="extra-legend-label">Public library</span>
 				</div>
-				<div class="legend-title">Travel time (minutes)</div>
+				<div class="legend-title">Travel time by {panel.legendMode} (minutes)</div>
 				<div class="legend-row">
 					<div class="legend-bar">
 						{#each bandColors as color}
@@ -129,12 +134,16 @@
 
 	.map {
 		position: relative;
+		overflow: hidden;
+		aspect-ratio: 2160 / 1200;
 	}
 
+	/* Twice the panel's height, shifted up to show the top or bottom half. */
 	img {
-		display: block;
+		position: absolute;
+		left: 0;
 		width: 100%;
-		height: auto;
+		height: 200%;
 	}
 
 	.ward-labels {
@@ -250,7 +259,7 @@
 		box-sizing: border-box;
 		border-radius: 50%;
 		background: #ffdc14;
-		box-shadow: 0 0 0 1px var(--brandWhite);
+		border: solid 1px var(--brandDarkBlue);
 		flex-shrink: 0;
 	}
 
