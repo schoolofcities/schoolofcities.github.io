@@ -74,7 +74,9 @@
 
 <div class="text">
 	
-	<h2>Methods</h2>
+	<div class="details-block data-methods">
+
+	<h2>Methods and data</h2>
 
 	<p>
 		We covered the city with a 200 metre hexagon grid and measured outward from each cell.
@@ -104,6 +106,8 @@
 	<p>
 		The maps and analysis measures geographic accessibility based on transportation network datasets, not service access. The departure windows were chosen to fall within typical TPL operating hours on both a weekday and a Saturday, but individual branch hours vary and aren't accounted for. We also did not account for the types of services or collection each branch provides, and therefore the population groups it may attract. Filtering through libraries with programming catered to a specific group's needs and interests could give a more nuanced picture of access to library services.
 	</p>
+
+	</div>
 
 	<Footnotes footnotes={footnoteStore.footnotes} />
 	
