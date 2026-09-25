@@ -390,12 +390,12 @@
 	   walking and transit share PX_PER_MIN, so a single shared scale per layout is
 	   what keeps their gridlines aligned when stacked — each panel picking its own
 	   independent scale (this component's first attempt at the stacked layout)
-	   breaks that alignment. ChartFrame snaps .chart-frame to an exact 360px, 720px,
-	   or 1080px via its own viewport media query (see widthSnapCss in
-	   ChartFrame.svelte); this query then reads that resulting width as this
-	   element's container content-box (.chart-frame sets container-type), which is
-	   what actually distinguishes the three cases, not the browser viewport
-	   directly. */
+	   breaks that alignment. ChartFrame draws the graphic at an exact 360px, 720px,
+	   or 1080px (less the frame's inset) via its own viewport media query (see
+	   widthSnapCss in ChartFrame.svelte); this query then reads that width as this
+	   element's container content-box (.chart-body sets container-type), which is
+	   what actually distinguishes the three cases, not the browser viewport or the
+	   frame's own width directly. */
 	.panels-stacked,
 	.panels-narrow {
 		display: none;
