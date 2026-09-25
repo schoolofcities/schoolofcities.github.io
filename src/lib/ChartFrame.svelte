@@ -47,12 +47,20 @@
 	const downloadId = $derived(`download-${uid}`);
 	const shareId = $derived(`share-${uid}`);
 
+	// Frame padding (2 x 20px) plus border (2 x 1px): what separates a snapped
+	// width, which is the frame's outer width, from the graphic's own width.
+	const FRAME_INSET = 42;
+
+	// Sets --graphic-w, the exact width the graphic is drawn at, per viewport
+	// step. The frame itself stays fluid (see .chart-frame.snapped) so its text
+	// and buttons can reflow; only the graphic holds this width, and scrolls when
+	// the frame is narrower than it.
 	function widthSnapCss(id, widths) {
 		if (!widths || widths.length === 0) return '';
 		const [smallest, ...rest] = widths;
-		let css = `#chart-frame-${id} { width: ${smallest}px; }`;
+		let css = `#chart-frame-${id} { --graphic-w: ${smallest - FRAME_INSET}px; }`;
 		for (const w of rest) {
-			css += `@media (min-width: ${w}px) { #chart-frame-${id} { width: ${w}px; } }`;
+			css += `@media (min-width: ${w}px) { #chart-frame-${id} { --graphic-w: ${w - FRAME_INSET}px; } }`;
 		}
 		return css;
 	}
@@ -127,6 +135,31 @@
 		if (!shareDialog.open) shareDialog.showModal();
 	}
 
+	// Sets --shade-start / --shade-end on the scroller's wrapper: 1 on a side that
+	// has more graphic to scroll to, 0 otherwise. The edge shadows in the styles
+	// read them. Done here rather than with scroll-driven CSS animations, which
+	// not every browser supports yet; with scripting off there is simply no
+	// shadow and the scrollbar remains.
+	function trackScroll(node) {
+		const wrap = node.parentElement;
+		const update = () => {
+			const max = node.scrollWidth - node.clientWidth;
+			wrap.style.setProperty('--shade-start', node.scrollLeft > 2 ? '1' : '0');
+			wrap.style.setProperty('--shade-end', max > 1 && node.scrollLeft < max - 2 ? '1' : '0');
+		};
+		update();
+		node.addEventListener('scroll', update, { passive: true });
+		const observer = new ResizeObserver(update);
+		observer.observe(node);
+		if (node.firstElementChild) observer.observe(node.firstElementChild);
+		return {
+			destroy() {
+				node.removeEventListener('scroll', update);
+				observer.disconnect();
+			}
+		};
+	}
+
 	// Download dialog
 	let downloadDialog = $state();
 
@@ -155,24 +188,22 @@
 	</noscript>
 </svelte:head>
 
-<!-- tabindex/role/aria-label: this scrolls horizontally whenever the frame is
-     wider than the page (charts with a fixed meta.widths, e.g. the 1080px
-     maps), and a scroll container that is not focusable cannot be scrolled
-     by keyboard at all — WCAG 2.1.1. Focusable unconditionally, since
-     whether it actually overflows depends on the viewport. -->
-<div class="chart-scroll" tabindex="0" role="group" aria-label={meta.title}>
-	<div
-		id="chart-frame-{uid}"
-		class="chart-frame"
-		class:standalone
-		style={sortedWidths ? '' : 'max-width: 680px;'}
-	>
-		{@render frameContent()}
-	</div>
+<div
+	id="chart-frame-{uid}"
+	class="chart-frame"
+	class:standalone
+	class:snapped={sortedWidths}
+	style={sortedWidths ? '' : 'max-width: 680px;'}
+>
+	{@render frameContent()}
 </div>
 
 {#if measureMounted}
-	<div bind:this={measureNode} class="chart-frame chart-measure" style="width: {embedWidth}px;">
+	<div
+		bind:this={measureNode}
+		class="chart-frame chart-measure"
+		style="width: {embedWidth}px;{sortedWidths ? ` --graphic-w: ${embedWidth - FRAME_INSET}px;` : ''}"
+	>
 		{@render frameContent()}
 	</div>
 {/if}
@@ -189,12 +220,21 @@
 		<p class="chart-subtitle">{meta.subtitle}</p>
 	{/if}
 
-	<div class="chart-body" role="img" aria-label={meta.alt}>
-		{#if children}
-			{@render children()}
-		{:else}
-			<div class="chart-placeholder"></div>
-		{/if}
+	<!-- tabindex/role/aria-label: this scrolls horizontally whenever the frame is
+	     narrower than the graphic (charts with a fixed meta.widths, e.g. the
+	     1080px maps), and a scroll container that is not focusable cannot be
+	     scrolled by keyboard at all — WCAG 2.1.1. Focusable unconditionally, since
+	     whether it actually overflows depends on the viewport. -->
+	<div class="chart-scroll-wrap">
+		<div class="chart-scroll" tabindex="0" role="group" aria-label={meta.title} use:trackScroll>
+			<div class="chart-body" role="img" aria-label={meta.alt}>
+				{#if children}
+					{@render children()}
+				{:else}
+					<div class="chart-placeholder"></div>
+				{/if}
+			</div>
+		</div>
 	</div>
 
 	<div class="chart-footer">
@@ -361,9 +401,62 @@
 </Dialog>
 
 <style>
+	/* Only the graphic scrolls; the title, subtitle and footer stay at the
+	   frame's width and reflow through the container queries below. The negative
+	   margin and matching padding (the frame's 20px padding plus its 1px border)
+	   extend the scroll area to the frame's outer edge, so a graphic that bleeds
+	   there with a negative margin of its own (demographics-grid's -21px) isn't
+	   clipped, and a scrolling graphic runs right to the frame's border. */
+	.chart-scroll-wrap {
+		position: relative;
+		margin: 0 -21px;
+	}
+
 	.chart-scroll {
-		max-width: 100%;
+		padding: 0 21px;
 		overflow-x: auto;
+		/* Where the browser draws a classic scrollbar (desktop), make it thin but
+		   visible. Phones use overlay scrollbars that only appear while
+		   scrolling, which is what the edge shadows below are for. */
+		scrollbar-width: thin;
+		scrollbar-color: var(--brandGray55) var(--brandGray10);
+	}
+
+	/* Edge shadows: a soft shade on whichever side has more graphic to scroll to,
+	   fading out as that end is reached. They're siblings of the scroller, not
+	   its background, because a graphic with its own opaque background (a map)
+	   would paint straight over a background shadow. trackScroll sets the two
+	   custom properties; without it both stay at 0 and nothing shows. */
+	.chart-scroll-wrap::before,
+	.chart-scroll-wrap::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 10px;
+		pointer-events: none;
+		z-index: 1;
+		transition: opacity 0.15s;
+	}
+
+	.chart-scroll-wrap::before {
+		left: 0;
+		opacity: var(--shade-start, 0);
+		background: linear-gradient(
+			to right,
+			color-mix(in srgb, var(--brandDarkBlue) 18%, transparent),
+			transparent
+		);
+	}
+
+	.chart-scroll-wrap::after {
+		right: 0;
+		opacity: var(--shade-end, 0);
+		background: linear-gradient(
+			to left,
+			color-mix(in srgb, var(--brandDarkBlue) 18%, transparent),
+			transparent
+		);
 	}
 
 	.chart-frame {
@@ -380,6 +473,15 @@
 
 	.chart-frame.standalone {
 		margin: 0 auto;
+	}
+
+	/* Charts with a fixed meta.widths: the frame takes the space it's given, up
+	   to the snapped width for this viewport (--graphic-w plus the frame inset,
+	   set by widthSnapCss). Narrower than that, the frame shrinks and the
+	   graphic scrolls inside it. */
+	.chart-frame.snapped {
+		width: 100%;
+		max-width: calc(var(--graphic-w) + 42px);
 	}
 
 	.chart-measure {
@@ -419,7 +521,13 @@
 		margin: 0 0 16px 0;
 	}
 
+	/* The container charts query against (@container in a chart's own styles),
+	   at the exact snapped width rather than the frame's, so a chart lays out
+	   the same however narrow the frame is. No --graphic-w (charts without
+	   meta.widths) just fills the frame. */
 	.chart-body {
+		container-type: inline-size;
+		width: var(--graphic-w, auto);
 		margin-bottom: 15px;
 	}
 
