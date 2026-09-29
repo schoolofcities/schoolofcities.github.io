@@ -119,7 +119,7 @@
 				</div>
 				<div class="legend-row extra-legend-row">
 					<span class="transit-line-swatch"></span>
-					<span class="extra-legend-label">Major transit line</span>
+					<span class="extra-legend-label">Major transit lines</span>
 				</div>
 			</div>
 		</div>

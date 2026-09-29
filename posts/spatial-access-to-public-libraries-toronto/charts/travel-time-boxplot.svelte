@@ -242,7 +242,7 @@
 		<div class="panel" style={panelStyle}>
 			<div class="panel-title">
 				Median travel time by <span class="mode-underline">{panel.modeText}</span> to the nearest library
-				(minutes)
+				(decminal time, where 0.1 min = 6 seconds)
 			</div>
 			<!-- overflow: visible on .boxplot — transit's last gridline sits exactly at
 			     plotRight, the SVG's own right edge, with nothing (no marginRight/rightPad)

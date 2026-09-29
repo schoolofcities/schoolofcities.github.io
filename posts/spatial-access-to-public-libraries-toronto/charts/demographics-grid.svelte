@@ -35,7 +35,7 @@
 <div class="grid">
 	{#each PANELS as panel}
 		<div class="panel">
-			<div class="panel-title">{panel.label} (%)</div>
+			<div class="panel-title">{panel.label} </div>
 			<div class="legend-row">
 				<div class="legend">
 					{#each panel.colors as color}

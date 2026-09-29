@@ -1,7 +1,7 @@
 {
 	"title": "How long does it take to get to a library in Toronto?",
 	"type": "post",
-	"summary": "Mapping public transit and pedestrian accessibility to public libraries in Toronto, and whether travel times differ by demographic group.",
+	"summary": "Mapping transit and pedestrian accessibility to public libraries in Toronto to determine whether travel times differ by demographic groups.",
 	"authors": ["Polina Gorn", "Jeff Allen"],
 	"published": "2026-10-01",
 	"license": "CC-BY-4.0",

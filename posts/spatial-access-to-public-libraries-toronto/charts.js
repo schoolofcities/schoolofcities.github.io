@@ -15,7 +15,7 @@ const charts = {
 	'spatial-access-map': {
 		title: 'Proximity to public libraries in Toronto',
 		subtitle:
-			'79% of residents can reach a library within 30 minutes on foot, and 95% of residents can by public transit',
+			'Most Torontonians are no further than 30 minutes away from a library: 79% on foot, 95% by transit',
 		source:
 			'Toronto Public Libraries, City of Toronto, Toronto Transit Commission, OpenStreetMap (2026)',
 		alt:
