@@ -21,10 +21,10 @@
 		"Allen, J. (2019). Mapping differences in access to public libraries by travel mode and time of day. *Library & Information Science Research*, 41(1), 11–18. [DOI](https://doi.org/10.1016/j.lisr.2019.02.001)."
 	);
 	const fCheng = footnoteStore.addFootnote(
-		"Cheng, W., Wu, J., & Hong, L. (2021). Assessing the spatial accessibility and spatial equity of public libraries' physical locations. *Library & Information Science Research*, 43(2), 101097. [DOI](https://doi.org/10.1016/j.lisr.2021.101097)."
+		"Cheng, W., Wu, J., Moen, W., & Hong, L. (2021). Assessing the spatial accessibility and spatial equity of public libraries' physical locations. *Library & Information Science Research*, 43(2), 101089. [DOI](https://doi.org/10.1016/j.lisr.2021.101089)."
 	);
 	const fDonnelly = footnoteStore.addFootnote(
-		"Donnelly, F. P. (2014). The geographic distribution of United States public libraries: An analysis of locations and service areas. *Journal of Librarianship and Information Science*, 46(2), 110–129. [DOI](https://doi.org/10.1177/0961000612473099)."
+		"Donnelly, F. P. (2014). The geographic distribution of United States public libraries: An analysis of locations and service areas. *Journal of Librarianship and Information Science*, 46(2), 110–129. [DOI](https://doi.org/10.1177/0961000612470276)."
 	);
 
 </script>
@@ -32,12 +32,11 @@
 <div class="text">
 
 <p>
-	Toronto has 101 public library branches. People who live closer to one visit more often and
-	borrow more.<Footnote id={fBhatt} /><Footnote id={fPark} /> We mapped how long it takes to reach
-	the nearest library from across the city, on foot and by public transit. 
+	People who live closer to a library tend to visit it more often, borrow more resources, 
+	and access its social services more easily.<Footnote id={fBhatt} /><Footnote id={fPark} /> We mapped how long it takes to reach the nearest public library from any location in Toronto, on foot and by public transit. 
 </p>
 <p>
-	On foot, 35% of residents can reach the nearest library within 15 minutes. The areas least connected to libraries are in more inner-suburban neighbourhoods, areas with fewer libraries and lower population density. When looking at access via public transit, the share of residents unable to access a library within 30 minutes drops to 5%.
+	On foot, 35% of Torontonians can reach the nearest library within 15 minutes and 79% within 30 minutes; by transit, those shares rise to about 40% and 95%. The areas least connected to libraries are inner-suburban neighbourhoods, which have fewer libraries and lower population density.
 </p>
 
 </div>
@@ -48,10 +47,10 @@
 
 <div class="text">
 	<p>
-		Public libraries offer important programming to serve different population groups, including recent immigrants, youth, and seniors. Research in other contexts has shown that accessibility to libraries varies across travel modes and population groups.<Footnote id={fAllen} /><Footnote id={fCheng} /><Footnote id={fDonnelly} /> Using census data in Toronto, we mapped the geography of a few population groups that often have specific needs for library services and programs, relative to library branch locations.
+		According to research conducted in other urban areas, accessibility to libraries varies across travel modes and population groups.<Footnote id={fAllen} /><Footnote id={fCheng} /><Footnote id={fDonnelly} /> With public libraries offering programming for such target populations as recent immigrants, youth, and seniors, it is crucial to account for differences in library access across demographic groups. Using census data, we mapped where these groups are concentrated across Toronto in relation to the locations of library branches.
 	</p>
 	<p>
-		You can view and compare both these sets of maps, including at a more zoomed-in neighbourhood level, on our interactive tool.
+		If you want to explore demographic data against the transit travel data, including at a more zoomed-in neighbourhood level, you can refer to our <a href="https://schoolofcities.github.io/libraries-by-transit/toronto-proximity" target="_blank" rel="noopener noreferrer">interactive tool</a>.	
 	</p>
 	
 </div>
@@ -63,7 +62,7 @@
 <div class="text">
 	
 	<p>
-		Across every group we examined, travel time to the nearest library is close to the citywide figure. Immigrants, low-income households, children, seniors, and visible minority residents all face slightly longer trips on average, but the gaps are small, about 70 seconds at most. In the areas with the longest travel times, some groups are marginally better off than the city as a whole. On this measure, branch locations serve Toronto's population evenly.
+		Across every population group examined, travel time to the nearest library is close to the citywide median. Immigrants, low-income households, children, seniors, and visible minority residents all face slightly longer trips on average, but the gaps are small, 71 seconds at most. By transit, every group's median is within 45 seconds of the citywide median.
 	</p>
 	
 </div>
@@ -79,8 +78,8 @@
 	<h2>Methods and data</h2>
 
 	<p>
-		We covered the city with a 200 metre hexagon grid and measured outward from each cell.
-		Travel times were computed in Python using r5py using a pedestrian network from OpenStreetMap and TTC transit schedules, so they follow the routes a person could actually take rather than straight-line distance. Travel times were computed in Python with the r5py package from the centroid of each cell in the 200 metre hexagon grid covering the City of Toronto boundary, for two mode scenarios: walking and public transit. For each mode and hexagon, we estimated the minimum travel time to a branch. Public transit travel times were computed during a late morning window Tuesday (representing a typical weekday) as well as on a Saturday. Weekday and Saturday results were very similar, so we combined them into a single transit metric for the maps on this page.
+		We overlaid a grid of 200-metre hexagons on Toronto and calculated the travel time from each hexagon to the nearest library branch. 
+		Travel times were computed with the r5py Python library, using OpenStreetMap's pedestrian network and TTC transit schedules, so they follow realistic routes rather than straight-line distance. We modelled two scenarios: walking only, and walking plus public transit. For transit, we computed the minimum travel time for a late-morning departure window on a Tuesday (a typical weekday) and on a Saturday. Because the weekday and Saturday results were very similar, the maps on this page combine them into a single transit measure. The separate Tuesday and Saturday isochrones can be explored on the <a href="https://schoolofcities.github.io/libraries-by-transit/toronto-proximity" target="_blank" rel="noopener noreferrer">interactive web map</a>.
 	</p>
 
 	<p>
@@ -88,7 +87,7 @@
 	</p>
 
 	<p>
-		Data and code are in our <a href="https://github.com/schoolofcities/public-libraries" target="_blank" rel="noopener noreferrer">GitHub repository</a>.
+		Data and code are in our <a href="https://github.com/schoolofcities/libraries-by-transit" target="_blank" rel="noopener noreferrer">GitHub repository</a>.
 	</p>
 
 	<h3>
@@ -96,15 +95,15 @@
 	</h3>
 
 	<p>	
-		Travel times are computed from hexagon centroids, so results may be sensitive to the choice of grid size and placement. We also only measured travel time to Toronto Public Library branches, so residents near the city boundary may have a closer branch in a neighbouring municipality that offers them at least some services.
+		Travel times are computed from hexagon centroids, so results may be sensitive to the choice of grid size and placement. Additionally, we only measured travel time to Toronto Public Library branches. It is possible that Torontonians near the city boundary have close access to a library in a neighbouring municipality, which could decrease the differences in travel times established in this project.
 	</p>
 
 	<p>	
-		In terms of the demographic data, the 2021 Census data was the most recent available at the time of writing, though population composition in some areas may have shifted since. 
+		In terms of the demographic data, the 2021 Census was the most recent available at the time of writing, though population composition in some areas may have shifted since. Applying our methodology to the 2026 Census data will provide more up-to-date findings on the topic. 
 	</p>
 
 	<p>
-		The maps and analysis measures geographic accessibility based on transportation network datasets, not service access. The departure windows were chosen to fall within typical TPL operating hours on both a weekday and a Saturday, but individual branch hours vary and aren't accounted for. We also did not account for the types of services or collection each branch provides, and therefore the population groups it may attract. Filtering through libraries with programming catered to a specific group's needs and interests could give a more nuanced picture of access to library services.
+		The analysis measures geographic accessibility based on transportation network datasets, not library services availability. The departure windows were chosen to fall within typical TPL operating hours on both a weekday and a Saturday, but individual branch hours vary and aren't accounted for. We also did not account for the types of services each branch provides, and therefore the population groups it may attract. Filtering through libraries with programming catered to a specific group's needs could give a more nuanced insight into library services access for the target demographic groups.
 	</p>
 
 	</div>

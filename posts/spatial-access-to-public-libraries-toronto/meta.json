@@ -1,7 +1,7 @@
 {
 	"title": "How long does it take to get to a library in Toronto?",
 	"type": "post",
-	"summary": "Mapping public transit and pedestrian accessibility to public libraries in Toronto, and whether travel times differ by demographic group.",
+	"summary": "Most Torontonians can reach a public library within 30 minutes: 79% on foot and 95% by transit.",
 	"authors": ["Polina Gorn", "Jeff Allen"],
 	"published": "2026-10-01",
 	"license": "CC-BY-4.0",
@@ -14,21 +14,19 @@
 			"type": "explorer",
 			"authors": ["Polina Gorn", "Jeff Allen"],
 			"year": 2026,
-			"title": "Spatial access to public libraries in Toronto",
+			"title": "Proximity to public libraries in Toronto interactive map",
 			"publication": "School of Cities",
-			"link": "https://github.com/schoolofcities/public-libraries",
+			"link": "https://schoolofcities.github.io/libraries-by-transit/toronto-proximity",
 			"linkType": "Website"
 		},
 		{
 			"relation": "from",
 			"type": "code",
-			"authors": ["Polina Gorn", "Jeff Allen"],
+			"authors": ["School of Cities"],
 			"year": 2026,
-			"title": "Spatial access to public libraries in Toronto",
-			"publication": "School of Cities",
-			"link": "https://github.com/schoolofcities/public-libraries",
+			"title": "Libraries by transit",
+			"link": "https://github.com/schoolofcities/libraries-by-transit",
 			"linkType": "GitHub"
 		}
-		
 	]
 }
