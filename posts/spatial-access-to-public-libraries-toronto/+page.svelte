@@ -21,10 +21,10 @@
 		"Allen, J. (2019). Mapping differences in access to public libraries by travel mode and time of day. *Library & Information Science Research*, 41(1), 11–18. [DOI](https://doi.org/10.1016/j.lisr.2019.02.001)."
 	);
 	const fCheng = footnoteStore.addFootnote(
-		"Cheng, W., Wu, J., & Hong, L. (2021). Assessing the spatial accessibility and spatial equity of public libraries' physical locations. *Library & Information Science Research*, 43(2), 101097. [DOI](https://doi.org/10.1016/j.lisr.2021.101097)."
+		"Cheng, W., Wu, J., Moen, W., & Hong, L. (2021). Assessing the spatial accessibility and spatial equity of public libraries' physical locations. *Library & Information Science Research*, 43(2), 101089. [DOI](https://doi.org/10.1016/j.lisr.2021.101089)."
 	);
 	const fDonnelly = footnoteStore.addFootnote(
-		"Donnelly, F. P. (2014). The geographic distribution of United States public libraries: An analysis of locations and service areas. *Journal of Librarianship and Information Science*, 46(2), 110–129. [DOI](https://doi.org/10.1177/0961000612473099)."
+		"Donnelly, F. P. (2014). The geographic distribution of United States public libraries: An analysis of locations and service areas. *Journal of Librarianship and Information Science*, 46(2), 110–129. [DOI](https://doi.org/10.1177/0961000612470276)."
 	);
 
 </script>
@@ -36,7 +36,7 @@
 	and access its social services more easily.<Footnote id={fBhatt} /><Footnote id={fPark} /> We mapped how long it takes to reach the nearest public library from any location in Toronto, on foot and by public transit. 
 </p>
 <p>
-	On foot, 35% of Torontonians can reach the nearest library within 15 minutes. The areas least connected to libraries are inner-suburban neighbourhoods, which have fewer libraries and lower population density. When looking at access via public transit, the share of residents that has to spend over 30 minutes to reach a library drops to 5%.
+	On foot, 35% of Torontonians can reach the nearest library within 15 minutes and 79% within 30 minutes; by transit, those shares rise to about 40% and 95%. The areas least connected to libraries are inner-suburban neighbourhoods, which have fewer libraries and lower population density.
 </p>
 
 </div>
@@ -50,7 +50,7 @@
 		According to research conducted in other urban areas, accessibility to libraries varies across travel modes and population groups.<Footnote id={fAllen} /><Footnote id={fCheng} /><Footnote id={fDonnelly} /> With public libraries offering programming for such target populations as recent immigrants, youth, and seniors, it is crucial to account for differences in library access across demographic groups. Using census data, we mapped where these groups are concentrated across Toronto in relation to the locations of library branches.
 	</p>
 	<p>
-		If you want to explore demographic data against the transit travel data, including at a more zoomed-in neighbourhood level, you can refer to our interactive tool [https://schoolofcities.github.io/<repo-name>/].	
+		If you want to explore demographic data against the transit travel data, including at a more zoomed-in neighbourhood level, you can refer to our <a href="https://schoolofcities.github.io/libraries-by-transit/toronto-proximity" target="_blank" rel="noopener noreferrer">interactive tool</a>.	
 	</p>
 	
 </div>
@@ -62,7 +62,7 @@
 <div class="text">
 	
 	<p>
-		Across every population group examined, travel time to the nearest library is close to the citywide average. Immigrants, low-income households, children, seniors, and visible minority residents all face slightly longer trips on average, but the gaps are small, 72 seconds at most. Once access to transit is factored in, the average gap decreases by up to half a minute.
+		Across every population group examined, travel time to the nearest library is close to the citywide median. Immigrants, low-income households, children, seniors, and visible minority residents all face slightly longer trips on average, but the gaps are small, 71 seconds at most. By transit, every group's median is within 45 seconds of the citywide median.
 	</p>
 	
 </div>
@@ -79,7 +79,7 @@
 
 	<p>
 		We overlaid a grid of 200-metre hexagons on Toronto and calculated the travel time from each hexagon to the nearest library branch. 
-		Travel times were computed with the r5py Python library, using OpenStreetMap's pedestrian network and TTC transit schedules, so they follow realistic routes rather than straight-line distance. We modelled two scenarios: walking only, and walking plus public transit. For transit, we computed the minimum travel time for a late-morning departure window on a Tuesday (a typical weekday) and on a Saturday. Because the weekday and Saturday results were very similar, the maps on this page combine them into a single transit measure. The separate Tuesday and Saturday isochrones can be explored on the interactive web map [https://schoolofcities.github.io/<repo-name>/].
+		Travel times were computed with the r5py Python library, using OpenStreetMap's pedestrian network and TTC transit schedules, so they follow realistic routes rather than straight-line distance. We modelled two scenarios: walking only, and walking plus public transit. For transit, we computed the minimum travel time for a late-morning departure window on a Tuesday (a typical weekday) and on a Saturday. Because the weekday and Saturday results were very similar, the maps on this page combine them into a single transit measure. The separate Tuesday and Saturday isochrones can be explored on the <a href="https://schoolofcities.github.io/libraries-by-transit/toronto-proximity" target="_blank" rel="noopener noreferrer">interactive web map</a>.
 	</p>
 
 	<p>
@@ -87,7 +87,7 @@
 	</p>
 
 	<p>
-		Data and code are in our <a href="https://github.com/schoolofcities/public-libraries" target="_blank" rel="noopener noreferrer">GitHub repository</a>.
+		Data and code are in our <a href="https://github.com/schoolofcities/libraries-by-transit" target="_blank" rel="noopener noreferrer">GitHub repository</a>.
 	</p>
 
 	<h3>
