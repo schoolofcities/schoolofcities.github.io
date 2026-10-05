@@ -182,7 +182,7 @@ async function main() {
 
 			// The figure route renders Read more/Download/Share buttons for the
 			// live embed page, but a flat PNG export has nothing for them to do.
-			await page.addStyleTag({ content: '.chart-buttons { display: none !important; }' });
+			await page.addStyleTag({ content: '.chart-buttons, .chart-description { display: none !important; }' });
 			await page.locator('.chart-frame').screenshot({ path: outPath });
 			await context.close();
 

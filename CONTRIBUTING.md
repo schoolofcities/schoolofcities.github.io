@@ -37,7 +37,7 @@ A post folder contains:
 | --- | --- | --- |
 | `meta.json` | Required | Title, type, summary, authors, published date, license, `protected` flag, related documents |
 | `+page.svelte` | Required | Body content |
-| `charts.js` | Required | Chart metadata (ids, titles, sources, alt text, notes) |
+| `charts.js` | Required | Chart metadata (ids, titles, sources, alt text, long descriptions, notes) |
 | `charts/` | Required | One `<chart-id>.svelte` per chart listed in `charts.js` |
 | `data/` | Optional | CSVs used by charts or offered for download |
 | `images/` | Optional | Static images, e.g. pre-rendered map PNGs |

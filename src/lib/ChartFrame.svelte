@@ -18,6 +18,10 @@
 	// list, for posts where not every listed author worked on every chart.
 	const chartAuthors = $derived(meta.authors ?? authors);
 
+	// meta.description (optional, set per-chart in charts.js) is the long
+	// description: one string, or an array of them for several paragraphs.
+	const descriptionParagraphs = $derived([meta.description ?? []].flat());
+
 
 	// Derived from the current route's slug so a folder rename (which changes the
 	// slug) updates these links everywhere automatically, with nothing hardcoded.
@@ -237,6 +241,23 @@
 		</div>
 	</div>
 
+	<!-- The long description. meta.alt on the graphic above is read out as one
+	     unbroken string and is invisible to everyone else, so it stays short;
+	     the detail lives here as ordinary text, outside the role="img" wrapper
+	     and straight after it so the two are read together,
+	     where a screen reader can step through it and any reader can open it.
+	     Native <details>, so it works with scripting off. -->
+	{#if descriptionParagraphs.length > 0}
+		<details class="chart-description">
+			<summary>Description of this graphic</summary>
+			<div class="chart-description-text">
+				{#each descriptionParagraphs as paragraph}
+					<p>{paragraph}</p>
+				{/each}
+			</div>
+		</details>
+	{/if}
+
 	<div class="chart-footer">
 		<div class="chart-source-group">
 			<p class="chart-source"><strong>Data source:</strong> {meta.source}</p>
@@ -292,6 +313,7 @@
 			</div>
 		</div>
 	</div>
+
 {/snippet}
 
 {#snippet dataIcon()}
@@ -613,38 +635,70 @@
 
 	/* 678px, not 720px: container queries measure .chart-frame's content-box,
 	   which is its 720px outer width (the smallest core width above 540 — see
-	   scripts/validate.js) minus its own 40px padding + 2px border. Using the
-	   adjusted value means every chart at 720px or wider gets the same
-	   source-text-left / buttons-right split, not just the 1080px+ ones. */
+	   scripts/validate.js) minus its own 40px padding + 2px border. Source text
+	   on the left, buttons on the right — but at this width there isn't room
+	   for both a readable text column and all four controls in one row, so the
+	   buttons go back to the narrow view's 2-column grid (license + Read more
+	   over Download + Share), sized to its content, and the text takes
+	   everything that's left. */
 	@container (min-width: 678px) {
 		.chart-footer {
 			flex-direction: row;
 			align-items: center;
 			justify-content: space-between;
-			gap: 10px;
+			gap: 24px;
 		}
 
 		.chart-source-group {
-			flex: 1 1 360px;
-			max-width: 360px;
+			flex: 1 1 auto;
+			width: auto;
 			min-width: 0;
+		}
+
+		.chart-buttons {
+			display: grid;
+			flex: 0 0 auto;
+			width: auto;
+		}
+
+		.chart-buttons button,
+		.chart-buttons a,
+		.chart-license-inline {
+			white-space: nowrap;
+		}
+
+		/* Alone on its row (no Read more), the license sits at the frame's
+		   right edge, over the buttons. */
+		.chart-license-inline {
+			text-align: right;
+		}
+
+		/* With Read more, the four controls read in the same order as the
+		   single row does at wider sizes: license, Read more / Download, Share. */
+		.chart-buttons:has(.chart-read-more) .chart-license-inline {
+			grid-column: 1;
+			align-self: center;
+			text-align: center;
+		}
+
+		.chart-read-more {
+			grid-column: 2;
+		}
+	}
+
+	/* 1038px, not 1080px: same content-box adjustment as above, for the next
+	   core width up. Enough room now for all the controls in a single row
+	   beside a capped text column. */
+	@container (min-width: 1038px) {
+		.chart-source-group {
+			flex: 1 1 540px;
+			max-width: 540px;
 		}
 
 		.chart-buttons {
 			display: flex;
 			flex: 0 0 360px;
 			width: 360px;
-			justify-content: flex-end;
-		}
-	}
-
-	/* 1038px, not 1080px: same content-box adjustment as above, for the next
-	   core width up. The text column gets more room to breathe once there's
-	   this much extra space next to the fixed 360px button column. */
-	@container (min-width: 1038px) {
-		.chart-source-group {
-			flex-basis: 540px;
-			max-width: 540px;
 		}
 	}
 
@@ -663,6 +717,53 @@
 		color: var(--brandGray55);
 		margin: 0;
 		padding: 0;
+	}
+
+	.chart-description {
+		margin-bottom: 12px;
+		padding: 8px 12px;
+		/* Half a step lighter than --brandGray05, the lightest grey token. */
+		background-color: #f9f9f9;
+		/* Hugs its contents: just the summary's words when closed, the text
+		   column (capped at 680px below) when open. */
+		box-sizing: border-box;
+		width: fit-content;
+		max-width: 100%;
+	}
+
+	.chart-description summary {
+		font-family: OpenSansItalic;
+		font-weight: normal;
+		font-size: 12px;
+		line-height: 16px;
+		color: var(--brandGray55);
+		cursor: pointer;
+		/* Shrink-wrapped, so only the words are clickable, not the whole row. */
+		width: fit-content;
+		text-decoration: underline;
+	}
+
+	.chart-description summary:hover {
+		color: var(--brandGray90);
+	}
+
+	.chart-description p {
+		font-family: OpenSans;
+		font-weight: normal;
+		font-size: 13px;
+		line-height: 19px;
+		color: var(--brandGray70);
+		max-width: 680px;
+		margin: 0;
+		padding: 0;
+	}
+
+	.chart-description-text {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin-top: 8px;
+		padding-bottom: 4px;
 	}
 
 	/* 318px, not 360px: container queries measure .chart-frame's content-box,
