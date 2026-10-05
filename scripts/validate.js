@@ -141,6 +141,12 @@ function checkCharts(slug, charts) {
 			if (!chart[field]) error(slug, `chart "${key}" is missing "${field}"`);
 		}
 
+		// Optional, but without it the short alt is all a screen-reader user
+		// gets: ChartFrame hides everything inside the graphic from them.
+		if ([chart.description ?? []].flat().filter(Boolean).length === 0) {
+			warn(slug, `chart "${key}" has no "description" — the long description shown under the graphic`);
+		}
+
 		for (const file of [chart.data ?? []].flat().filter(Boolean)) {
 			referencedData.add(file);
 			if (!dataFiles.includes(file)) {
