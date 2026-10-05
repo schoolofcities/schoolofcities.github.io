@@ -1,0 +1,33 @@
+{
+	"title": "Who built Toronto's fibre internet from 2012 to 2022?",
+	"type": "post",
+	"summary": "Bell Canada accounted for 75% of the fibre-internet construction permitted under Toronto's streets between 2012 and 2022, about 3.5 times as much as Rogers.",
+	"authors": ["Jeff Allen"],
+	"published": "2026-10-02",
+	"license": "CC-BY-4.0",
+	"protected": true,
+	"cardImage": "fibre-construction-map",
+	"geography": ["Toronto"],
+	"tags": ["urban", "policy", "telecommunications", "infrastructure"],
+	"documents": [
+		{
+			"relation": "from",
+			"type": "paper",
+			"authors": ["Mersereau, M."],
+			"year": 2026,
+			"title": "\"In the end, Bell always wins …\" A critical analysis of concentration in Toronto's fibre-internet service market",
+			"publication": "Telecommunications Policy",
+			"link": "https://doi.org/10.1016/j.telpol.2025.103086",
+			"linkType": "DOI"
+		},
+		{
+			"relation": "from",
+			"type": "project-site",
+			"authors": ["Mersereau, M."],
+			"year": 2026,
+			"title": "Broadband Infrastructure Market Insights (BRIMI)",
+			"link": "https://brimi.ca/",
+			"linkType": "Website"
+		}
+	]
+}
