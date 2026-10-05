@@ -11,20 +11,20 @@
 
 	const footnoteStore = createFootnoteStore();
 
-	const fBhatt = footnoteStore.addFootnote(
-		"Bhatt, R. (2010). The impact of public library use on reading, television, and academic outcomes. *Journal of Urban Economics*, 68(2), 148–166. [DOI](https://doi.org/10.1016/j.jue.2010.03.008)."
+	// Adjacent citations share one footnote; a blank line between references
+	// stacks them in both the tooltip and the reference list.
+	const fUsage = footnoteStore.addFootnote(
+		[
+			"Bhatt, R. (2010). The impact of public library use on reading, television, and academic outcomes. *Journal of Urban Economics*, 68(2), 148–166. [DOI](https://doi.org/10.1016/j.jue.2010.03.008).",
+			"Park, S. J. (2012). Measuring public library accessibility: A case study using GIS. *Library & Information Science Research*, 34(1), 13–21. [DOI](https://doi.org/10.1016/j.lisr.2011.07.007)."
+		].join("\n\n")
 	);
-	const fPark = footnoteStore.addFootnote(
-		"Park, S. J. (2012). Measuring public library accessibility: A case study using GIS. *Library & Information Science Research*, 34(1), 13–21. [DOI](https://doi.org/10.1016/j.lisr.2011.07.007)."
-	);
-	const fAllen = footnoteStore.addFootnote(
-		"Allen, J. (2019). Mapping differences in access to public libraries by travel mode and time of day. *Library & Information Science Research*, 41(1), 11–18. [DOI](https://doi.org/10.1016/j.lisr.2019.02.001)."
-	);
-	const fCheng = footnoteStore.addFootnote(
-		"Cheng, W., Wu, J., Moen, W., & Hong, L. (2021). Assessing the spatial accessibility and spatial equity of public libraries' physical locations. *Library & Information Science Research*, 43(2), 101089. [DOI](https://doi.org/10.1016/j.lisr.2021.101089)."
-	);
-	const fDonnelly = footnoteStore.addFootnote(
-		"Donnelly, F. P. (2014). The geographic distribution of United States public libraries: An analysis of locations and service areas. *Journal of Librarianship and Information Science*, 46(2), 110–129. [DOI](https://doi.org/10.1177/0961000612470276)."
+	const fAccess = footnoteStore.addFootnote(
+		[
+			"Allen, J. (2019). Mapping differences in access to public libraries by travel mode and time of day. *Library & Information Science Research*, 41(1), 11–18. [DOI](https://doi.org/10.1016/j.lisr.2019.02.001).",
+			"Cheng, W., Wu, J., Moen, W., & Hong, L. (2021). Assessing the spatial accessibility and spatial equity of public libraries' physical locations. *Library & Information Science Research*, 43(2), 101089. [DOI](https://doi.org/10.1016/j.lisr.2021.101089).",
+			"Donnelly, F. P. (2014). The geographic distribution of United States public libraries: An analysis of locations and service areas. *Journal of Librarianship and Information Science*, 46(2), 110–129. [DOI](https://doi.org/10.1177/0961000612470276)."
+		].join("\n\n")
 	);
 
 </script>
@@ -33,7 +33,7 @@
 
 <p>
 	People who live closer to a library tend to visit it more often, borrow more resources, 
-	and access its social services more easily.<Footnote id={fBhatt} /><Footnote id={fPark} /> We mapped how long it takes to reach the nearest public library from any location in Toronto, on foot and by public transit. 
+	and access its social services more easily.<Footnote id={fUsage} /> We mapped how long it takes to reach the nearest public library from any location in Toronto, on foot and by public transit. 
 </p>
 <p>
 	On foot, 35% of Torontonians can reach the nearest library within 15 minutes and 79% within 30 minutes; by transit, those shares rise to about 40% and 95%. The areas least connected to libraries are inner-suburban neighbourhoods, which have fewer libraries and lower population density.
@@ -47,7 +47,7 @@
 
 <div class="text">
 	<p>
-		According to research conducted in other urban areas, accessibility to libraries varies across travel modes and population groups.<Footnote id={fAllen} /><Footnote id={fCheng} /><Footnote id={fDonnelly} /> With public libraries offering programming for such target populations as recent immigrants, youth, and seniors, it is crucial to account for differences in library access across demographic groups. Using census data, we mapped where these groups are concentrated across Toronto in relation to the locations of library branches.
+		According to research conducted in other urban areas, accessibility to libraries varies across travel modes and population groups.<Footnote id={fAccess} /> With public libraries offering programming for such target populations as recent immigrants, youth, and seniors, it is crucial to account for differences in library access across demographic groups. Using census data, we mapped where these groups are concentrated across Toronto in relation to the locations of library branches.
 	</p>
 	<p>
 		If you want to explore demographic data against the transit travel data, including at a more zoomed-in neighbourhood level, you can refer to our <a href="https://schoolofcities.github.io/libraries-by-transit/toronto-proximity" target="_blank" rel="noopener noreferrer">interactive tool</a>.	

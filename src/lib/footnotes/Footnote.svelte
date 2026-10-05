@@ -34,8 +34,9 @@
 	>
 		<span>[{id[0]}]</span>
 	</a>{#if isHovered}<div class="footnoteTooltip" on:mouseenter={show} on:mouseleave={scheduleHide}>
+			<span class="footnoteNumber">[{id[0]}]</span>
 			<p>
-				[{id[0]}] {@html footnoteText}
+				{@html footnoteText}
 			</p>
 		</div>{/if}
 </span>
@@ -75,6 +76,11 @@
 		width: 340px;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.38);
 		border: 1px solid var(--brandGray10);
+		/* Hanging number: the marker sits in its own column so stacked
+		   references all align to the same left edge. */
+		display: flex;
+		align-items: flex-start;
+		gap: 6px;
 		z-index: 1000;
 		pointer-events: auto;
 		user-select: text;
@@ -83,6 +89,7 @@
 		-ms-user-select: text;
 	}
 
+	.footnoteNumber,
 	.footnoteTooltip p {
 		padding: 0px;
 		margin: 0px;
@@ -91,6 +98,15 @@
 		font-weight: normal;
 		font-size: 15px;
 		line-height: 20px;
+	}
+
+	.footnoteNumber {
+		flex: none;
+	}
+
+	.footnoteTooltip p {
+		flex: 1;
+		min-width: 0;
 		white-space: normal;
     	word-wrap: break-word;
     	overflow-wrap: break-word;
