@@ -107,7 +107,7 @@
 		background-color: var(--brandDarkBlue);
 		padding-top: 80px;
 		padding-bottom: 70px;
-		margin-bottom: 70px;
+		margin-bottom: 40px;
 		border-bottom: 2px solid var(--brandLightBlue);
 	}
 

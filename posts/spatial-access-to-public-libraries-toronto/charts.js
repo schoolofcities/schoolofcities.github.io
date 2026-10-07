@@ -26,10 +26,10 @@ const charts = {
 	'demographics-grid': {
 		title: "Six population groups, mapped relative to library locations",
 		subtitle:
-			"Share of each census tract's population, with public library branches marked on every map",
+			"Share of each census tract's population, with public library locations marked on every map",
 		source: 'Census of Population, Statistics Canada (2021); Toronto Public Library',
 		alt:
-			"Six small maps of Toronto, each showing one population group's share of every census tract, with library branches marked: visible minority, low income, recent immigrants, first-generation immigrants, seniors, and children. Where each group is concentrated differs, but all are least present in the central corridor from downtown to the east end.",
+			"Six small maps of Toronto, each showing one population group's share of every census tract, with library locations marked: visible minority, low income, recent immigrants, first-generation immigrants, seniors, and children. Where each group is concentrated differs, but all are least present in the central corridor from downtown to the east end.",
 		widths: [360, 720, 1080],
 		graphicVerb: 'created'
 	},
@@ -39,6 +39,7 @@ const charts = {
 		source: 'Census of Population, Statistics Canada (2021); Toronto Public Library, City of Toronto, Toronto Transit Commission, OpenStreetMap (2026)',
 		alt:
 			"Box plots of travel time to the nearest library for the total population and six demographic groups, in one panel for walking and one for public transit. Within each panel the rows are nearly identical, with every group's median within about a minute of the total population's.",
+		note: 'Travel times are in decimal minutes (0.1 minute = 6 seconds).',
 		data: 'travel_time_percentiles.csv',
 		widths: [360, 720],
 		graphicVerb: 'created'
