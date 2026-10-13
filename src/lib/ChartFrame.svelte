@@ -489,8 +489,8 @@
 		margin: 40px auto;
 		padding: 20px;
 		border: solid 1px var(--brandGray05);
-		border-top: solid 3px var(--brandDarkBlue);
-		border-bottom: solid 1px var(--brandDarkBlue);
+		border-top: solid 2px var(--brandDarkBlue);
+		border-bottom: solid 2px var(--brandDarkBlue);
 	}
 
 	.chart-frame.standalone {
@@ -525,21 +525,22 @@
 	.chart-title {
 		font-family: TradeGothicBold;
 		font-weight: normal;
-		font-size: 25px;
+		font-size: 27px;
+		line-height: 34px;
 		/* max-width: 720px; */
 		color: var(--brandDarkBlue);
-		margin: 0 0 12px 0;
+		margin: 3px 0 10px 0;
 		padding-right: 60px;
 	}
 
 	.chart-subtitle {
-		font-family: OpenSans;
+		font-family: OpenSansItalic;
 		font-weight: normal;
-		font-size: 16px;
-		line-height: 22px;
+		font-size: 17px;
+		line-height: 24px;
 		color: var(--brandGray90);
 		padding-bottom: 5px;
-		border-bottom: solid 1px var(--brandYellow);
+		border-bottom: solid 1px var(--brandGray10);
 		margin: 0 0 16px 0;
 	}
 
