@@ -24,9 +24,9 @@ const charts = {
 		graphicVerb: 'created'
 	},
 	'demographics-grid': {
-		title: "Six population groups, mapped relative to library locations",
+		title: 'Where six population groups live in relation to public libraries',
 		subtitle:
-			"Share of each census tract's population, with public library locations marked on every map",
+			'Visible minority, low income, recent immigrants, first-generation immigrants, seniors, and children',
 		source: 'Census of Population, Statistics Canada (2021); Toronto Public Library',
 		alt:
 			"Six small maps of Toronto, each showing one population group's share of every census tract, with library locations marked: visible minority, low income, recent immigrants, first-generation immigrants, seniors, and children. Where each group is concentrated differs, but all are least present in the central corridor from downtown to the east end.",

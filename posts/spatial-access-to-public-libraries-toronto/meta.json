@@ -6,6 +6,7 @@
 	"published": "2026-10-07",
 	"license": "CC-BY-4.0",
 	"protected": false,
+	"cardImage": "demographics-grid",
 	"geography": ["Toronto"],
 	"tags": ["urban", "public transit", "accessibility", "public libraries"],
 	"documents": [

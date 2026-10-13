@@ -88,6 +88,7 @@
 	--brandGray85: #262626;
 	--brandGray90: #1A1A1A;
 	--brandGray95: #0D0D0D;
+	--brandPageBackground: #fafafd;
 }
 
 
@@ -96,7 +97,7 @@
 body {
 	padding: 0px; 
 	margin: 0px;
-	background-color: #fefeff;
+	background-color: var(--brandPageBackground);
 	min-width: calc(100% - 100dvw + 360px);
 	width: 100%;
 }
@@ -112,7 +113,7 @@ main {
 
 .text {
 	background-color: none;
-	max-width: 680px;
+	max-width: 720px;
 	margin: 0 auto;
 	position: relative;
 	padding-left: 20px;
@@ -238,9 +239,9 @@ li {
 	max-width: 720px;
 	margin: auto;
 	padding: 20px;
-	border: solid 1px var(--brandGray10);
+	border: solid 1px var(--brandGray15);
 	border-radius: 0px;
-	background-color: var(--brandWhite);
+	background-color: var(--brandPageBackground);
 }
 
 .details-block summary {

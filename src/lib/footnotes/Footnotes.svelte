@@ -57,7 +57,7 @@
         margin-top: 100px;
         margin-bottom: 50px;
         padding-bottom: 20px;
-        border: solid 1px var(--brandGray10);
+        border: solid 1px var(--brandGray15);
         /* border-top-right-radius: 50px; */
     }
 
