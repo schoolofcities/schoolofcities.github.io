@@ -87,7 +87,7 @@
 		// Too long for the label column on one line.
 		nameLines: ['Median of 34', 'municipalities'],
 		group: 'median',
-		color: 'var(--brandDarkGreen)',
+		color: 'var(--brandMedGreen)',
 		width: 3,
 		dotR: 5,
 		points: years.map((year, i) => ({
@@ -234,6 +234,12 @@
 <div class="legend-title">Voter turnout in municipal elections</div>
 
 <div class="legend">
+	<div class="legend-item">
+		<svg class="legend-swatch" viewBox="0 0 24 10" width="24" height="10" aria-hidden="true">
+			<line x1="0" x2="24" y1="5" y2="5" stroke="var(--brandGray30)" stroke-width="1" />
+		</svg>
+		<span>Each grey line is one municipality's turnout</span>
+	</div>
 	<div class="legend-item">
 		<svg class="legend-swatch" viewBox="0 0 24 10" width="24" height="10" aria-hidden="true">
 			<line x1="0" x2="24" y1="5" y2="5" stroke="var(--brandPink)" stroke-width="3" />
@@ -436,6 +442,9 @@
 	}
 
 	.legend {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
 		padding-top: 6px;
 		padding-bottom: 10px;
 		margin-bottom: 14px;

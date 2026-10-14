@@ -24,7 +24,7 @@ const charts = {
 		graphicVerb: 'created'
 	},
 	'demographics-grid': {
-		title: 'Where six population groups live in relation to public libraries',
+		title: 'Where six population groups live in relation to public libraries in Toronto',
 		subtitle:
 			'Visible minority, low income, recent immigrants, first-generation immigrants, seniors, and children',
 		source: 'Census of Population, Statistics Canada (2021); Toronto Public Library',
@@ -35,7 +35,7 @@ const charts = {
 	},
 	'travel-time-boxplot': {
 		title: 'Travel time to the nearest library by demographic group',
-		subtitle: "Every group's median is at or just slightly above the citywide median",
+		subtitle: "Every group's median is at or just slightly above the City of Toronto median",
 		source: 'Census of Population, Statistics Canada (2021); Toronto Public Library, City of Toronto, Toronto Transit Commission, OpenStreetMap (2026)',
 		alt:
 			"Box plots of travel time to the nearest library for the total population and six demographic groups, in one panel for walking and one for public transit. Within each panel the rows are nearly identical, with every group's median within about a minute of the total population's.",

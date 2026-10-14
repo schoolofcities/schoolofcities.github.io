@@ -19,7 +19,7 @@ const substitutionNote =
 
 const charts = {
 	'turnout-by-election': {
-		title: 'Voter turnout declined in most of Ontario’s largest municipalities between 2014 and 2022',
+		title: 'Voter turnout declined in most Ontario municipal elections between 2014 and 2022',
 		subtitle:
 			'Median turnout held near 36% in 2014 and 2018, then dropped to 28% in 2022. Toronto declined the most; Ottawa was the only city to rise in both elections',
 		source:
@@ -31,7 +31,7 @@ const charts = {
 		graphicVerb: 'created'
 	},
 	'turnout-by-mayoral-vote': {
-		title: 'Turnout tended to be lower where the mayor won with a larger share of the vote',
+		title: 'Turnout in Ontario municipal elections tended to be lower where the mayor won with a larger share of the vote',
 		subtitle:
 			'Toronto’s highest turnout came in 2014, when its mayor was elected with only 40% of the vote. Ottawa’s came in 2022, when its mayor was elected with 51%',
 		source:

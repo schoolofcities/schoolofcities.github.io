@@ -62,7 +62,7 @@
 <div class="text">
 	
 	<p>
-		Across every population group examined, travel time to the nearest library is close to the citywide median. Immigrants, low-income households, children, seniors, and visible minority residents all face slightly longer trips on average, but the gaps are small, 71 seconds at most. By transit, every group's median is within 45 seconds of the citywide median.
+		Across every population group examined, travel time to the nearest library is close to the City of Toronto median. Immigrants, low-income households, children, seniors, and visible minority residents all face slightly longer trips on average, but the gaps are small, 71 seconds at most. By transit, every group's median is within 45 seconds of the City of Toronto median.
 	</p>
 	
 </div>

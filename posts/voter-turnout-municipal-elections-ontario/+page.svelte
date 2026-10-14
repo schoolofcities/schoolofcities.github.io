@@ -38,7 +38,11 @@
 <div class="text">
 
 <p>
-	Ontario holds municipal elections every four years, on the fourth Monday in October. Voters elect a mayor and council, as well as school board trustees, and in municipalities that sit within a region, members of regional council. We compared voter turnout data across the three most recent municipal elections in Ontario for every city and town with more than 75,000 residents.<Footnote id={fPopulation} /> Together these 34 municipalities had 7.1 million eligible electors in 2022.
+	Every four years, on the fourth Monday in October, Ontarians go to the polls to elect their mayors, councillors and school board trustees. How many of them actually vote, i.e. voter turnout, is a common measure of civic engagement in local democracy.
+</p>
+
+<p>	
+	We compared voter turnout data across the three most recent municipal election waves in Ontario for every city and town with more than 75,000 residents.<Footnote id={fPopulation} /> Together these 34 municipalities had 7.1 million eligible electors in 2022.
 </p>
 
 </div>
@@ -49,28 +53,16 @@
 
 <div class="text">
 
-<!-- <p>
-	Toronto is the largest outlier. Its 2014 turnout of 54.7% was the highest of any municipality in any of the three elections; by 2022 it was 29.7%, a drop of 25 percentage points. London (down 17.7 points) and Guelph (down 17.2) had the next largest declines. The typical decline was about 7 points.
+<p>
+	In 2014, only 3 of the 34 municipalities had turnout below 30%. In 2022, 21 did.  Commentators pointed to the COVID-19 pandemic and to election fatigue as potential reasons (the October 2022 municipal elections came four months after the June 2022 provincial election and 13 months after the September 2021 federal election).<Footnote id={fCommentary} /> Research from Europe has found that more frequent elections tend to lower turnout.<Footnote id={fFrequency} />
 </p>
 
 <p>
-	Ottawa moved in the opposite direction. It is the only municipality where turnout rose in both 2018 and 2022, from 39.9% to 43.8%, which was the highest of the 34 in 2022. Hamilton is the only other municipality that finished higher than it started, at 35.4% compared with 34.0%. Barrie, Richmond Hill, and Cambridge were close to flat, each within one point of their 2014 turnout.
-</p> -->
-
-<p>
-	In 2014, only 3 of the 34 municipalities had turnout below 30%. In 2022, 21 did. We found no research that directly explains the 2022 drop. Commentators pointed to the COVID-19 pandemic and to election fatigue (the October 2022 municipal elections came four months after the June 2022 provincial election and 13 months after the September 2021 federal election).<Footnote id={fCommentary} /> Research from Europe found that more frequent elections tend to lower turnout.<Footnote id={fFrequency} />
+	Earlier research does point to some of the reasons turnout differs between municipalities. A study including <a href="https://www.cmb-bmc.ca/" target="_blank" rel="noopener noreferrer">Canadian Municipal Barometer</a> data on 233 municipalities in Ontario, Quebec, British Columbia, and Alberta, in their 2017 and 2018 elections, found that turnout was higher where there were more local newspapers that published more often, where councils had more seats relative to population, and where there a lower share of residents aged 18 to 34.<Footnote id={fBarometer} />
 </p>
 
 <p>
-	Earlier research does point to some of the reasons turnout differs between municipalities. A study using <a href="https://www.cmb-bmc.ca/" target="_blank" rel="noopener noreferrer">Canadian Municipal Barometer</a> data on 233 municipalities in Ontario, Quebec, British Columbia, and Alberta, in their 2017 and 2018 elections, found that turnout was higher where there were more local newspapers that published more often, where councils had more seats relative to population, and where mayoral races were closer. Turnout also tends to be lower where a larger share of residents were aged 18 to 34.<Footnote id={fBarometer} />
-</p>
-
-<p>
-	In our look at Ontario's largest municipalities, a city's size says little about its turnout: population and turnout are essentially uncorrelated in each of the three elections. How a municipality is governed makes a small difference. Single-tier cities, which are not part of a regional government, had a higher median turnout in all three elections than lower-tier municipalities, which sit within a region (e.g. Peel, York, etc.).
-</p>
-
-<p>
-	The closeness of the mayoral race accounts for more of the difference, in line with the earlier research. In each of the three elections, turnout tended to be lower where the winning mayoral candidate took a larger share of the vote.
+	In our look at Ontario's largest municipalities, a city's size says little about its turnout: population and turnout are essentially uncorrelated in each of the three elections. But how a municipality is governed makes a small difference. Single-tier cities, which are not part of a regional government, had a higher median turnout in all three elections than lower-tier municipalities, which sit within a region (e.g. Peel, York, etc.). The closeness of the mayoral race accounts for more of the difference. In each of the three elections, turnout tended to be lower where the winning mayoral candidate took a larger share of the vote.
 </p>
 
 </div>
@@ -89,34 +81,23 @@
 	<h2>Methods and data</h2>
 
 	<p>
-		Turnout data are from the <a href={dataUrl} target="_blank" rel="noopener noreferrer">Municipal election results</a> dataset published by the Government of Ontario, which has one file of municipal data for each of the 2014, 2018, and 2022 elections. Turnout is the number of electors who voted divided by the total number of eligible electors.
+		Turnout data are from the <a href={dataUrl} target="_blank" rel="noopener noreferrer">Municipal election results</a> dataset published by the Government of Ontario, which has one file of municipal data for each of the 2014, 2018, and 2022 elections. We included every single-tier and lower-tier municipality with a population above 75,000 in the 2021 Census of Population.
 	</p>
 
 	<p>
-		We included every single-tier and lower-tier municipality with a population above 75,000 in the 2021 Census of Population. That is 34 municipalities: 26 cities, six towns (Oakville, Whitby, Milton, Ajax, Newmarket, and Caledon), and two with the status of municipality (Chatham-Kent and Clarington). Upper-tier regions and counties are not included.
+		Turnout is the number of electors who voted divided by the total number of eligible electors. Turnout depends on the voters' list as well as on the number of people who vote. A list that includes people who have moved or died lowers measured turnout, and a list that misses eligible residents raises it. The quality of the list can differ between municipalities and between elections, so small differences in turnout should be read with caution.
 	</p>
 
 	<p>
-		We replaced three values with figures published by the cities themselves. The provincial file has no figures for Toronto in 2014, so we used the City of Toronto's count (991,754 voters of 1,813,915 eligible electors). For Toronto in 2018, the provincial file lists about 204,000 fewer electors than the City's final count, which gives a turnout of 45.1% instead of the City's 40.9%; we used the City's figures (769,044 of 1,880,371). For Barrie in 2018, the provincial file gives a turnout of 47.4%, while the City of Barrie reported 29.65%; we used the City's figure. The downloadable data marks these three values.
+		We replaced three values with data published by the cities themselves. The provincial file had no data for Toronto in 2014, so we used the City of Toronto's count (991,754 voters of 1,813,915 eligible electors). For Toronto in 2018, the provincial file lists about 204,000 fewer electors than the City's final count, which gives a turnout of 45.1% instead of the City's 40.9%; we used the City's figures (769,044 of 1,880,371). For Barrie in 2018, the provincial file gives a turnout of 47.4%, while the City of Barrie reported 29.65%. We used the City's figure. The downloadable data above includes these three values. 
 	</p>
 
 	<p>
-		The mayoral results are from the same dataset's files of successful candidates, which give the votes cast for the winning candidate and the total votes cast for the office. We divided the first by the second. The files do not list losing candidates, so we could not calculate the margin of victory. Two of the 102 contests are left out of the third chart: Newmarket in 2022, where the mayor was acclaimed, and Milton in 2022, where the file has no total for the office.
+		The mayoral results are from the same dataset's files of successful candidates, which give the votes cast for the winning candidate and the total votes cast for the office. We divided the first by the second. The files do not list losing candidates, so we could not calculate the margin of victory with this data. Two of the 102 contests are left out of the third chart: Newmarket in 2022, where the mayor was acclaimed, and Milton in 2022, where the data had no total.
 	</p>
 
-	<h3>Limitations</h3>
+	
 
-	<p>
-		Municipalities report these figures to the Province voluntarily, and we did not compare every value with each municipality's own published results. The three substitutions above are the ones we found; there may be others.
-	</p>
-
-	<p>
-		Turnout depends on the voters' list as well as on the number of people who vote. A list that includes people who have moved or died lowers measured turnout, and a list that misses eligible residents raises it. The quality of the list can differ between municipalities and between elections, so small differences in turnout should be read with caution.
-	</p>
-
-	<p>
-		Three elections are a short series, and the analysis is descriptive. It does not test why turnout changed or why it differs between municipalities.
-	</p>
 </div>
 
 <Footnotes footnotes={footnoteStore.footnotes} />
