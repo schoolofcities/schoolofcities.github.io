@@ -2,11 +2,23 @@
 	import { scaleLinear, median } from 'd3';
 	import data from '../data/turnout-by-municipality.csv';
 	import provincial from '../data/provincial-turnout.csv';
+	import federal from '../data/federal-turnout.csv';
 
-	// The municipality highlighted in pink, chosen in the search box under the
+	// The municipality highlighted in purple, chosen in the search box under the
 	// chart's title. Empty by default, so exports and the no-JS page show the
 	// chart without a highlight.
 	let selected = $state('');
+
+	// The provincial and federal reference lines, each switched on and off by its
+	// own button in the legend. Federal starts on and provincial off, and exports
+	// and the no-JS page show that default. Hiding one leaves the year columns as
+	// they are, so the other lines don't shift sideways.
+	let showProvincial = $state(false);
+	let showFederal = $state(true);
+	const compareButtons = $derived([
+		{ label: 'Provincial', color: 'var(--brandMedBlue)', dash: '6 4', on: showProvincial, toggle: () => (showProvincial = !showProvincial) },
+		{ label: 'Federal', color: 'var(--brandDarkBlue)', dash: '2 4', on: showFederal, toggle: () => (showFederal = !showFederal) }
+	]);
 
 	// Search box: typing filters the list of municipalities, and picking one (by
 	// click, or arrow keys and Enter) highlights it. The list shows about ten
@@ -63,53 +75,89 @@
 	const years = [2014, 2018, 2022];
 	const municipalities = data.map((d) => d.municipality).sort((a, b) => a.localeCompare(b));
 
-	// Every municipality is a plain grey line; only the median, the provincial line
-	// and a selected municipality are coloured and labelled.
-	const lineStyle = { color: 'var(--brandGray30)', width: 1, dotR: 0 };
-	const selectedStyle = { color: 'var(--brandPink)', width: 3, dotR: 5 };
+	// Every municipality is a faint line in the median's pink, so the median reads
+	// as their summary; only the median, the provincial and federal lines and a
+	// selected municipality are labelled.
+	const lineStyle = { color: 'var(--brandPink)', opacity: 0.36, width: 1, dotR: 0 };
+	const selectedStyle = { color: 'var(--brandPurple)', opacity: 1, width: 3, dotR: 5 };
 	const fmt = (v) => `${v.toFixed(1)}%`;
+	// '2014-06-12' -> '6/2014': the month and year shown with each provincial and
+	// federal value, since those elections fall in other months than October.
+	const monthYear = (date) => `${+date.slice(5, 7)}/${date.slice(0, 4)}`;
+
+	// The x-axis is time, by month: each election sits at the middle of its month,
+	// as a fraction of a year (October 2014 is 2014.79). Every municipal election
+	// was in October.
+	const monthT = (year, month) => year + (month - 0.5) / 12;
+	const dateT = (date) => monthT(+date.slice(0, 4), +date.slice(5, 7));
+	const municipalT = (year) => monthT(year, 10);
 	// The CSV holds turnout to one decimal, so a median of two values lands on a
 	// half step (28.15) that floating point then rounds down. The nudge makes it
 	// round up, which also matches the median of the unrounded figures (28.17).
 	const round1 = (v) => Math.round(v * 10 + 1e-6) / 10;
 
-	// Every line is a list of { year, value } points, since the provincial line
-	// has a point (2025) that the municipal lines don't.
+	// Every line is a list of { year, t, value } points: `t` places it on the time
+	// axis, `year` groups it with the municipal election of the same year.
 	const cities = data.map((d) => ({
 		name: d.municipality,
 		group: 'other',
 		...lineStyle,
-		points: years.map((year) => ({ year, value: +d[`turnout_${year}`] }))
+		points: years.map((year) => ({ year, t: municipalT(year), value: +d[`turnout_${year}`] }))
 	}));
 
 	const medianLine = {
-		name: 'Median of 34 municipalities',
+		name: 'Median of 34 municipal elections',
 		// Too long for the label column on one line.
-		nameLines: ['Median of 34', 'municipalities'],
+		nameLines: ['Median of 34', 'municipal', 'elections'],
 		group: 'median',
-		color: 'var(--brandMedGreen)',
+		color: 'var(--brandPink)',
 		width: 3,
 		dotR: 5,
 		points: years.map((year, i) => ({
 			year,
+			t: municipalT(year),
 			value: round1(median(cities, (c) => c.points[i].value))
 		}))
 	};
 
 	// Province-wide turnout in Ontario's general elections, dashed to set it apart
-	// from the municipal lines. Plotted by year: the 2014, 2018 and 2022 elections
-	// were in June, months before that year's municipal vote.
+	// from the municipal lines. Plotted at their own months: the 2014, 2018 and 2022
+	// elections were in June, four months before that year's municipal vote.
 	const provincialLine = {
 		name: 'Provincial elections',
 		nameLines: ['Provincial', 'elections'],
 		group: 'provincial',
 		color: 'var(--brandMedBlue)',
-		width: 2,
+		width: 1.25,
 		dotR: 4,
 		dashed: true,
-		// Its 2025 value is centred: pushed left, it runs into the 2022 value at 360px.
-		valueCentred: true,
-		points: provincial.map((d) => ({ year: +d.year, value: +d.turnout }))
+		points: provincial.map((d) => ({
+			year: +d.year,
+			t: dateT(d.election_date),
+			value: +d.turnout,
+			when: monthYear(d.election_date)
+		}))
+	};
+
+	// Turnout in Ontario in federal general elections, dotted to tell it apart from
+	// the provincial line. Its elections fall between the municipal columns, so each
+	// of its values sits above its dot.
+	const federalLine = {
+		name: 'Federal elections',
+		nameLines: ['Federal elections', '(Ontario turnout)'],
+		// The label column is too narrow at 360px for those two lines.
+		nameLinesNarrow: ['Federal', 'elections', '(Ontario', 'turnout)'],
+		group: 'federal',
+		color: 'var(--brandDarkBlue)',
+		width: 1.25,
+		dotR: 4,
+		dash: '2 4',
+		points: federal.map((d) => ({
+			year: +d.year,
+			t: dateT(d.election_date),
+			value: +d.turnout,
+			when: monthYear(d.election_date)
+		}))
 	};
 
 	// Grey lines first, so the median and the provincial line are drawn over them,
@@ -120,17 +168,22 @@
 		return [
 			...others,
 			medianLine,
-			provincialLine,
+			...(showProvincial ? [provincialLine] : []),
+			...(showFederal ? [federalLine] : []),
 			...(chosen ? [{ ...chosen, ...selectedStyle, group: 'selected' }] : [])
 		];
 	});
 	const labelled = $derived(lines.filter((l) => l.group !== 'other'));
 
-	// A column for each election year on the chart: the municipal years plus 2025,
-	// which only the provincial line uses.
-	const columns = [
-		...new Set([...years, ...provincialLine.points.map((p) => p.year)])
-	].sort();
+	// A column, headed by its month and year, for each municipal election. The
+	// provincial and federal elections fall in other months, so their values carry
+	// their own month and year instead. The time axis runs from the earliest
+	// election to the latest whether or not those lines are shown, so toggling them
+	// never moves the rest of the chart.
+	const columns = years;
+	const allT = [...years.map(municipalT), ...[...provincialLine.points, ...federalLine.points].map((p) => p.t)];
+	const firstT = Math.min(...allT);
+	const lastT = Math.max(...allT);
 
 	// The full 0-100% range, not one fitted to the data: an axis that stopped at
 	// 60% would make every turnout look like a larger share of electors than it is.
@@ -157,56 +210,83 @@
 
 	// One geometry per snapped width (see meta.widths in charts.js): drawn 1:1, so
 	// the font sizes below are true pixels. The container query in the styles
-	// shows one of the two. The x-axis is in years, so the gap from 2022 to 2025
-	// is drawn to scale.
-	function buildLayout({ W, H, left, right, top, bottom, fontSize, gap }, labelled) {
-		const x = scaleLinear()
-			.domain([columns[0], columns[columns.length - 1]])
-			.range([left, W - right]);
+	// shows one of the two. The x-axis is time, so every gap between elections is
+	// drawn to scale. `inset` is the space between the % labels and the earliest election.
+	function buildLayout({ W, H, left, inset, right, top, bottom, fontSize, gap, narrow = false }, labelled) {
+		const nameLines = (line) => (narrow && line.nameLinesNarrow) || line.nameLines || [line.name];
+		const x = scaleLinear().domain([firstT, lastT]).range([left + inset, W - right]);
 		const y = scaleLinear().domain([0, yMax]).range([H - bottom, top]);
-		const path = (line) => line.points.map((p) => `${x(p.year)},${y(p.value)}`).join(' ');
+		const path = (line) => line.points.map((p) => `${x(p.t)},${y(p.value)}`).join(' ');
 
 		// Each name sits just right of its own line's last point: the municipal
-		// lines end at 2022, the provincial line at 2025. All are dodged together,
+		// lines end in 2022, the provincial and federal lines in 2025. All are dodged together,
 		// since at 360px the two groups of names overlap horizontally.
 		const finishLabels = dodge(
 			// `rows` is how many text lines the label takes, so the next one clears it.
 			labelled.map((line) => {
 				const end = line.points[line.points.length - 1];
-				return { line, x: x(end.year) + 10, y: y(end.value), rows: line.nameLines?.length ?? 1 };
+				const lines = nameLines(line);
+				return { line, lines, x: x(end.t) + 10, y: y(end.value), rows: lines.length };
 			}),
 			gap,
 			H - bottom
 		);
 
-		// The value of each labelled line at each election. A value sits above its
-		// dot unless that would run into the one above it, in which case it drops below.
-		// A line with `labelBelow` always has its values below. Values at a line's
-		// first point sit to the right, at its last point to the left, except for a
-		// line with `valueCentred`, whose last value is centred over its dot.
-		const valueLabels = columns.flatMap((year) => {
+		// A provincial or federal value has its month and year on a second, smaller line, on
+		// the side away from the dot: above the value when the label sits above the
+		// dot, below it when the label sits below.
+		const isReference = (line) => line.group === 'provincial' || line.group === 'federal';
+		const yearLine = fontSize + 1;
+		const withYear = (label, point) => ({
+			...label,
+			year: isReference(label.line) ? point.when : null,
+			yearY: label.below ? label.y + yearLine : label.y - yearLine
+		});
+
+		// The value of each labelled line at each municipal election, together with a
+		// provincial value from the same year, since the two sit close. A value sits
+		// above its dot unless that would run into the one above it, in which case it
+		// drops below. A line with `labelBelow` always has its values below. Values at
+		// a line's first point sit to the right, at its last point to the left.
+		const columnLabels = columns.flatMap((year) => {
 			let previous = -Infinity;
 			return labelled
-				.filter((line) => line.points.some((p) => p.year === year))
+				.filter((line) => line.group !== 'federal' && line.points.some((p) => p.year === year))
 				.map((line) => ({ line, i: line.points.findIndex((p) => p.year === year) }))
 				.sort((a, b) => b.line.points[b.i].value - a.line.points[a.i].value)
 				.map(({ line, i }) => {
 					const point = line.points[i];
 					const dotY = y(point.value);
-					const labelY =
-						line.labelBelow || dotY - 11 - previous < fontSize + 2 ? dotY + fontSize + 8 : dotY - 11;
-					previous = labelY;
+					const extra = isReference(line) ? yearLine : 0;
+					const below = line.labelBelow || dotY - 11 - extra - previous < fontSize + 2;
+					const labelY = below ? dotY + fontSize + 8 : dotY - 11;
+					previous = below ? labelY + extra : labelY;
 					const first = i === 0;
-					const last = i === line.points.length - 1 && !line.valueCentred;
-					return {
-						line,
-						text: fmt(point.value),
-						x: x(year) + (first ? 8 : last ? -8 : 0),
-						y: labelY,
-						anchor: first ? 'start' : last ? 'end' : 'middle'
-					};
+					const last = i === line.points.length - 1;
+					return withYear(
+						{
+							line,
+							text: fmt(point.value),
+							x: x(point.t) + (first ? 8 : last ? -8 : 0),
+							y: labelY,
+							below,
+							anchor: first ? 'start' : last ? 'end' : 'middle'
+						},
+						point
+					);
 				});
 		});
+		// Points in years with no municipal election: every federal one, and the
+		// provincial 2025. Nothing else is near them, so each value goes above its dot.
+		const offColumnLabels = labelled.filter(isReference).flatMap((line) =>
+			line.points
+				.filter((p) => line.group === 'federal' || !columns.includes(p.year))
+				.map((p) =>
+					withYear({ line, text: fmt(p.value), x: x(p.t), y: y(p.value) - 11, below: false, anchor: 'middle' }, p)
+				)
+		);
+		const valueLabels = [...columnLabels, ...offColumnLabels];
+
 		return {
 			W,
 			H,
@@ -224,10 +304,10 @@
 	}
 
 	const wide = $derived(
-		buildLayout({ W: 678, H: 560, left: 44, right: 118, top: 34, bottom: 16, fontSize: 13, gap: 16 }, labelled)
+		buildLayout({ W: 678, H: 560, left: 44, inset: 20, right: 130, top: 34, bottom: 16, fontSize: 13, gap: 16 }, labelled)
 	);
 	const narrow = $derived(
-		buildLayout({ W: 318, H: 520, left: 36, right: 82, top: 34, bottom: 16, fontSize: 11, gap: 14 }, labelled)
+		buildLayout({ W: 318, H: 520, left: 36, inset: 12, right: 82, top: 34, bottom: 16, fontSize: 11, gap: 14, narrow: true }, labelled)
 	);
 </script>
 
@@ -236,14 +316,14 @@
 <div class="legend">
 	<div class="legend-item">
 		<svg class="legend-swatch" viewBox="0 0 24 10" width="24" height="10" aria-hidden="true">
-			<line x1="0" x2="24" y1="5" y2="5" stroke="var(--brandGray30)" stroke-width="1" />
+			<line x1="0" x2="24" y1="5" y2="5" stroke="var(--brandPink)" stroke-opacity="0.36" stroke-width="1" />
 		</svg>
-		<span>Each grey line is one municipality's turnout</span>
+		<span>Each thin line is one municipality's turnout</span>
 	</div>
 	<div class="legend-item">
 		<svg class="legend-swatch" viewBox="0 0 24 10" width="24" height="10" aria-hidden="true">
-			<line x1="0" x2="24" y1="5" y2="5" stroke="var(--brandPink)" stroke-width="3" />
-			<circle cx="12" cy="5" r="4" fill="var(--brandPink)" />
+			<line x1="0" x2="24" y1="5" y2="5" stroke="var(--brandPurple)" stroke-width="3" />
+			<circle cx="12" cy="5" r="4" fill="var(--brandPurple)" />
 		</svg>
 		<label for="turnout-municipality">Highlight a municipality</label>
 		<div class="search">
@@ -291,19 +371,36 @@
 			{/if}
 		</div>
 	</div>
+	<!-- A button for each reference line, pressed while that line shows. -->
+	<div class="legend-item compare">
+		<span id="turnout-compare-label">Compare with other elections:</span>
+		<div class="compare-buttons" role="group" aria-labelledby="turnout-compare-label">
+			{#each compareButtons as b}
+				<button type="button" aria-pressed={b.on} onclick={b.toggle}>
+					<svg class="legend-swatch" viewBox="0 0 20 10" width="20" height="10" aria-hidden="true">
+						<line x1="0" x2="20" y1="5" y2="5" stroke={b.color} stroke-width="1.5" stroke-dasharray={b.dash} />
+					</svg>
+					{b.label}
+				</button>
+			{/each}
+		</div>
+	</div>
 </div>
 
 {#snippet slope(layout)}
 	<svg viewBox="0 0 {layout.W} {layout.H}" width={layout.W} height={layout.H} style="--label-size: {layout.fontSize}px;">
 		{#each yTicks as tick}
+			<!-- A gridline from just after the label to the end of the plot, in the
+			     vertical grid's colour. -->
+			<line x1={layout.plotLeft - 4} x2={layout.plotRight} y1={layout.y(tick)} y2={layout.y(tick)} class="year-line" />
 			<text x={layout.plotLeft - 8} y={layout.y(tick) + 4} class="axis-label" text-anchor="end"
 				>{tick}%</text
 			>
 		{/each}
 
 		{#each columns as year}
-			<line x1={layout.x(year)} x2={layout.x(year)} y1={layout.y(yMax)} y2={layout.plotBottom} class="year-line" />
-			<text x={layout.x(year)} y={layout.y(yMax) - 14} class="year-label" text-anchor="middle">{year}</text>
+			<line x1={layout.x(municipalT(year))} x2={layout.x(municipalT(year))} y1={layout.y(yMax)} y2={layout.plotBottom} class="year-line" />
+			<text x={layout.x(municipalT(year))} y={layout.y(yMax) - 14} class="year-label" text-anchor="middle">10/{year}</text>
 		{/each}
 
 		{#each lines as line}
@@ -316,7 +413,8 @@
 					points={layout.path(line)}
 					fill="none"
 					stroke={line.color}
-					stroke-dasharray={line.dashed ? '6 4' : undefined}
+					stroke-dasharray={line.dash ?? (line.dashed ? '6 4' : undefined)}
+					stroke-opacity={line.opacity ?? 1}
 					class="slope-line"
 					style="--w: {line.width}px;"
 				/>
@@ -338,15 +436,15 @@
 				{/if}
 				{#if line.dotR}
 					{#each line.points as p}
-						<circle cx={layout.x(p.year)} cy={layout.y(p.value)} r={line.dotR} fill={line.color} />
+						<circle cx={layout.x(p.t)} cy={layout.y(p.value)} r={line.dotR} fill={line.color} />
 					{/each}
 				{/if}
 			</g>
 		{/each}
 
 		{#each layout.finishLabels as l}
-			<text x={l.x} y={l.y + 4} text-anchor="start" fill={l.line.color} class="end-label">
-				{#each l.line.nameLines ?? [l.line.name] as part, i}
+			<text x={l.x} y={l.y + 4} text-anchor="start" fill={l.line.color} class="end-label" class:reference={l.line.group !== 'selected'}>
+				{#each l.lines as part, i}
 					<tspan x={l.x} dy={i ? layout.gap : 0}>{part}</tspan>
 				{/each}
 			</text>
@@ -354,7 +452,12 @@
 
 		<!-- After every line, so a value is never drawn under one. -->
 		{#each layout.valueLabels as l}
-			<text x={l.x} y={l.y} text-anchor={l.anchor} fill={l.line.color} class="value-label">{l.text}</text>
+			{#if l.year}
+				<text x={l.x} y={l.yearY} text-anchor={l.anchor} class="year-tag">{l.year}</text>
+			{/if}
+			<text x={l.x} y={l.y} text-anchor={l.anchor} fill={l.line.color} class="value-label" class:reference={l.line.group === 'provincial' || l.line.group === 'federal'}
+				>{l.text}</text
+			>
 		{/each}
 	</svg>
 {/snippet}
@@ -414,6 +517,7 @@
 
 	.line-group:not(.no-hover):hover .slope-line {
 		stroke: var(--brandBlack);
+		stroke-opacity: 1;
 		stroke-width: calc(var(--w) * 2);
 	}
 
@@ -423,8 +527,32 @@
 		font-size: var(--label-size);
 	}
 
+	/* Regular weight for the provincial and federal lines' text, which are
+	   background references, and for the median's name; only a selected
+	   municipality's name is bold. */
+	.end-label.reference,
+	.value-label.reference {
+		font-family: OpenSans;
+	}
+
+	/* A selected municipality's name. */
+	.end-label:not(.reference) {
+		font-family: OpenSansBoldItalic;
+	}
+
 	/* White halo, so a value or name sitting among the lines stays legible. The
 	   municipal names sit under the provincial line's 2022-2025 stretch. */
+	/* 12px at 720px and 10px at 360px, the minimums for chart text. */
+	.year-tag {
+		font-family: OpenSans;
+		font-size: calc(var(--label-size) - 1px);
+		fill: var(--brandGray60);
+		paint-order: stroke;
+		stroke: var(--brandWhite);
+		stroke-width: 3px;
+		stroke-linejoin: round;
+	}
+
 	.end-label,
 	.value-label {
 		paint-order: stroke;
@@ -438,16 +566,44 @@
 		font-weight: normal;
 		font-size: 14px;
 		color: var(--brandGray90);
-		padding-top: 15px;
+		line-height: 28px;
+		padding-top: 10px;
 	}
 
+	/* The title and each legend row are 28px tall, the height of the search box,
+	   so the three lines sit at an even spacing. */
 	.legend {
 		display: flex;
 		flex-direction: column;
-		gap: 8px;
-		padding-top: 6px;
 		padding-bottom: 10px;
 		margin-bottom: 14px;
+	}
+
+	/* At 360px, a gap between the search box and the line below it. */
+	@container (max-width: 400px) {
+		.legend-item.compare {
+			margin-top: 10px;
+		}
+	}
+
+	/* At 720px, "Compare with" and its buttons sit to the right of the two
+	   municipality items, spanning both rows; at 360px everything stacks. */
+	@container (min-width: 401px) {
+		.legend {
+			display: grid;
+			grid-template-columns: auto auto;
+			justify-content: start;
+			column-gap: 82px;
+		}
+
+		/* Two classes, to win over .legend-item's row layout below. */
+		.legend-item.compare {
+			grid-column: 2;
+			grid-row: 1 / span 2;
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: center;
+		}
 	}
 
 	.legend-item {
@@ -455,9 +611,39 @@
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 6px 8px;
+		min-height: 28px;
 		font-family: OpenSans;
 		font-size: 13px;
 		color: var(--brandGray90);
+	}
+
+	/* Two separate buttons; a pressed one is shaded. */
+	.compare-buttons {
+		display: flex;
+		gap: 6px;
+	}
+
+	/* The same look on or off; an unpressed button is faded. */
+	.compare-buttons button {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		font-family: OpenSans;
+		font-size: 13px;
+		color: var(--brandGray90);
+		background: var(--brandWhite);
+		border: solid 1px var(--brandGray45);
+		border-radius: 4px;
+		padding: 3px 10px;
+		cursor: pointer;
+	}
+
+	.compare-buttons button[aria-pressed='false'] {
+		opacity: 0.5;
+	}
+
+	.compare-buttons button:hover {
+		border-color: var(--brandGray70);
 	}
 
 	.legend-swatch {
@@ -470,7 +656,8 @@
 
 	.search input {
 		box-sizing: border-box;
-		width: 200px;
+		width: 150px;
+		height: 28px;
 		font-family: OpenSans;
 		font-size: 13px;
 		color: var(--brandGray90);
@@ -505,7 +692,7 @@
 		z-index: 2;
 		top: calc(100% + 2px);
 		left: 0;
-		width: 200px;
+		width: 150px;
 		max-height: 260px;
 		overflow-y: auto;
 		margin: 0;

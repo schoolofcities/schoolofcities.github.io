@@ -4,11 +4,11 @@
 
 	const years = [2014, 2018, 2022];
 
-	// Toronto and Ottawa keep the colours they have in the slope chart: pink for
-	// the largest decline, blue for the one that rose.
+	// Colours used by no other chart in the post, so neither city reads as one of
+	// the other charts' categories.
 	const highlights = {
-		Toronto: 'var(--brandPink)',
-		Ottawa: 'var(--brandMedBlue)'
+		Toronto: 'var(--brandMedGreen)',
+		Ottawa: 'var(--brandOrange)'
 	};
 	const otherColor = 'var(--brandGray45)';
 
@@ -145,28 +145,6 @@
 	Voter turnout relative to the winning mayoral candidate's share of the vote
 </div>
 
-<div class="legend">
-	{#each Object.entries(highlights) as [name, color]}
-		<div class="legend-item">
-			<svg class="legend-swatch" viewBox="0 0 14 14" width="14" height="14">
-				<circle cx="7" cy="7" r="5.5" fill={color} />
-			</svg>
-			{name}
-		</div>
-	{/each}
-	<div class="legend-item">
-		<svg class="legend-swatch" viewBox="0 0 14 14" width="14" height="14">
-			<circle cx="7" cy="7" r="4.5" fill={otherColor} />
-		</svg>
-		Other municipalities
-	</div>
-	<div class="legend-item">
-		<svg class="legend-swatch" viewBox="0 0 24 10" width="24" height="10">
-			<line x1="0" x2="24" y1="5" y2="5" class="trend-line" />
-		</svg>
-		Trend
-	</div>
-</div>
 
 {#snippet scatter(layout)}
 	<svg viewBox="0 0 {layout.W} {layout.H}" width={layout.W} height={layout.H} style="--label-size: {layout.fontSize}px;">
@@ -200,14 +178,6 @@
 				<text x={f.x0} y={f.y1 + 42} class="axis-title" text-anchor="start">Winner's share of mayoral vote →</text>
 			{/if}
 
-			<line
-				x1={f.x(f.trend.x1)}
-				x2={f.x(f.trend.x2)}
-				y1={f.y(f.trend.y1)}
-				y2={f.y(f.trend.y2)}
-				class="trend-line"
-			/>
-
 			{#each f.points as p}
 				<g class="dot-group">
 					<circle
@@ -227,6 +197,19 @@
 					</circle>
 				</g>
 			{/each}
+
+			<!-- Over the dots, so the trend reads across the whole cloud. -->
+			<line
+				x1={f.x(f.trend.x1)}
+				x2={f.x(f.trend.x2)}
+				y1={f.y(f.trend.y1)}
+				y2={f.y(f.trend.y2)}
+				class="trend-line"
+			/>
+			<!-- Named once, in the first panel, in place of a legend. -->
+			{#if f === layout.frames[0]}
+				<text x={f.x(f.trend.x2)} y={f.y(f.trend.y2) + layout.fontSize + 6} text-anchor="end" class="trend-label">Trend</text>
+			{/if}
 
 			<!-- After every dot, so a label is never covered by a neighbouring point. -->
 			{#each f.points.filter((p) => p.highlighted) as p}
@@ -292,9 +275,22 @@
 	}
 
 	.trend-line {
+		/* Drawn over the dots, so it must not take their hover. */
+		pointer-events: none;
 		stroke: var(--brandDarkBlue);
 		stroke-width: 1.5;
 		stroke-dasharray: 5 3;
+	}
+
+	.trend-label {
+		pointer-events: none;
+		font-family: OpenSansItalic;
+		font-size: var(--label-size);
+		fill: var(--brandDarkBlue);
+		paint-order: stroke;
+		stroke: var(--brandWhite);
+		stroke-width: 3px;
+		stroke-linejoin: round;
 	}
 
 	.axis-label {
@@ -345,28 +341,6 @@
 		font-size: 14px;
 		color: var(--brandGray90);
 		padding-top: 15px;
-	}
-
-	.legend {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 8px 20px;
-		padding-top: 6px;
-		padding-bottom: 10px;
-		margin-bottom: 14px;
-	}
-
-	.legend-item {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-		font-family: OpenSans;
-		font-size: 13px;
-		color: var(--brandGray90);
-	}
-
-	.legend-swatch {
-		flex-shrink: 0;
+		padding-bottom: 14px;
 	}
 </style>

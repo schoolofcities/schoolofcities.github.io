@@ -18,7 +18,7 @@ Barrie,Single-tier,2014,31.2,Lehman,26385,28601,92.3,elected
 Guelph,Single-tier,2014,45.0,Guthrie,19672,38760,50.8,elected
 Whitby,Lower-tier,2014,26.9,Mitchell,16803,22954,73.2,elected
 Cambridge,Lower-tier,2014,29.7,Craig,13484,25308,53.3,elected
-St. Catharines,Lower-tier,2014,31.5,Sendzik,13147,32709,40.2,elected
+St. Catharines,Lower-tier,2014,31.5,Sendzik,13147,,,elected
 Milton,Lower-tier,2014,33.3,Krantz,13830,18404,75.1,elected
 Kingston,Single-tier,2014,39.5,Paterson,13577,35590,38.1,elected
 Ajax,Lower-tier,2014,30.4,Parish,18603,22612,82.3,elected
@@ -42,16 +42,16 @@ London,Single-tier,2018,39.5,Holder,57614,96646,59.6,elected
 Markham,Lower-tier,2018,39.4,Scarpitti,55553,74129,74.9,elected
 Vaughan,Lower-tier,2018,27.0,Bevilacqua,37072,52433,70.7,elected
 Kitchener,Lower-tier,2018,28.2,Vrbanovic,34983,40931,85.5,elected
-Windsor,Single-tier,2018,35.2,Dilkins,31201,52530,59.4,elected
+Windsor,Single-tier,2018,35.2,Dilkens,31201,52530,59.4,elected
 Oakville,Lower-tier,2018,37.1,Burton,22918,46165,49.6,elected
 Richmond Hill,Lower-tier,2018,27.2,Barrow,23304,30635,76.1,elected
 Burlington,Lower-tier,2018,39.8,Ward,23360,50733,46.0,elected
 Oshawa,Lower-tier,2018,24.3,Carter,17651,25406,69.5,elected
 Greater Sudbury,Single-tier,2018,45.0,Bigger,14684,51852,28.3,elected
-Barrie,Single-tier,2018,29.7,Lehman,24854,27321,91.0,elected
+Barrie,Single-tier,2018,30.0,Lehman,24854,27321,91.0,elected
 Guelph,Single-tier,2018,36.0,Guthrie,22203,33352,66.6,elected
 Whitby,Lower-tier,2018,26.3,Mitchell,16464,23153,71.1,elected
-Cambridge,Lower-tier,2018,32.2,Mcgarry,13404,28089,47.7,elected
+Cambridge,Lower-tier,2018,32.2,McGarry,13404,28089,47.7,elected
 St. Catharines,Lower-tier,2018,34.1,Sendzik,21574,31021,69.5,elected
 Milton,Lower-tier,2018,37.0,Krantz,18571,22751,81.6,elected
 Kingston,Single-tier,2018,41.3,Paterson,23708,34346,69.0,elected
@@ -64,7 +64,7 @@ Clarington,Lower-tier,2018,28.6,Foster,12507,18376,68.1,elected
 Pickering,Lower-tier,2018,29.2,Ryan,12959,19596,66.1,elected
 Niagara Falls,Lower-tier,2018,39.2,Diodati,13875,23884,58.1,elected
 Newmarket,Lower-tier,2018,34.6,Taylor,14351,19470,73.7,elected
-Peterborough,Single-tier,2018,48.3,Therrien,19254,28913,66.6,elected
+Peterborough,Single-tier,2018,48.3,Therrien,19254,27913,69.0,elected
 Kawartha Lakes,Single-tier,2018,38.0,Letham,11435,25044,45.7,elected
 Caledon,Lower-tier,2018,32.3,Thompson,7392,16293,45.4,elected
 Toronto,Single-tier,2022,29.7,Tory,342158,551890,62.0,elected
@@ -90,7 +90,7 @@ St. Catharines,Lower-tier,2022,26.3,Siscoe,17808,25900,68.8,elected
 Milton,Lower-tier,2022,28.4,Krantz,11391,,,elected
 Kingston,Single-tier,2022,30.5,Paterson,21844,29402,74.3,elected
 Ajax,Lower-tier,2022,22.5,Collier,11691,18759,62.3,elected
-Waterloo,Lower-tier,2022,27.2,Mccabe,9543,22435,42.5,elected
+Waterloo,Lower-tier,2022,27.2,McCabe,9543,22435,42.5,elected
 Thunder Bay,Single-tier,2022,42.6,Boshcoff,13538,35421,38.2,elected
 Brantford,Single-tier,2022,27.0,Davis,9220,20066,45.9,elected
 Chatham-Kent,Single-tier,2022,30.6,Canniff,17981,23933,75.1,elected
