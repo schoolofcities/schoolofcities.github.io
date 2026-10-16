@@ -61,15 +61,15 @@
 <div class="text">
 
 <p>
-	In 2014, only 3 of the 34 municipalities had turnout below 30%. In 2022, 21 did. Commentators pointed to the COVID-19 pandemic and to election fatigue as potential reasons (the October 2022 municipal elections came four months after the June 2022 provincial election and 13 months after the September 2021 federal election, though the 2014 and 2018 municipal elections also followed June provincial elections).<Footnote id={fCommentary} /> Research from Europe has found that more frequent elections tend to lower turnout.<Footnote id={fFrequency} />
+	In 2014, only 3 of the 34 municipalities had turnout below 30%. In 2022, 21 did. Commentators and news articles pointed to the COVID-19 pandemic and to election fatigue as potential reasons (the October 2022 municipal elections came four months after the June 2022 provincial election and 13 months after the September 2021 federal election, though the 2014 and 2018 municipal elections also followed June provincial elections).<Footnote id={fCommentary} /> Research from Europe has found that more frequent elections tend to lower turnout.<Footnote id={fFrequency} />
 </p>
 
 <p>
-	Earlier research suggests reasons for why turnout differs between municipalities. A study including <a href="https://www.cmb-bmc.ca/" target="_blank" rel="noopener noreferrer">Canadian Municipal Barometer</a> data on 233 municipalities in Ontario, Quebec, British Columbia, and Alberta, in their 2017 and 2018 elections, found that turnout was higher where there were more local newspapers that published more often, where councils had more seats relative to population, and where there was a lower share of residents aged 18 to 34.<Footnote id={fBarometer} />
+	Earlier research does suggest reasons for why turnout differs between municipalities. A study including <a href="https://www.cmb-bmc.ca/" target="_blank" rel="noopener noreferrer">Canadian Municipal Barometer</a> data on 233 municipalities in Ontario, Quebec, British Columbia, and Alberta, in their 2017 and 2018 elections, found that turnout was higher where there were more local newspapers that published more often, where councils had more seats relative to population, and where there was a lower share of residents aged 18 to 34.<Footnote id={fBarometer} />
 </p>
 
 <p>
-	In our look at Ontario's largest municipalities, population size says little about turnout. Apart from Toronto's high turnout in 2014, a municipality's population and its turnout are not correlated. Single-tier cities, which are not part of a regional government, had higher median turnout than lower-tier municipalities within regions such as Peel and York in all three elections. Turnout also tended to be lower where the winning mayoral candidate took a larger share of the vote.
+	In our look at Ontario's largest municipalities 2014-2022, we find that single-tier cities, which are not part of a regional government, had higher median turnout than lower-tier municipalities within regions such as Peel and York in all three elections. We also find that turnout tends to be lower where the winning mayoral candidate took a larger share of the vote.
 </p>
 
 </div>
@@ -81,7 +81,7 @@
 <div class="text">
 
 <p>
-	Half of the 34 municipalities offered internet voting in 2022, up from 10 in 2014, though none of the six largest did. A study of Ontario municipal elections from 2000 to 2014 found that offering internet voting raised turnout by about 3.5 points.<Footnote id={fInternet} /> In our data, the four municipalities that introduced internet voting in 2022 saw turnout rise or change by less than a point, while it fell in every other municipality except Ottawa. The four that introduced it in 2018 had mixed results: turnout rose 4.9 points in Thunder Bay but fell in Newmarket, Kawartha Lakes and Pickering.
+	Another factor is voting method. Half of the 34 municipalities offered internet voting in 2022, up from 10 in 2014. A study of Ontario municipal elections from 2000 to 2014 found that offering internet voting raised turnout by about 3.5 points.<Footnote id={fInternet} /> In our more recent data, the four municipalities that introduced internet voting in 2022 saw turnout rise or change by less than a point, while it fell in every other municipality except Ottawa. The four that introduced it in 2018 had mixed results: turnout rose 4.9 points in Thunder Bay but fell in Newmarket, Kawartha Lakes, and Pickering.
 </p>
 
 </div>
