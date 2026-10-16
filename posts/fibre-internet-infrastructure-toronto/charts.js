@@ -25,26 +25,6 @@ const charts = {
 		graphicVerb: 'adapted',
 		note: 'Includes buried conduit, support structures (handwells, vaults, poles), aerial cable, and cable pulled through existing conduit. Duplicate lengths for multi-segment permits were removed. Only work requiring a City permit in the public right-of-way is included, not work on private property.'
 	},
-	'fibre-construction-by-year': {
-		title: "Bell's fibre construction peaked in 2017, two years before Rogers'",
-		subtitle: 'Kilometres of fibre construction started each year in the public right-of-way, 2014–2022',
-		source: `${paper} Table 7.`,
-		alt: "Three side-by-side column charts on the same scale, one per company, showing kilometres of fibre construction started each year in Toronto from 2014 to 2022. Each column is a stack of small marks, each worth 25 km. Bell Canada: almost nothing in 2014 and 2015, then 556 km in 2016, a peak of 1,198 km in 2017, 420 km in 2018, and under 90 km a year from 2019 on, 2,319 km in total. Rogers Communications: a gradual rise from 9 km in 2015 to a peak of 189 km in 2019, then 121 km in 2020 and close to zero in 2021 and 2022, 660 km in total. Beanfield: under 16 km a year until 2022, when it reaches 57 km, 117 km in total.",
-		data: 'fibre-construction-by-year.csv',
-		widths: [720],
-		graphicVerb: 'created',
-		note: "Annual lengths were derived by dividing the per-year occupancy fee estimates in the paper's Table 7 by the $24.50 per metre rate the paper applies; they sum to the totals in its Table 5. Years are permit start years. No lengths are attributed to 2012 or 2013."
-	},
-	'fibre-construction-map': {
-		title: 'Bell and Rogers mostly built fibre on different streets',
-		subtitle: 'Streets with fibre construction permits in the public right-of-way, 2012–2022',
-		source:
-			'City of Toronto capital works records (2012–2022), as geocoded by Broadband Infrastructure Market Insights (BRIMI), https://brimi.ca/; Mersereau (2026), Telecommunications Policy. Base map: City of Toronto Centreline; Statistics Canada 2021 census subdivision boundaries.',
-		alt: "Map of Toronto, rotated to align with the street grid, showing streets where Bell Canada or Rogers Communications had fibre construction permits between 2012 and 2022. Blue lines show Bell-only streets, red lines Rogers-only streets, and purple lines streets where both companies built; a bar in the legend shows their shares of mapped street length as 59%, 29% and 12%. Blue and red lines are scattered across the whole city, mostly as short separate segments on different streets. Purple overlapping segments are much less common, appearing as short pieces throughout the city, with somewhat more in the northeast, in North York and Scarborough.",
-		widths: [1080, 1440],
-		graphicVerb: 'created',
-		note: "Shows the permit records BRIMI could locate on a street; some records could not be mapped and are not shown. Line lengths on the map are street segments, not the permitted cable lengths used elsewhere on this page. Purple lines mark Bell construction within 15 metres of Rogers construction, a geometric match we computed; Mersereau (2026) matched by street name and found that 12.5% of street segments had construction by both companies. Legend percentages are each category's share of the total mapped street length for Bell and Rogers (1,010 km). Beanfield's construction is not shown."
-	},
 	'bell-price-with-competitor': {
 		title: "Bell's listed fibre prices were less than half as high where Beanfield also offers service",
 		subtitle: "Bell's listed monthly price for two gigabit fibre plans at nearby Toronto addresses with and without Beanfield service, as compiled by Beanfield in 2024",

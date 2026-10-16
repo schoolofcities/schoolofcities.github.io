@@ -2,7 +2,7 @@
 	import { format } from 'd3';
 	import data from '../data/fibre-construction-totals.csv';
 
-	// Same company colours on every chart and the map in this post.
+	// Same company colours on every chart and the maps in this post.
 	const colors = {
 		Bell: 'var(--brandMedBlue)',
 		Rogers: 'var(--brandRed)',
@@ -13,7 +13,7 @@
 	const units = 100; // one mark per 1% of the total
 	const unitW = width / units;
 	const gap = 1.5;
-	const barH = 30;
+	const barH = 55;
 	const fmt = format(',');
 
 	// Largest-remainder rounding, so each row is exactly 100 marks and every
@@ -53,7 +53,7 @@
 	// start of its run; Rogers' and Beanfield's are right-aligned to the end of
 	// theirs, with Beanfield's raised a line and given a leader, since its run is
 	// too short to sit under its own label.
-	const rowH = 118;
+	const rowH = 143;
 	const titleY = 14;
 	const upperY = 40;
 	const lowerY = 60;
@@ -76,8 +76,7 @@
 			{#each row.segments as seg, i}
 				{@const l = labelFor(seg, i)}
 				<text x={l.x} y={l.y} text-anchor={l.anchor} class="value">
-					{#if r === 0}<tspan class="company" fill={colors[seg.company]}>{seg.company}</tspan>
-						{' '}{/if}{seg.text}
+					<tspan class="company" fill={colors[seg.company]}>{seg.company}</tspan>{' '}{seg.text}
 				</text>
 				{#if l.leaderX !== undefined}
 					<line x1={l.leaderX} x2={l.leaderX} y1={upperY + 5} y2={barY - 3} class="leader" />

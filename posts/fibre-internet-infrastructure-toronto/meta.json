@@ -1,12 +1,12 @@
 {
-	"title": "Who built Toronto's fibre internet from 2012 to 2022?",
+	"title": "Who built Toronto's fibre internet?",
 	"type": "post",
-	"summary": "Bell Canada accounted for 75% of the fibre-internet construction permitted under Toronto's streets between 2012 and 2022, about 3.5 times as much as Rogers.",
+	"summary": "City permit records show Bell Canada did three-quarters of the fibre-internet construction under Toronto's streets, mostly on different streets from Rogers.",
 	"authors": ["Jeff Allen"],
 	"published": "2026-10-02",
 	"license": "CC-BY-4.0",
 	"protected": true,
-	"cardImage": "fibre-construction-map",
+	"cardImage": "fibre-construction-totals",
 	"geography": ["Toronto"],
 	"tags": ["urban", "policy", "telecommunications", "infrastructure"],
 	"documents": [
