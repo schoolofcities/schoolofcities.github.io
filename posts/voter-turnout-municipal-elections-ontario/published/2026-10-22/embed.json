@@ -1,0 +1,14 @@
+{
+	"turnout-by-election": {
+		"width": 720,
+		"height": 1095
+	},
+	"turnout-by-internet-voting": {
+		"width": 720,
+		"height": 987
+	},
+	"turnout-by-mayoral-vote": {
+		"width": 720,
+		"height": 919
+	}
+}

@@ -3,6 +3,7 @@ export function parseMarkdown(text) {
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')       // bold
         .replace(/\*(?!\*)(.+?)\*/g, '<em>$1</em>')              // italics
         .replace(/\[([^\]]+)]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>') // links
+        .replace(/\n\n/g, '<span class="footnote-gap"></span>') // blank line between references, sized by each component
         .replace(/\n/g, '<br>');                                 // line breaks
 }
 

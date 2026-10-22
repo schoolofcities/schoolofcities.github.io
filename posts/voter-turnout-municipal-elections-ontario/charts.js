@@ -21,10 +21,10 @@ const charts = {
 	'turnout-by-election': {
 		title: 'Voter turnout declined in most Ontario municipal elections between 2014 and 2022',
 		subtitle:
-			'Turnout fell in both 2018 and 2022 in 18 of 34 municipalities. Only Ottawa’s rose in both years',
+			'Turnout fell in both 2018 and 2022 in 18 of 34 municipalities. Only Ottawa’s rose in both years.',
 		source:
 			'Government of Ontario, Municipal election results (2014, 2018, 2022); City of Toronto and City of Barrie election results; Elections Ontario, General Elections Statistics from the Records; Elections Canada, Official Voting Results (2015, 2019, 2021, 2025); Statistics Canada, Census of Population (2021)',
-		alt: 'Slope chart of voter turnout in the 2014, 2018 and 2022 municipal elections for 34 Ontario municipalities. Most lines fall, most steeply between 2018 and 2022. The median declines from 36.1% to 28.2%. A dotted line shows federal election turnout in Ontario: 67.8% in 2015, 66.3% in 2019, 62.0% in 2021 and 69.1% in 2025. A button adds provincial election turnout: 51.3% in 2014, 56.7% in 2018, 44.1% in 2022 and 45.2% in 2025.',
+		alt: 'Slope chart of voter turnout in the 2014, 2018 and 2022 municipal elections for 34 Ontario municipalities. Turnout fell in most of them, most steeply between 2018 and 2022, and the median dropped from 36.1% to 28.2%. Dotted lines show turnout in Ontario for federal elections (62% to 69%) and provincial elections (44% to 57%), both well above municipal turnout.',
 		note: substitutionNote,
 		data: ['turnout-by-municipality.csv', 'provincial-turnout.csv', 'federal-turnout.csv'],
 		widths: [360, 720],
@@ -33,7 +33,7 @@ const charts = {
 	'turnout-by-mayoral-vote': {
 		title: 'Turnout in Ontario municipal elections tended to be lower where the mayor won with a larger share of the vote',
 		subtitle:
-			'Toronto’s highest turnout came in 2014, when its mayor was elected with only 40% of the vote. Ottawa’s came in 2022, when its mayor was elected with 51%',
+			'Toronto’s highest turnout came in 2014, when its mayor was elected with only 40% of the vote. Ottawa’s came in 2022, when its mayor was elected with 51%.',
 		source:
 			'Government of Ontario, Municipal election results, municipal and successful candidate data (2014, 2018, 2022); City of Toronto and City of Barrie election results',
 		alt: 'Three scatter plots, one for each of the 2014, 2018 and 2022 municipal elections, of voter turnout relative to the winning mayoral candidate’s share of the vote in Ontario municipalities. In each, the trend slopes downward: turnout is lower where the winner took a larger share. Toronto and Ottawa are highlighted.',
@@ -44,7 +44,7 @@ const charts = {
 	},
 	'turnout-by-internet-voting': {
 		title: 'Municipalities in Ontario that introduced internet voting in 2022 did not see the drop in turnout seen elsewhere',
-		subtitle: 'The four that introduced it in 2018 showed no such difference',
+		subtitle: 'The four that introduced it in 2018 showed no such difference.',
 		source:
 			'Government of Ontario, Municipal election results (2014, 2018, 2022); Association of Municipalities of Ontario, vote methods (2018, 2022); municipal election reports',
 		alt: 'Arrow chart of the change in voter turnout for Ontario municipalities that started or stopped offering internet voting, compared with the median change of those that did not. From 2018 to 2022, the four that introduced it changed by less than 5 points while the median fell 8.1; from 2014 to 2018, Thunder Bay rose 4.9 points while three others fell more than the median of −0.9.',

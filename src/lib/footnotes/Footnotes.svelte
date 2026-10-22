@@ -28,7 +28,7 @@
 
             </p>
 
-            <a href={`#footnote-ref-${footnote.id}`} class="backlink" on:click|preventDefault={() => {
+            <a href={`#footnote-ref-${footnote.id}`} class="backlink" aria-label="Back to text" on:click|preventDefault={() => {
                     const element = document.getElementById(`footnote-ref-${footnote.id}`);
                     const yOffset = -100;
                     if (element) {
@@ -36,7 +36,10 @@
                         window.scrollTo({ top: y, behavior: 'auto' });
                     }
                 }}>
-                    ⮝
+                    <!-- An SVG rather than the ⮝ character, which many phone fonts lack. -->
+                    <svg class="backlink-arrow" viewBox="0 0 10 10" width="12" height="12" aria-hidden="true">
+                        <path d="M5 1 L9.5 9 L5 6.5 L0.5 9 Z" fill="currentColor" />
+                    </svg>
                 </a>
 
         </div>
@@ -71,7 +74,7 @@
     
     .footnote-item {
         padding-left: 32px;
-        margin-bottom: 10px;
+        margin-bottom: 17px;
         position: relative;
     }
 
@@ -91,6 +94,16 @@
         color: var(--brandGray90);
     }
 
+    /* Space between references in the same footnote: 8px short of a full line. */
+    .footnote-item :global(.footnote-gap) {
+        display: block;
+        height: 16px;
+    }
+
+    .backlink-arrow {
+        vertical-align: baseline;
+    }
+
     .backlink {
         margin-left: 5px;
         font-family: SourceSerif, serif;
@@ -103,6 +116,10 @@
         .footnote-item p {
             font-size: 15px;
             line-height: 23px;
+        }
+
+        .footnote-item :global(.footnote-gap) {
+            height: 15px;
         }
     }
 
