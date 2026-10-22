@@ -112,6 +112,12 @@
     	overflow-wrap: break-word;
 	}
 
+	/* Space between references in the same footnote: one full line. */
+	.footnoteTooltip :global(.footnote-gap) {
+		display: block;
+		height: 20px;
+	}
+
 	@media (max-width: 980px) {
 		.footnoteTooltip {
 			display: none !important;

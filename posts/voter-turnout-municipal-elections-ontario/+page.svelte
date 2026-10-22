@@ -42,7 +42,7 @@
 <div class="text">
 
 <p>
-	Every four years, on the fourth Monday in October, Ontarians go to the polls to elect their mayors, councillors and school board trustees. The percentage of the electorate who actually vote, voter turnout, is a common measure of civic engagement in local democracy.
+	Every four years, on the fourth Monday in October, Ontarians go to the polls to elect their mayors, councillors, and school board trustees. The percentage of the electorate who actually vote – voter turnout – is a common measure of civic engagement in local democracy.
 </p>
 
 <p>
@@ -61,15 +61,15 @@
 <div class="text">
 
 <p>
-	In 2014, only 3 of the 34 municipalities had turnout below 30%. In 2022, 21 did. Commentators and news articles pointed to the COVID-19 pandemic and to election fatigue as potential reasons (the October 2022 municipal elections came four months after the June 2022 provincial election and 13 months after the September 2021 federal election, though the 2014 and 2018 municipal elections also followed June provincial elections).<Footnote id={fCommentary} /> Research from Europe has found that more frequent elections tend to lower turnout.<Footnote id={fFrequency} />
+	In 2014, only 3 of the 34 municipalities had turnout below 30%. In 2022, this number rose to 21. Commentators and news articles pointed to the COVID-19 pandemic and to election fatigue as potential reasons (the October 2022 municipal elections came less than five months after the June 2022 provincial election and 13 months after the September 2021 federal election, though the 2014 and 2018 municipal elections also followed June provincial elections).<Footnote id={fCommentary} /> Research from Europe has found that more frequent elections tend to lower turnout.<Footnote id={fFrequency} />
 </p>
 
 <p>
-	Earlier research does suggest reasons for why turnout differs between municipalities. A study including <a href="https://www.cmb-bmc.ca/" target="_blank" rel="noopener noreferrer">Canadian Municipal Barometer</a> data on 233 municipalities in Ontario, Quebec, British Columbia, and Alberta, in their 2017 and 2018 elections, found that turnout was higher where there were more local newspapers that published more often, where councils had more seats relative to population, and where there was a lower share of residents aged 18 to 34.<Footnote id={fBarometer} />
+	Earlier research does suggest some reasons why turnout differs between municipalities. A study including <a href="https://www.cmb-bmc.ca/" target="_blank" rel="noopener noreferrer">Canadian Municipal Barometer</a> data on 233 municipalities in Ontario, Quebec, British Columbia, and Alberta, in their 2017 and 2018 elections, found that turnout was higher where there were more local newspapers per resident and they published more often, where councils had more seats relative to population, and where there was a lower share of residents aged 18 to 34.<Footnote id={fBarometer} />
 </p>
 
 <p>
-	In our look at Ontario's largest municipalities 2014-2022, we find that single-tier cities, which are not part of a regional government, had higher median turnout than lower-tier municipalities within regions such as Peel and York in all three elections. We also find that turnout tends to be lower where the winning mayoral candidate took a larger share of the vote.
+	In our look at Ontario's largest municipalities 2014-2022 we find that, in all three elections, single-tier cities – which are not part of a regional government – had higher median turnout than lower-tier municipalities within regions such as Peel and York. We also find that turnout tends to be lower where the winning mayoral candidate took a larger share of the vote.
 </p>
 
 </div>
@@ -117,8 +117,7 @@
 
 	<p>
 		Whether each municipality offered internet voting is also from the provincial dataset, which records the voting methods each municipality used, including internet voting only during advance voting. 
-		<!-- We checked these against the Association of Municipalities of Ontario's lists of voting methods for <a href="https://www.amo.on.ca/2018-municipal-election-vote-methods" target="_blank" rel="noopener noreferrer">2018</a> and <a href="https://www.amo.on.ca/2022-municipal-election-all-vote-methods-municipality" target="_blank" rel="noopener noreferrer">2022</a>, and against municipal reports and local news for 2014 and for every municipality that started or stopped offering internet voting.  -->
-		We noticed a couple discrepancies in the source data that we fixed before creating the chart. A) The provincial dataset lists internet voting in Oakville in 2018, but AMO's list and the Town's <a href="https://www.oakville.ca/town-hall/elections/past-elections/2018-municipal-election/2018-municipal-election-ballots-cast-per-location/" target="_blank" rel="noopener noreferrer">count of ballots by polling location</a> show that every ballot was cast in person. B) The provincial dataset was blank for Toronto in 2014, but the City's <a href="https://www.toronto.ca/wp-content/uploads/2017/07/96b9-2014-election-report.pdf" target="_blank" rel="noopener noreferrer">2014 election report</a> does not indicate that the City offered internet voting.
+		We noticed a couple of discrepancies in the source data, which we fixed before creating the chart. A) The provincial dataset lists internet voting in Oakville in 2018, but the Association of Municipalities of Ontario's list of voting methods and the Town's <a href="https://www.oakville.ca/town-hall/elections/past-elections/2018-municipal-election/2018-municipal-election-ballots-cast-per-location/" target="_blank" rel="noopener noreferrer">count of ballots by polling location</a> show that every ballot was cast in person. B) The provincial dataset was blank for Toronto in 2014, but the City's <a href="https://www.toronto.ca/wp-content/uploads/2017/07/96b9-2014-election-report.pdf" target="_blank" rel="noopener noreferrer">2014 election report</a> does not indicate that the City offered internet voting.
 	</p>
 
 	<p>

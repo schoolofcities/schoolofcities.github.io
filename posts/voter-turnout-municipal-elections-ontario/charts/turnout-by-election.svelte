@@ -106,9 +106,9 @@
 	}));
 
 	const medianLine = {
-		name: 'Median of 34 municipal elections',
+		name: 'Median of 34 municipalities',
 		// Too long for the label column on one line.
-		nameLines: ['Median of 34', 'municipal', 'elections'],
+		nameLines: ['Median of 34', 'municipalities'],
 		group: 'median',
 		color: 'var(--brandPink)',
 		width: 3,
