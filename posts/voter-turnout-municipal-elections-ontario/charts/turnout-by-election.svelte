@@ -10,10 +10,10 @@
 	let selected = $state('');
 
 	// The provincial and federal reference lines, each switched on and off by its
-	// own button in the legend. Federal starts on and provincial off, and exports
-	// and the no-JS page show that default. Hiding one leaves the year columns as
-	// they are, so the other lines don't shift sideways.
-	let showProvincial = $state(false);
+	// own button in the legend. Both start on, since the subtitle compares the
+	// median with both, and exports and the no-JS page show that default. Hiding one
+	// leaves the year columns as they are, so the other lines don't shift sideways.
+	let showProvincial = $state(true);
 	let showFederal = $state(true);
 	const compareButtons = $derived([
 		{ label: 'Provincial', color: 'var(--brandMedBlue)', dash: '6 4', on: showProvincial, toggle: () => (showProvincial = !showProvincial) },
