@@ -10,10 +10,10 @@
 	let selected = $state('');
 
 	// The provincial and federal reference lines, each switched on and off by its
-	// own button in the legend. Federal starts on and provincial off, and exports
-	// and the no-JS page show that default. Hiding one leaves the year columns as
-	// they are, so the other lines don't shift sideways.
-	let showProvincial = $state(false);
+	// own button in the legend. Both start on, since the subtitle compares the
+	// median with both, and exports and the no-JS page show that default. Hiding one
+	// leaves the year columns as they are, so the other lines don't shift sideways.
+	let showProvincial = $state(true);
 	let showFederal = $state(true);
 	const compareButtons = $derived([
 		{ label: 'Provincial', color: 'var(--brandMedBlue)', dash: '6 4', on: showProvincial, toggle: () => (showProvincial = !showProvincial) },
@@ -72,7 +72,7 @@
 		}
 	}
 
-	const years = [2014, 2018, 2022];
+	const years = [2014, 2018, 2022, 2026];
 	const municipalities = data.map((d) => d.municipality).sort((a, b) => a.localeCompare(b));
 
 	// Every municipality is a faint line in the median's pink, so the median reads
@@ -97,12 +97,16 @@
 	const round1 = (v) => Math.round(v * 10 + 1e-6) / 10;
 
 	// Every line is a list of { year, t, value } points: `t` places it on the time
-	// axis, `year` groups it with the municipal election of the same year.
+	// axis, `year` groups it with the municipal election of the same year. A year
+	// with no figure yet (three municipalities in 2026) is left out, so that line
+	// stops at its last election rather than dropping to 0%.
 	const cities = data.map((d) => ({
 		name: d.municipality,
 		group: 'other',
 		...lineStyle,
-		points: years.map((year) => ({ year, t: municipalT(year), value: +d[`turnout_${year}`] }))
+		points: years
+			.filter((year) => d[`turnout_${year}`] !== '')
+			.map((year) => ({ year, t: municipalT(year), value: +d[`turnout_${year}`] }))
 	}));
 
 	const medianLine = {
@@ -113,10 +117,11 @@
 		color: 'var(--brandPink)',
 		width: 3,
 		dotR: 5,
-		points: years.map((year, i) => ({
+		// Of the municipalities with a figure that year: 31 in 2026.
+		points: years.map((year) => ({
 			year,
 			t: municipalT(year),
-			value: round1(median(cities, (c) => c.points[i].value))
+			value: round1(median(cities, (c) => c.points.find((p) => p.year === year)?.value))
 		}))
 	};
 
@@ -126,6 +131,10 @@
 	const provincialLine = {
 		name: 'Provincial elections',
 		nameLines: ['Provincial', 'elections'],
+		// Its last point (2/2025) sits just left of the 2026 municipal column, so a
+		// name beside it would land among the 2026 values. Centred above that point
+		// instead, over its date and value, and kept out of the dodging.
+		nameOffset: { dx: 0, dy: -60, anchor: 'middle' },
 		group: 'provincial',
 		color: 'var(--brandMedBlue)',
 		width: 1.25,
@@ -185,10 +194,12 @@
 	const firstT = Math.min(...allT);
 	const lastT = Math.max(...allT);
 
-	// The full 0-100% range, not one fitted to the data: an axis that stopped at
+	// From 0%, and well above the data, not fitted to it: an axis that stopped at
 	// 60% would make every turnout look like a larger share of electors than it is.
-	const yMax = 100;
-	const yTicks = [0, 20, 40, 60, 80, 100];
+	// 88% leaves room above the highest point (federal 69.1%) for its two-line
+	// label, with no unlabelled gridline at the top.
+	const yMax = 88;
+	const yTicks = [0, 20, 40, 60, 80];
 
 	// Labels sit at the y of their line's end, so neighbours can collide. Pushes
 	// them apart to at least `gap`, top to bottom, then back up if that ran past
@@ -219,18 +230,26 @@
 		const path = (line) => line.points.map((p) => `${x(p.t)},${y(p.value)}`).join(' ');
 
 		// Each name sits just right of its own line's last point: the municipal
-		// lines end in 2022, the provincial and federal lines in 2025. All are dodged together,
+		// lines end in 2026, the provincial and federal lines in 2025. All are dodged together,
 		// since at 360px the two groups of names overlap horizontally.
-		const finishLabels = dodge(
-			// `rows` is how many text lines the label takes, so the next one clears it.
-			labelled.map((line) => {
-				const end = line.points[line.points.length - 1];
-				const lines = nameLines(line);
-				return { line, lines, x: x(end.t) + 10, y: y(end.value), rows: lines.length };
-			}),
-			gap,
-			H - bottom
-		);
+		const finishLabel = (line) => {
+			const end = line.points[line.points.length - 1];
+			const lines = nameLines(line);
+			const { dx = 10, dy = 0, anchor = 'start' } = line.nameOffset ?? {};
+			// A selected municipality's last value goes on a row under its name (see
+			// below), so its label takes one more row when dodging.
+			const rows = lines.length + (line.group === 'selected' ? 1 : 0);
+			return { line, lines, x: x(end.t) + dx, y: y(end.value) + dy, rows, anchor };
+		};
+		const finishLabels = [
+			...dodge(
+				// `rows` is how many text lines the label takes, so the next one clears it.
+				labelled.filter((line) => !line.nameOffset).map(finishLabel),
+				gap,
+				H - bottom
+			),
+			...labelled.filter((line) => line.nameOffset).map(finishLabel)
+		];
 
 		// A provincial or federal value has its month and year on a second, smaller line, on
 		// the side away from the dot: above the value when the label sits above the
@@ -253,6 +272,7 @@
 			return labelled
 				.filter((line) => line.group !== 'federal' && line.points.some((p) => p.year === year))
 				.map((line) => ({ line, i: line.points.findIndex((p) => p.year === year) }))
+				.filter(({ line, i }) => !(line.group === 'selected' && i === line.points.length - 1))
 				.sort((a, b) => b.line.points[b.i].value - a.line.points[a.i].value)
 				.map(({ line, i }) => {
 					const point = line.points[i];
@@ -285,7 +305,19 @@
 					withYear({ line, text: fmt(p.value), x: x(p.t), y: y(p.value) - 11, below: false, anchor: 'middle' }, p)
 				)
 		);
-		const valueLabels = [...columnLabels, ...offColumnLabels];
+		// A selected municipality's last value sits under its name rather than beside
+		// its dot, where it would crowd the provincial 2025 value and the 2026 column.
+		const selectedEndLabels = finishLabels
+			.filter((l) => l.line.group === 'selected')
+			.map((l) => ({
+				line: l.line,
+				text: fmt(l.line.points[l.line.points.length - 1].value),
+				x: l.x,
+				y: l.y + 4 + gap * l.lines.length,
+				anchor: 'start',
+				year: null
+			}));
+		const valueLabels = [...columnLabels, ...offColumnLabels, ...selectedEndLabels];
 
 		return {
 			W,
@@ -443,7 +475,7 @@
 		{/each}
 
 		{#each layout.finishLabels as l}
-			<text x={l.x} y={l.y + 4} text-anchor="start" fill={l.line.color} class="end-label" class:reference={l.line.group !== 'selected'}>
+			<text x={l.x} y={l.y + 4} text-anchor={l.anchor} fill={l.line.color} class="end-label" class:reference={l.line.group !== 'selected'}>
 				{#each l.lines as part, i}
 					<tspan x={l.x} dy={i ? layout.gap : 0}>{part}</tspan>
 				{/each}

@@ -1,7 +1,7 @@
 {
 	"title": "Voter turnout in Ontario municipal elections",
 	"type": "post",
-	"summary": "Median turnout in Ontario's 34 largest municipalities declined from 36% in 2014 to 28% in 2022.",
+	"summary": "Median turnout in Ontario's 34 largest municipalities declined from 36% in 2014 to 28% in 2022, then rose to about 33% in 2026.",
 	"authors": [
 		"Jeff Allen"
 	],
@@ -14,5 +14,11 @@
 	],
 	"tags": [
 		"urban", "elections", "turnout"
+	],
+	"changelog": [
+		{
+			"date": "2026-10-28",
+			"note": "Added preliminary, unofficial 2026 turnout to the first chart."
+		}
 	]
 }

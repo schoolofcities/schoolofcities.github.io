@@ -1,35 +1,35 @@
-municipality,status,tier,population_2021,electors_2014,voted_2014,turnout_2014,source_2014,electors_2018,voted_2018,turnout_2018,source_2018,electors_2022,voted_2022,turnout_2022,source_2022,change_2014_2022
-Toronto,City,Single-tier,2794356,1813915,991754,54.7,city,1880371,769044,40.9,city,1893091,563124,29.7,province,-25.0
-Ottawa,City,Single-tier,1017449,632385,252464,39.9,province,633946,269772,42.6,province,722227,316254,43.8,province,3.9
-Mississauga,City,Lower-tier,717961,444755,162655,36.6,province,432029,119229,27.6,province,491260,107310,21.8,province,-14.8
-Brampton,City,Lower-tier,656480,289906,104947,36.2,province,313273,108070,34.5,province,354884,87155,24.6,province,-11.6
-Hamilton,City,Single-tier,569353,366124,124550,34.0,province,361212,138549,38.4,province,405228,143375,35.4,province,1.4
-London,City,Single-tier,422324,259133,111937,43.2,province,248212,97947,39.5,province,281073,71678,25.5,province,-17.7
-Markham,City,Lower-tier,338503,195805,72620,37.1,province,196689,77503,39.4,province,217490,69805,32.1,province,-5.0
-Vaughan,City,Lower-tier,323103,190724,57763,30.3,province,201488,54434,27.0,province,227272,60229,26.5,province,-3.8
-Kitchener,City,Lower-tier,256885,147292,45167,30.7,province,148584,41933,28.2,province,171025,34658,20.3,province,-10.4
-Windsor,City,Single-tier,229660,156663,58770,37.5,province,150602,53026,35.2,province,158604,50078,31.6,province,-5.9
-Oakville,Town,Lower-tier,213759,125722,41921,33.3,province,125718,46624,37.1,province,144970,41021,28.3,province,-5.0
-Richmond Hill,City,Lower-tier,202022,116139,37429,32.2,province,116080,31521,27.2,province,129924,41147,31.7,province,-0.5
-Burlington,City,Lower-tier,186948,125250,42763,34.1,province,128238,51021,39.8,province,142218,39217,27.6,province,-6.5
-Oshawa,City,Lower-tier,175383,110789,29271,26.4,province,108138,26238,24.3,province,121885,22456,18.4,province,-8.0
-Greater Sudbury,City,Single-tier,166004,117701,59686,50.7,province,115784,52087,45.0,province,119147,50232,42.2,province,-8.5
-Barrie,City,Single-tier,147829,92491,28889,31.2,province,92156,27652,30.0,city,103764,31602,30.5,province,-0.7
-Guelph,City,Single-tier,143740,86574,38933,45.0,province,93650,33732,36.0,province,105096,29254,27.8,province,-17.2
-Whitby,Town,Lower-tier,138501,87406,23498,26.9,province,90099,23712,26.3,province,102618,23872,23.3,province,-3.6
-Cambridge,City,Lower-tier,138479,85459,25395,29.7,province,87750,28292,32.2,province,96000,27689,28.8,province,-0.9
-St. Catharines,City,Lower-tier,136803,96356,30340,31.5,province,91047,31021,34.1,province,100448,26427,26.3,province,-5.2
-Milton,Town,Lower-tier,132979,56635,18845,33.3,province,62521,23139,37.0,province,81432,23164,28.4,province,-4.9
-Kingston,City,Single-tier,132485,90719,35856,39.5,province,83608,34529,41.3,province,98173,29938,30.5,province,-9.0
-Ajax,Town,Lower-tier,126666,74891,22785,30.4,province,77885,25634,32.9,province,85443,19205,22.5,province,-7.9
-Waterloo,City,Lower-tier,121436,71667,25750,35.9,province,72598,24843,34.2,province,82557,22435,27.2,province,-8.7
-Thunder Bay,City,Single-tier,108843,81109,37354,46.1,province,81135,41361,51.0,province,83679,35661,42.6,province,-3.5
-Brantford,City,Single-tier,104688,65057,24451,37.6,province,66619,24477,36.7,province,75305,20340,27.0,province,-10.6
-Chatham-Kent,Municipality,Single-tier,103988,77855,32783,42.1,province,76418,34722,45.4,province,80332,24546,30.6,province,-11.5
-Clarington,Municipality,Lower-tier,101427,62329,19032,30.5,province,65373,18678,28.6,province,73471,20606,28.0,province,-2.5
-Pickering,City,Lower-tier,99186,66564,22877,34.4,province,67748,19777,29.2,province,76305,20786,27.2,province,-7.2
-Niagara Falls,City,Lower-tier,94415,60062,22045,36.7,province,61859,24242,39.2,province,68201,18773,27.5,province,-9.2
-Newmarket,Town,Lower-tier,87942,55563,20434,36.8,province,56749,19662,34.6,province,61210,15221,24.9,province,-11.9
-Peterborough,City,Single-tier,83651,59256,27204,45.9,province,58022,28030,48.3,province,65943,26352,40.0,province,-5.9
-Kawartha Lakes,City,Single-tier,79247,67607,28047,41.5,province,66441,25280,38.0,province,70833,23136,32.7,province,-8.8
-Caledon,Town,Lower-tier,76581,47485,16264,34.3,province,51192,16531,32.3,province,56538,17939,31.7,province,-2.6
+municipality,status,tier,population_2021,electors_2014,voted_2014,turnout_2014,source_2014,electors_2018,voted_2018,turnout_2018,source_2018,electors_2022,voted_2022,turnout_2022,source_2022,electors_2026,voted_2026,turnout_2026,source_2026,status_2026,change_2014_2022
+Toronto,City,Single-tier,2794356,1813915,991754,54.7,city,1880371,769044,40.9,city,1893091,563124,29.7,province,2143771,982660,45.8,amo,unofficial,-25.0
+Ottawa,City,Single-tier,1017449,632385,252464,39.9,province,633946,269772,42.6,province,722227,316254,43.8,province,868248,314393,36.2,amo,unofficial,3.9
+Mississauga,City,Lower-tier,717961,444755,162655,36.6,province,432029,119229,27.6,province,491260,107310,21.8,province,559668,191166,34.2,amo,unofficial,-14.8
+Brampton,City,Lower-tier,656480,289906,104947,36.2,province,313273,108070,34.5,province,354884,87155,24.6,province,428012,123133,28.8,amo,unofficial,-11.6
+Hamilton,City,Single-tier,569353,366124,124550,34.0,province,361212,138549,38.4,province,405228,143375,35.4,province,465861,147196,31.6,city,unofficial,1.4
+London,City,Single-tier,422324,259133,111937,43.2,province,248212,97947,39.5,province,281073,71678,25.5,province,332688,103163,31.0,amo,unofficial,-17.7
+Markham,City,Lower-tier,338503,195805,72620,37.1,province,196689,77503,39.4,province,217490,69805,32.1,province,256030,83303,32.5,amo,unofficial,-5.0
+Vaughan,City,Lower-tier,323103,190724,57763,30.3,province,201488,54434,27.0,province,227272,60229,26.5,province,265197,71191,26.8,amo,unofficial,-3.8
+Kitchener,City,Lower-tier,256885,147292,45167,30.7,province,148584,41933,28.2,province,171025,34658,20.3,province,200809,44519,22.2,amo,unofficial,-10.4
+Windsor,City,Single-tier,229660,156663,58770,37.5,province,150602,53026,35.2,province,158604,50078,31.6,province,,,,,,-5.9
+Oakville,Town,Lower-tier,213759,125722,41921,33.3,province,125718,46624,37.1,province,144970,41021,28.3,province,178083,60638,34.1,amo,unofficial,-5.0
+Richmond Hill,City,Lower-tier,202022,116139,37429,32.2,province,116080,31521,27.2,province,129924,41147,31.7,province,159441,44604,28.0,amo,unofficial,-0.5
+Burlington,City,Lower-tier,186948,125250,42763,34.1,province,128238,51021,39.8,province,142218,39217,27.6,province,160089,56863,35.5,amo,unofficial,-6.5
+Oshawa,City,Lower-tier,175383,110789,29271,26.4,province,108138,26238,24.3,province,121885,22456,18.4,province,151269,40718,26.9,amo,unofficial,-8.0
+Greater Sudbury,City,Single-tier,166004,117701,59686,50.7,province,115784,52087,45.0,province,119147,50232,42.2,province,,,40.5,city,official,-8.5
+Barrie,City,Single-tier,147829,92491,28889,31.2,province,92156,27652,30.0,city,103764,31602,30.5,province,131084,39533,30.2,amo,unofficial,-0.7
+Guelph,City,Single-tier,143740,86574,38933,45.0,province,93650,33732,36.0,province,105096,29254,27.8,province,,44298,36.4,city,official,-17.2
+Whitby,Town,Lower-tier,138501,87406,23498,26.9,province,90099,23712,26.3,province,102618,23872,23.3,province,119558,37267,31.2,amo,unofficial,-3.6
+Cambridge,City,Lower-tier,138479,85459,25395,29.7,province,87750,28292,32.2,province,96000,27689,28.8,province,114397,30904,27.0,amo,unofficial,-0.9
+St. Catharines,City,Lower-tier,136803,96356,30340,31.5,province,91047,31021,34.1,province,100448,26427,26.3,province,,,,,,-5.2
+Milton,Town,Lower-tier,132979,56635,18845,33.3,province,62521,23139,37.0,province,81432,23164,28.4,province,110513,44995,40.7,city,unofficial,-4.9
+Kingston,City,Single-tier,132485,90719,35856,39.5,province,83608,34529,41.3,province,98173,29938,30.5,province,114676,38246,33.4,amo,official,-9.0
+Ajax,Town,Lower-tier,126666,74891,22785,30.4,province,77885,25634,32.9,province,85443,19205,22.5,province,103567,33511,32.4,amo,unofficial,-7.9
+Waterloo,City,Lower-tier,121436,71667,25750,35.9,province,72598,24843,34.2,province,82557,22435,27.2,province,94608,29171,30.8,amo,unofficial,-8.7
+Thunder Bay,City,Single-tier,108843,81109,37354,46.1,province,81135,41361,51.0,province,83679,35661,42.6,province,,37539,40.9,city,unofficial,-3.5
+Brantford,City,Single-tier,104688,65057,24451,37.6,province,66619,24477,36.7,province,75305,20340,27.0,province,90420,29492,32.6,amo,unofficial,-10.6
+Chatham-Kent,Municipality,Single-tier,103988,77855,32783,42.1,province,76418,34722,45.4,province,80332,24546,30.6,province,89987,36703,40.8,amo,unofficial,-11.5
+Clarington,Municipality,Lower-tier,101427,62329,19032,30.5,province,65373,18678,28.6,province,73471,20606,28.0,province,86879,29520,34.0,amo,unofficial,-2.5
+Pickering,City,Lower-tier,99186,66564,22877,34.4,province,67748,19777,29.2,province,76305,20786,27.2,province,,,,,,-7.2
+Niagara Falls,City,Lower-tier,94415,60062,22045,36.7,province,61859,24242,39.2,province,68201,18773,27.5,province,80349,27518,34.2,amo,unofficial,-9.2
+Newmarket,Town,Lower-tier,87942,55563,20434,36.8,province,56749,19662,34.6,province,61210,15221,24.9,province,,20740,28.5,city,unofficial,-11.9
+Peterborough,City,Single-tier,83651,59256,27204,45.9,province,58022,28030,48.3,province,65943,26352,40.0,province,74603,30044,40.3,amo,unofficial,-5.9
+Kawartha Lakes,City,Single-tier,79247,67607,28047,41.5,province,66441,25280,38.0,province,70833,23136,32.7,province,81833,27170,33.2,amo,unofficial,-8.8
+Caledon,Town,Lower-tier,76581,47485,16264,34.3,province,51192,16531,32.3,province,56538,17939,31.7,province,68042,23250,34.2,amo,unofficial,-2.6
