@@ -130,15 +130,16 @@
 				y0,
 				y1: y0 + plotH,
 				showYLabels: col === 0,
-				// One axis title for the whole graphic, under the first panel of the last row.
-				showXTitle: col === 0 && row === rowsCount - 1
+				// Side by side, one axis title under the first panel serves all three.
+				// Stacked, each panel gets its own, since the others are out of view.
+				showXTitle: columns === 1 || (col === 0 && row === rowsCount - 1)
 			};
 		});
 		return { W, H, frames, fontSize, dotR, left };
 	}
 
 	const wide = buildLayout({ W: 678, left: 40, right: 8, top: 30, plotH: 300, gapX: 18, gapY: 0, bottom: 58, columns: 3, fontSize: 13, dotR: 4.5 });
-	const narrow = buildLayout({ W: 318, left: 36, right: 10, top: 28, plotH: 190, gapX: 0, gapY: 62, bottom: 52, columns: 1, fontSize: 11, dotR: 4 });
+	const narrow = buildLayout({ W: 318, left: 36, right: 10, top: 28, plotH: 190, gapX: 0, gapY: 84, bottom: 52, columns: 1, fontSize: 11, dotR: 4 });
 </script>
 
 <div class="legend-title">

@@ -46,10 +46,7 @@
 </p>
 
 <p>
-	We compared voter turnout data across the three most recent municipal election waves in Ontario for every city and town with more than 75,000 residents.<Footnote id={fPopulation} /> Combined, these 34 municipalities had 7.1 million eligible electors in 2022. 
-</p>
-<p>
-	We will likely update these charts with 2026 municipal election data when it becomes available.
+	We compared voter turnout data across the four most recent municipal election waves in Ontario for every city and town with more than 75,000 residents.<Footnote id={fPopulation} /> 
 </p>
 
 </div>
@@ -69,7 +66,7 @@
 </p>
 
 <p>
-	In our look at Ontario's largest municipalities 2014-2022 we find that, in all three elections, single-tier cities – which are not part of a regional government – had higher median turnout than lower-tier municipalities within regions such as Peel and York. We also find that turnout tends to be lower where the winning mayoral candidate took a larger share of the vote.
+	When we look at Ontario's largest municipalities from 2014 to 2022, we find that, in all three elections, single-tier cities – which are not part of a regional government – had higher median turnout than lower-tier municipalities within regions such as Peel and York. We also find that turnout tends to be lower where the winning mayoral candidate took a larger share of the vote.
 </p>
 
 </div>
@@ -105,7 +102,9 @@
 		Turnout is the number of electors who voted divided by the number of electors on the voters' list. Voters' lists are not always up to date, since they can include people who have moved away or died and miss people who have recently moved in or become eligible. The accuracy of this can vary between places and between elections, so small differences in turnout should be read with caution.
 	</p>
 
-
+	<p>
+		The provincial dataset does not yet include the 2026 elections. The 2026 turnout in the first chart is preliminary and unofficial, as of October 28, 2026. For most municipalities it is from the <a href="https://elections2026.amo.on.ca/web/en/home" target="_blank" rel="noopener noreferrer">2026 election results</a> of the Association of Municipalities of Ontario (AMO), to which municipal clerks submit their results. For Hamilton, Greater Sudbury, Guelph, Milton, Newmarket, and Thunder Bay, AMO's figure was missing or incomplete, so we used the turnout each municipality published. Windsor, St. Catharines, and Pickering had not published turnout, so their lines end in 2022 and the 2026 median is of the other 31.
+	</p>
 
 	<p>
 		We replaced three values with data published by the cities themselves. The provincial dataset had no data for Toronto in 2014, so we used the City of Toronto's <a href="https://www.toronto.ca/wp-content/uploads/2017/07/96b9-2014-election-report.pdf" target="_blank" rel="noopener noreferrer">2014 election report</a>. For Toronto in 2018, the provincial dataset lists far fewer electors than the City's final count, so we used the City's <a href="https://www.toronto.ca/wp-content/uploads/2019/07/9662-2018-Election-Report.docx" target="_blank" rel="noopener noreferrer">2018 election report</a>. For Barrie in 2018, the provincial dataset's turnout is much higher than the City of Barrie <a href="https://www.barrie.ca/node/661" target="_blank" rel="noopener noreferrer">reported</a>, so we used the City's data. 
@@ -117,7 +116,7 @@
 
 	<p>
 		Whether each municipality offered internet voting is also from the provincial dataset, which records the voting methods each municipality used, including internet voting only during advance voting. 
-		We noticed a couple of discrepancies in the source data, which we fixed before creating the chart. A) The provincial dataset lists internet voting in Oakville in 2018, but the Association of Municipalities of Ontario's list of voting methods and the Town's <a href="https://www.oakville.ca/town-hall/elections/past-elections/2018-municipal-election/2018-municipal-election-ballots-cast-per-location/" target="_blank" rel="noopener noreferrer">count of ballots by polling location</a> show that every ballot was cast in person. B) The provincial dataset was blank for Toronto in 2014, but the City's <a href="https://www.toronto.ca/wp-content/uploads/2017/07/96b9-2014-election-report.pdf" target="_blank" rel="noopener noreferrer">2014 election report</a> does not indicate that the City offered internet voting.
+		We noticed a couple of discrepancies in the source data, which we fixed before creating the chart. A) The provincial dataset lists internet voting in Oakville in 2018, but AMO's list of voting methods and the Town's <a href="https://www.oakville.ca/town-hall/elections/past-elections/2018-municipal-election/2018-municipal-election-ballots-cast-per-location/" target="_blank" rel="noopener noreferrer">count of ballots by polling location</a> show that every ballot was cast in person. B) The provincial dataset was blank for Toronto in 2014, but the City's <a href="https://www.toronto.ca/wp-content/uploads/2017/07/96b9-2014-election-report.pdf" target="_blank" rel="noopener noreferrer">2014 election report</a> does not indicate that the City offered internet voting.
 	</p>
 
 	<p>

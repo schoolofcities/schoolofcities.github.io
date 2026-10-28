@@ -15,16 +15,16 @@ const source =
 	'Government of Ontario, Municipal election results (2014, 2018, 2022); City of Toronto and City of Barrie election results; Statistics Canada, Census of Population (2021)';
 
 const substitutionNote =
-	'Includes the 34 Ontario municipalities with more than 75,000 residents in the 2021 Census. Turnout is the number of electors who voted divided by the number of electors on the voters’ list, as each municipality reported it to the Province. Toronto in 2014 and 2018 and Barrie in 2018 use figures published by those cities, because the provincial dataset is blank or differs from them. By-elections, such as Toronto’s 2023 and Mississauga’s 2024 mayoral by-elections, are not included.';
+	'Includes the 34 Ontario municipalities with more than 75,000 residents in the 2021 Census. Turnout is the number of electors who voted divided by the number of electors on the voters’ list. For 2014 to 2022, it is as each municipality reported it to the Province. Toronto in 2014 and 2018 and Barrie in 2018 use figures published by those cities, because the provincial dataset is blank or differs from them. By-elections, such as Toronto’s 2023 and Mississauga’s 2024 mayoral by-elections, are not included. 2026 figures are preliminary and unofficial, as of October 28, 2026. They are from the Association of Municipalities of Ontario’s 2026 election results, which municipal clerks submit, or from the municipality’s own published results where that figure was missing or incomplete (Hamilton, Greater Sudbury, Guelph, Milton, Newmarket, and Thunder Bay). Windsor, St. Catharines, and Pickering had not published turnout, so the 2026 median is of 31 municipalities.';
 
 const charts = {
 	'turnout-by-election': {
-		title: 'Voter turnout declined in most Ontario municipal elections between 2014 and 2022',
+		title: 'Voter turnout rose in most Ontario municipalities in 2026',
 		subtitle:
-			'Turnout fell in both 2018 and 2022 in 18 of 34 municipalities. Only Ottawa’s rose in both years.',
+			'After falling in 2018 and 2022, the median increased in 2026 but remained below its 2014 level and below turnout for federal and provincial elections.',
 		source:
-			'Government of Ontario, Municipal election results (2014, 2018, 2022); City of Toronto and City of Barrie election results; Elections Ontario, General Elections Statistics from the Records; Elections Canada, Official Voting Results (2015, 2019, 2021, 2025); Statistics Canada, Census of Population (2021)',
-		alt: 'Slope chart of voter turnout in the 2014, 2018 and 2022 municipal elections for 34 Ontario municipalities. Turnout fell in most of them, most steeply between 2018 and 2022, and the median dropped from 36.1% to 28.2%. Dotted lines show turnout in Ontario for federal elections (62% to 69%) and provincial elections (44% to 57%), both well above municipal turnout.',
+			'Government of Ontario, Municipal election results (2014, 2018, 2022); City of Toronto and City of Barrie election results; Association of Municipalities of Ontario, 2026 Ontario Municipal Elections (unofficial); municipal election results (2026); Elections Ontario, General Elections Statistics from the Records; Elections Canada, Official Voting Results (2015, 2019, 2021, 2025); Statistics Canada, Census of Population (2021)',
+		alt: 'Slope chart of voter turnout in the 2014, 2018, 2022 and 2026 municipal elections for 34 Ontario municipalities. Turnout fell in most of them from 2014 to 2022, and the median dropped from 36.1% to 28.2%, before rising to 33.2% in preliminary 2026 results. A dotted line shows federal turnout in Ontario (62% to 69%) and a dashed line provincial turnout (44% to 57%), both well above municipal turnout.',
 		note: substitutionNote,
 		data: ['turnout-by-municipality.csv', 'provincial-turnout.csv', 'federal-turnout.csv'],
 		widths: [360, 720],
