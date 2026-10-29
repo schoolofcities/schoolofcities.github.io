@@ -115,9 +115,9 @@
 		nameLines: ['Median of 34', 'municipalities'],
 		group: 'median',
 		color: 'var(--brandPink)',
-		width: 3,
-		dotR: 5,
-		// Of the municipalities with a figure that year: 31 in 2026.
+		width: 4,
+		dotR: 5.5,
+		// Of the municipalities with a figure that year.
 		points: years.map((year) => ({
 			year,
 			t: municipalT(year),
