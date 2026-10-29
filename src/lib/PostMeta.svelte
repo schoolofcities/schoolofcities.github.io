@@ -18,8 +18,9 @@
 	const imageUrl = $derived(image ? `${SITE_ORIGIN}${image.url}` : undefined);
 
 	// schema.org description of the post, for search engines and AI systems —
-	// the machine-readable counterpart to the byline Title.svelte renders, where
-	// authorship, dates, and licence become queryable rather than just visible.
+	// the machine-readable counterpart to the byline Title.svelte and Byline.svelte
+	// render, where authorship, dates, and licence become queryable rather than
+	// just visible.
 	const jsonLd = $derived(
 		JSON.stringify(
 			{

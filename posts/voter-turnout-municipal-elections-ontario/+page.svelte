@@ -95,7 +95,7 @@
 	<h2>Methods and data</h2>
 
 	<p>
-		Turnout data are from the <a href={dataUrl} target="_blank" rel="noopener noreferrer">Municipal election results</a> dataset published by the Government of Ontario. We included every single-tier and lower-tier municipality with a population above 75,000 (based on the 2021 Census of Population).
+		Turnout data are from the <a href={dataUrl} target="_blank" rel="noopener noreferrer">Municipal election results</a> dataset published by the Government of Ontario. We included every single-tier and lower-tier municipality with a population above 75,000 (based on the 2021 Census of Population). By-elections, such as Toronto's 2023 and Mississauga's 2024 mayoral by-elections, are not included.
 	</p>
 
 	<p>

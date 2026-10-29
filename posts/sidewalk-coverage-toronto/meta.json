@@ -7,6 +7,6 @@
 	"license": "CC-BY-4.0",
 	"protected": true,
 	"geography": ["Toronto"],
-	"tags": ["urban","active travel","walking", "accessibility"],
+	"tags": ["active travel","walking", "accessibility"],
 	"documents": []
 }

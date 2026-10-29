@@ -455,7 +455,9 @@
 			0 0 4px var(--brandWhite);
 	}
 
+	/* Nudged up a fixed 10px from its percent position, at every width. */
 	.place.water {
+		margin-top: -10px;
 		font-family: OpenSansItalic;
 		letter-spacing: 0;
 		color: var(--brandGray60);
@@ -514,6 +516,34 @@
 
 	.switch.on .knob {
 		transform: translateX(12px);
+	}
+
+	/* Smaller names and switch at 360, where the map is under half its 720px
+	   width. Kept here rather than in the 360 block above, which comes earlier
+	   and so would lose to these rules' own sizes. */
+	@container (max-width: 500px) {
+		.place {
+			font-size: 9px;
+		}
+
+		.places-control-label {
+			font-size: 10px;
+		}
+
+		.switch {
+			width: 24px;
+			height: 14px;
+			border-radius: 7px;
+		}
+
+		.switch .knob {
+			width: 10px;
+			height: 10px;
+		}
+
+		.switch.on .knob {
+			transform: translateX(10px);
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {

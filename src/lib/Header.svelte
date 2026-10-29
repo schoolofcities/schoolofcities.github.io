@@ -30,16 +30,24 @@
 	.logo-container {
 		display: flex;
 		align-items: center;
-		height: 60px;
+		height: 65px;
 		margin-top: 0px;
 		margin-bottom: 0px;
+		/* A clear light blue edge, so the header stays its own strip whatever
+		   colour sits under it (the medium blue post title band, for one), and
+		   the same soft shadow as that band (Title.svelte). Positioned and
+		   raised so the shadow falls on the band rather than being painted over
+		   by it. */
 		border-bottom: solid 1px var(--brandLightBlue);
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+		position: relative;
+		z-index: 1;
 		padding: 0px;
 	}
 
 	.logo {
-		width: 255px;
-		height: 51px;
+		width: 253px;
+		height: 50px;
 		padding: 0px;
 		padding-left: 35px;
 		margin-bottom: -5px;
@@ -51,12 +59,12 @@
 
 	@media (max-width: 730px) {
 		.logo {
-			width: 158px;
+			width: 157px;
 			padding-left: 15px;
 			margin-top: 0px;
 		}
 		.logo-container {
-			height: 40px;
+			height: 49px;
 			margin-bottom: 0px;
 		}
 	}
