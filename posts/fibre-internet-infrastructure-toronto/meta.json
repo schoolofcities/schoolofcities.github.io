@@ -8,12 +8,12 @@
 	"protected": true,
 	"cardImage": "fibre-construction-totals",
 	"geography": ["Toronto"],
-	"tags": ["urban", "policy", "telecommunications", "infrastructure"],
+	"tags": ["internet", "infrastructure", "policy"],
 	"documents": [
 		{
 			"relation": "from",
 			"type": "paper",
-			"authors": ["Mersereau, M."],
+			"authors": ["Michel Mersereau"],
 			"year": 2026,
 			"title": "\"In the end, Bell always wins …\" A critical analysis of concentration in Toronto's fibre-internet service market",
 			"publication": "Telecommunications Policy",
@@ -23,7 +23,7 @@
 		{
 			"relation": "from",
 			"type": "project-site",
-			"authors": ["Mersereau, M."],
+			"authors": ["Michel Mersereau"],
 			"year": 2026,
 			"title": "Broadband Infrastructure Market Insights (BRIMI)",
 			"link": "https://brimi.ca/",

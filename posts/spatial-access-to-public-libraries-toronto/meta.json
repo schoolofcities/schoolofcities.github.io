@@ -8,7 +8,7 @@
 	"protected": false,
 	"cardImage": "demographics-grid",
 	"geography": ["Toronto"],
-	"tags": ["urban", "public transit", "accessibility", "public libraries"],
+	"tags": ["public libraries", "walking", "public transit", "accessibility"],
 	"documents": [
 		{
 			"relation": "from",
@@ -18,7 +18,7 @@
 			"title": "Proximity to public libraries in Toronto interactive map",
 			"publication": "School of Cities",
 			"link": "https://schoolofcities.github.io/libraries-by-transit/toronto-proximity",
-			"linkType": "Website"
+			"linkType": "Webpage"
 		},
 		{
 			"relation": "from",
@@ -28,6 +28,15 @@
 			"title": "Libraries by transit",
 			"link": "https://github.com/schoolofcities/libraries-by-transit",
 			"linkType": "GitHub"
+		},
+		{
+			"relation": "resource",
+			"type": "project-site",
+			"authors": ["Lanrick Bennett Jr."],
+			"year": 2026,
+			"title": "Next Stop: Your Library Tour",
+			"link": "https://schoolofcities.utoronto.ca/opportunities/next-stop-your-library-tour/",
+			"linkType": "Webpage"
 		}
 	]
 }

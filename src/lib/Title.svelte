@@ -1,122 +1,142 @@
 <script>
-	import { documentGroups, formatAuthorList, lastUpdated, licenseLabel, licenseUrl } from './meta.js';
+	import { formatAuthorList, lastUpdated, licenseLabel, licenseUrl } from './meta.js';
+	import { TAG_ICONS, TAG_ICON_POSTS } from './tagIcons.js';
 
-	let { meta } = $props();
+	let { meta, slug } = $props();
 
-	const documentLabels = {
-		report: 'Report',
-		brief: 'Policy brief',
-		'project-site': 'Project',
-		paper: 'Academic paper',
-		explorer: 'Data explorer',
-		post: 'Post',
-		dataset: 'Data',
-		code: 'Code repository'
-	};
+	// Ring colours, given by position: the first icon is always yellow, and so
+	// on. By position rather than by tag, since three colours can't give every
+	// tag its own.
+	const iconColors = ['var(--brandYellow)', 'var(--brandLightBlue)', 'var(--brandLightGreen)'];
 
-	function documentLabel(doc) {
-		return documentLabels[doc.type] ?? doc.type;
-	}
-
-	// APA joins multiple authors with "&" before the last one, not a plain comma list —
-	// but the comma before "&" only appears with 3+ authors; exactly two is "A & B".
-	function formatApaAuthors(authors) {
-		if (authors.length <= 1) return authors[0] ?? '';
-		if (authors.length === 2) return `${authors[0]} & ${authors[1]}`;
-		return `${authors.slice(0, -1).join(', ')}, & ${authors[authors.length - 1]}`;
-	}
-
-
-	// Grouped by the full set of relations each document carries, so one that is
-	// both `from` and `for` is listed once under a combined heading rather than
-	// appearing twice as if it were two works. See $lib/meta.js.
-	const groups = $derived(documentGroups(meta.documents));
-
-	const documentColors = {
-		paper: 'var(--brandLightBlue)',
-		report: 'var(--brandLightBlue)',
-		brief: 'var(--brandLightGreen)',
-		code: 'var(--brandGray15)',
-		dataset: 'var(--brandOrange)',
-		explorer: 'var(--brandYellow)',
-		'project-site': 'var(--brandMedBlue)',
-		post: 'var(--brandMedGreen)'
-	};
-
-	function documentColor(doc) {
-		return documentColors[doc.type] ?? 'var(--brandLightBlue)';
-	}
-
-
+	// One circle for each of the first three tags that have an icon, in the
+	// tags' own order, which meta.json sets by priority.
+	const tagIcons = $derived(
+		TAG_ICON_POSTS.includes(slug)
+			? (meta.tags ?? [])
+					.filter((tag) => TAG_ICONS[tag])
+					.slice(0, iconColors.length)
+					.map((tag, i) => ({ tag, path: TAG_ICONS[tag], color: iconColors[i] }))
+			: []
+	);
 </script>
 
 <div class="title-hero">
 	<div class="text title-inner">
+		{#if tagIcons.length}
+			<!-- Decorative: hidden from screen readers, and no hover tooltip. The
+			     tags are in the page's keywords already. -->
+			<ul class="tag-icons" aria-hidden="true">
+				{#each tagIcons as icon}
+					<li class="tag-icon" style:border-color={icon.color}>
+						<svg viewBox="0 0 15 15">
+							<path d={icon.path} />
+						</svg>
+					</li>
+				{/each}
+			</ul>
+		{/if}
+
 		<h1>{meta.title}</h1>
 
 		{#if meta.summary}
 			<p class="summary">{meta.summary}</p>
 		{/if}
 
-		<div class="byline">
-			<p class="credit-line dotted author-line">
-				<!-- <span class="dot" style="background-color: var(--brandLightBlue);"></span> -->
-				{formatAuthorList(meta.authors)} · {meta.published} {#if lastUpdated(meta.changelog)}· Updated {lastUpdated(meta.changelog)}{/if}
-			</p>
-			{#if meta.license}
-				<p class="credit-line license-line">
-					Licensed under
-					{#if licenseUrl(meta.license)}
-						<a href={licenseUrl(meta.license)} target="_blank" rel="noopener noreferrer"
-							>{licenseLabel(meta.license)}</a
-						>
-					{:else}
-						{meta.license}
-					{/if}
-				</p>
-			{/if}
-			{#if meta.documents?.length}
-				<hr class="byline-divider" />
-			{/if}
-			{#each groups as group}
-					<p class="documents-heading">{group.heading}</p>
-					{#each group.docs as doc}
-						<p class="credit-line dotted">
-							<span class="dot" style="background-color: {documentColor(doc)};"></span>
-							<span>
-								<strong>{documentLabel(doc)}:</strong>
-								{formatApaAuthors(doc.authors)} ({doc.year}). {doc.title}.
-								{#if doc.publication}
-									<em>{doc.publication}</em>.
-								{/if}
-								<!-- No link key means the work isn't published yet. Show the
-								     citation alone rather than a label pointing nowhere. -->
-								{#if doc.link}
-									<a href={doc.link} target="_blank" rel="noopener noreferrer">{doc.linkType}</a>
-								{/if}
-							</span>
-						</p>
-					{/each}
-			{/each}
+		<!-- Authors, dates and licence close the title block; the documents the
+		     post draws on follow directly below the band (Byline.svelte). Who on
+		     the left; facts about the post (dates, licence) on the right, so the
+		     licence reads as the post's, not the authors'. Stacked on phones. A
+		     revised post gets a labelled line per date; each date is nowrap, so
+		     it never breaks at a hyphen. -->
+		<div class="credits">
+			<span class="authors">{formatAuthorList(meta.authors)}</span>
+			<span class="post-facts">
+				{#if lastUpdated(meta.changelog)}
+					<span class="nowrap"><em>First published:</em> {meta.published}</span>
+					<span class="nowrap"><em>Updated:</em> {lastUpdated(meta.changelog)}</span>
+				{:else}
+					<span class="nowrap">{meta.published}</span>
+				{/if}
+				{#if meta.license}
+					<span class="license-line">
+						This post is licensed under
+						{#if licenseUrl(meta.license)}
+							<a href={licenseUrl(meta.license)} target="_blank" rel="noopener noreferrer"
+								>{licenseLabel(meta.license)}</a
+							>
+						{:else}
+							{meta.license}
+						{/if}
+					</span>
+				{/if}
+			</span>
 		</div>
 	</div>
 </div>
 
 <style>
+	/* Vertical spacing: 23px within the title group (title, rule, summary), 48px
+	   from the icons to the title they label, and a frame of 83px at the top of the
+	   band and 63px at the bottom, under the credits line that closes it. The
+	   paddings here are 10px short of that because .text adds 10px of its own.
+	   The bottom margin is the gap to the documents box (Byline.svelte) on the
+	   page below. Phones use a tighter version of the same steps (see the media
+	   query at the end). */
 	.title-hero {
-		background-color: var(--brandDarkBlue);
-		padding-top: 80px;
-		padding-bottom: 70px;
+		background-color: var(--brandMedBlue);
+		padding-top: 73px;
+		padding-bottom: 53px;
 		margin-bottom: 40px;
-		border-bottom: 2px solid var(--brandLightBlue);
+		/* A soft shadow onto the page below, in place of a coloured rule, so the
+		   band reads as lifted rather than outlined. */
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+	}
+
+	/* Topic icons above the title: white glyphs in rings coloured yellow, light
+	   blue and light green (set inline, by position), after the icon row on the
+	   World Cup pages, but static. */
+	.tag-icons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		list-style: none;
+		padding: 0;
+		margin: 0 0 48px 0;
+	}
+
+	/* Box-sizing and padding reset, since the global `li` adds 4px top and
+	   bottom, which stretches the circle into an oval. */
+	.tag-icon {
+		box-sizing: border-box;
+		padding: 0;
+		width: 45px;
+		height: 45px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 2px solid var(--brandYellow);
+	}
+
+	.tag-icon svg {
+		width: 22px;
+		height: 22px;
+		fill: var(--brandWhite);
 	}
 
 	.title-inner h1 {
 		font-size: 44px;
+		line-height: 55px;
 		color: var(--brandWhite);
+		/* Yellow, the band's one warm accent; the header's line above is light
+		   blue. */
 		border-bottom: 2px solid var(--brandYellow);
-		padding-bottom: 20px;
-		margin-bottom: 20px;
+		padding-bottom: 23px;
+		/* The browser's default top margin (about 29px) would otherwise set the
+		   gap above the title, and differ with and without the icon row. */
+		margin-top: 0;
+		margin-bottom: 23px;
 	}
 
 	.summary {
@@ -126,98 +146,112 @@
 		line-height: 35px;
 		color: var(--brandWhite);
 		margin-top: 0;
-		margin-bottom: 65px;
-	}
-
-	.credit-line {
-		font-family: OpenSans;
-		font-weight: normal;
-		font-size: 14px;
-		line-height: 20px;
-		color: var(--brandGray10);
-		margin: 0 0 6px 0;
-	}
-
-	.credit-line:last-child {
 		margin-bottom: 0;
 	}
 
-	.credit-line strong {
-		font-family: OpenSansBold;
-		color: var(--brandGray10);
-		font-weight: normal;
-	}
-
-	.credit-line.dotted {
+	/* Set off from the title and summary by space and a faint white rule (57%,
+	   a little fainter than the licence line's 70%). */
+	.credits {
 		display: flex;
+		justify-content: space-between;
 		align-items: flex-start;
-		gap: 10px;
-		margin-bottom: 10px;
+		gap: 16px;
+		margin-top: 120px;
+		padding-top: 16px;
+		border-top: 1px solid rgba(255, 255, 255, 0.57);
+		font-family: OpenSans;
+		font-size: 14px;
+		line-height: 20px;
+		color: var(--brandWhite);
 	}
 
-	.author-line {
-		color: var(--brandGray05);
+	.post-facts {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		text-align: right;
 	}
 
-	.license-line {
-		font-size: 12px;
-		color: var(--brandGray35);
-	}
-
-	/* Two classes, so this beats `.credit-line a` on specificity rather than on
-	   source order. `inherit` takes .license-line's colour above, so changing it
-	   there moves both together. Hover stays yellow — `.credit-line a:hover` is
-	   more specific still — and is worth keeping, since at 12px in grey the
-	   hover is the only cue the text is clickable. */
-	.credit-line.license-line a {
-		/* text-decoration: none; */
-		color: inherit;
-	}
-
-	.byline {
-		margin-top: 100px;
-		margin-bottom: 50px;
-		padding: 20px 24px;
-		border: solid 1px rgba(255, 255, 255, 0.15);
-		border-radius: 4px;
-	}
-
-	.documents-heading {
-		font-family: OpenSansItalic;
-		font-weight: normal;
-		font-size: 12px;
-		line-height: 19px;
-		color: var(--brandGray35);
-		margin: 4px 0 8px 0;
-	}
-
-	.byline-divider {
-		border: none;
-		height: 1px;
-		background-color: var(--brandWhite);
-		opacity: 0.15;
-		margin: 16px 0 24px 0;
-	}
-
-	.dot {
-		flex-shrink: 0;
-		width: 11px;
-		height: 11px;
-		border-radius: 50%;
-		margin-top: 5px;
-	}
-
-	.credit-line em {
+	.credits em {
 		font-family: OpenSansItalic;
 		font-style: normal;
 	}
 
-	.credit-line a {
-		color: var(--brandWhite);
+	.nowrap {
+		white-space: nowrap;
+	}
+
+	/* White at 99%, the faintest that still passes WCAG AA (4.5:1) for text
+	   this small on the medium blue band: 4.54:1. Even solid white is only
+	   4.6:1 here, so it's set apart from the authors by size, not colour. */
+	.license-line {
+		margin-top: 4px;
+		font-size: 11px;
+		line-height: 17px;
+		color: rgba(255, 255, 255, 0.99);
+	}
+
+	.license-line a {
+		color: inherit;
 		font-family: inherit;
 	}
 
-	.credit-line a:hover {
+	.license-line a:hover {
 		color: var(--brandYellow);
+	}
+
+	/* Phones: type about 10% smaller, where a long title otherwise wraps to five
+	   or six lines, tighter spacing, and the credits stacked. */
+	@media screen and (max-width: 540px) {
+		/* The same spacing steps, tightened: a 54px frame (34px at the bottom),
+		   42px from the icons to the title, and 24px down to the documents. */
+		.title-hero {
+			padding-top: 44px;
+			padding-bottom: 24px;
+			margin-bottom: 24px;
+		}
+
+		.tag-icons {
+			margin-bottom: 42px;
+		}
+
+		.title-inner h1 {
+			font-size: 40px;
+			line-height: 50px;
+		}
+
+		.summary {
+			font-size: 23px;
+			line-height: 32px;
+		}
+
+		/* About a tenth smaller than on desktop. */
+		.tag-icon {
+			width: 40px;
+			height: 40px;
+		}
+
+		.tag-icon svg {
+			width: 19px;
+			height: 19px;
+		}
+
+		/* Too narrow for two columns: authors, then the dates and licence. */
+		.credits {
+			flex-direction: column;
+			gap: 0;
+			margin-top: 108px;
+			font-size: 13px;
+			line-height: 19px;
+		}
+
+		.post-facts {
+			align-items: flex-start;
+			text-align: left;
+		}
+
+		.license-line {
+			font-size: 10px;
+		}
 	}
 </style>

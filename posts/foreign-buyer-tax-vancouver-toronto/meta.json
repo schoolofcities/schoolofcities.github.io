@@ -17,18 +17,17 @@
 		"Toronto"
 	],
 	"tags": [
-		"urban",
 		"housing",
-		"tax",
+		"policy",
 		"immigration",
-		"policy"
+		"tax"
 	],
 	"documents": [
 		{
 			"relation": "from",
 			"type": "paper",
 			"authors": [
-				"Song, T."
+				"Taesoo Song"
 			],
 			"year": 2025,
 			"title": "Anti-immigration and the politics of housing affordability: Examining the evolution and housing market impacts of Foreign Buyer Taxes in British Columbia and Ontario",

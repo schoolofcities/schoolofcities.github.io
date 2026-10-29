@@ -1,6 +1,6 @@
 // Small helpers shared by anything that reads a post's meta.json — Title.svelte
-// for what readers see, PostMeta.svelte for what crawlers read, ChartFrame for
-// the licence line under each chart.
+// and Byline.svelte for what readers see, PostMeta.svelte for what crawlers
+// read, ChartFrame for the licence line under each chart.
 //
 // These lived in two or three copies before; they're here so a licence added to
 // the map below shows up everywhere at once.
@@ -76,7 +76,7 @@ const RELATION_HEADINGS = [
 	['for', 'Graphics created for:'],
 	['for,resource', 'Graphics created for, and related to:'],
 	['from,resource', 'Based on, and related to:'],
-	['resource', 'Related:']
+	['resource', 'Related material:']
 ];
 
 /** `relation` may be a single value or several; always read it as a list. */

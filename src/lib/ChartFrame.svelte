@@ -488,13 +488,18 @@
 		position: relative;
 		margin: 40px auto;
 		padding: 20px;
-		border: solid 1px var(--brandGray05);
-		border-top: solid 2px var(--brandDarkBlue);
-		border-bottom: solid 2px var(--brandDarkBlue);
+		/* The same 1px grey as the documents and Methods boxes. FRAME_INSET above
+		   counts it on each side, so keep it 1px. */
+		border: solid 1px var(--brandGray15);
+		/* A soft shadow on every side, so the white frame lifts off the page. */
+		box-shadow: 0 0 15px rgba(0, 0, 0, 0.11);
 	}
 
+	/* No shadow on the standalone page, which the PNG export and embeds capture
+	   edge to edge: it would be cut off at the image's border. */
 	.chart-frame.standalone {
 		margin: 0 auto;
+		box-shadow: none;
 	}
 
 	/* Charts with a fixed meta.widths: the frame takes the space it's given, up
@@ -514,34 +519,44 @@
 		visibility: hidden;
 	}
 
+	/* Sized just above the title's capitals and set so the bottom of its dots
+	   sits on the title's first baseline, aligned like a word beside it. */
 	.chart-mark {
 		position: absolute;
-		top: 20px;
+		top: 16px;
 		right: 20px;
-		height: 32px;
+		height: 28px;
 		width: auto;
 	}
 
 	.chart-title {
 		font-family: TradeGothicBold;
 		font-weight: normal;
-		font-size: 27px;
-		line-height: 34px;
+		font-size: 25px;
+		/* Tight, with no top margin, so the capitals start about as far from
+		   the frame's top edge as the text does from its sides. */
+		line-height: 30px;
 		/* max-width: 720px; */
 		color: var(--brandDarkBlue);
-		margin: 3px 0 10px 0;
+		margin: 0 0 10px 0;
 		padding-right: 60px;
 	}
 
+	/* Regular, not italic, smaller and a lighter grey than the title, so it
+	   supports rather than competes with it; italic sans over two lines is
+	   also tiring to read. */
 	.chart-subtitle {
-		font-family: OpenSansItalic;
+		font-family: OpenSans;
 		font-weight: normal;
-		font-size: 17px;
-		line-height: 24px;
-		color: var(--brandGray90);
-		padding-bottom: 5px;
+		font-size: 15px;
+		line-height: 22px;
+		color: var(--brandGray70);
+		/* The rule sits midway between the subtitle and the chart: the chart's
+		   own heading brings space of its own above it, so less margin below
+		   the rule than padding above it. */
+		padding-bottom: 18px;
 		border-bottom: solid 1px var(--brandGray10);
-		margin: 0 0 16px 0;
+		margin: 0 0 4px 0;
 	}
 
 	/* The container charts query against (@container in a chart's own styles),
@@ -829,7 +844,7 @@
 
 	/* Shared dialog-content styles (.dialog-instructions, .dialog-code, .dialog-action,
 	   .dialog-option, .dialog-row) live in Dialog.svelte since they're used by content
-	   authored in other components too (see Title.svelte's Cite dialog). */
+	   authored in other components too. */
 
 	.dialog-download-list {
 		display: flex;
