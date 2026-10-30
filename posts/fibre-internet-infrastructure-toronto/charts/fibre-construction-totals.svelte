@@ -283,7 +283,8 @@
 	.row-title {
 		font-family: OpenSans;
 		font-size: 15px;
-		fill: var(--brandBlack);
+		font-style: italic;
+		fill: var(--brandGray70);
 	}
 
 	/* Labels are black rather than in company colours: the light green and red
@@ -313,7 +314,8 @@
 		font-family: OpenSans;
 		font-size: 15px;
 		line-height: 18px;
-		color: var(--brandBlack);
+		font-style: italic;
+		color: var(--brandGray70);
 	}
 
 	/* Map buttons: name over a coloured underline, in a grey box. The selected
