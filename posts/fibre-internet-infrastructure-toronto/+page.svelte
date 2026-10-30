@@ -18,7 +18,7 @@
 	);
 	const fOccupancyFees = footnoteStore.addFootnote(
 		[
-			"Canadian Radio-television and Telecommunications Commission. (2001). *Decision CRTC 2001-23* (Ledcor/Vancouver). [URL](https://crtc.gc.ca/eng/archive/2001/dt2001-23.htm).",
+			"Canadian Radio-television and Telecommunications Commission. (2001). *Telecom Decision CRTC 2001-23* (Ledcor/Vancouver). [URL](https://crtc.gc.ca/eng/archive/2001/dt2001-23.htm).",
 			"On Ontario law, Mersereau (2026) cites the fees and charges regulation under the Municipal Act, 2001 ([O. Reg. 584/06](https://www.ontario.ca/laws/regulation/060584)) and s. 267(2) of the [City of Toronto Act, 2006](https://www.ontario.ca/laws/statute/06c11)."
 		].join("\n\n")
 	);
@@ -34,7 +34,7 @@
 </p>
 
 <p>
-	The City records permits to dig up or build in the public right-of-way, its streets and sidewalks, including who did the work, where, and when. Michel Mersereau, a researcher at the University of Toronto's Faculty of Information, obtained these records for 2012 to 2022 through a freedom of information request. The records list the streets where each company built. Mersereau's <a href={brimiDoc.link} target="_blank" rel="noopener noreferrer">Broadband Infrastructure Market Insights</a> project geocoded them onto Toronto's streets.
+	The City records permits to dig up or build in the public right-of-way (its streets and sidewalks), including who did the work, where, and when. Michel Mersereau, a researcher at the University of Toronto's Faculty of Information, obtained these records for 2012 to 2022 through a freedom of information request. The records list the streets where each company built. Mersereau's <a href={brimiDoc.link} target="_blank" rel="noopener noreferrer">Broadband Infrastructure Market Insights</a> project geocoded them onto Toronto's streets.
 </p>
 
 </div>
@@ -50,10 +50,9 @@
 </p>
 
 <p>
-	Matching the records of Bell and Rogers Communications by street and cross streets, Mersereau found only about 12.5% of street segments had construction by both.
-	Mersereau reads this pattern as Bell and Rogers, the two largest providers in Toronto, avoiding head-to-head competition. Bell expanded across many local streets, while Rogers and Beanfield, a smaller Toronto company, focused more on specific parts of the market, such as neighbourhoods with higher-density apartment and condominium buildings.
+	Matching the records of Bell and Rogers Communications by street and cross streets, Mersereau found that only about 12.5% of street segments had construction by both.
+	Mersereau reads this pattern as Bell and Rogers, the two largest providers in Toronto, avoiding head-to-head competition. This runs counter to the premise of telecom deregulation in the 1990s, that companies would compete by building their own networks. Bell expanded across many local streets, while Rogers and Beanfield, a smaller Toronto company, focused more on specific parts of the market, such as neighbourhoods with higher-density apartment and condominium buildings.
 </p>
-
 
 </div>
 
@@ -68,11 +67,11 @@
 </p>
 
 <p>
-	All of this construction occupies public land. Since a 2001 decision by the federal telecom regulator, the Canadian Radio-television and Telecommunications Commission (CRTC), and later changes to Ontario law, Ontario municipalities can recover the direct costs of telecom construction in their streets but cannot charge an occupancy fee for the space the infrastructure takes up.<Footnote id={fOccupancyFees} /> Mersereau argues this amounts to a public subsidy. Based on fees proposed or contracted in Canadian cities Mersereau estimates fees of about $75.8 million for the infrastructure built in Toronto from 2012 to 2022.
+	All of this construction occupies public land. Since a 2001 decision by the federal telecom regulator, the Canadian Radio-television and Telecommunications Commission (CRTC), and later changes to Ontario law, Ontario municipalities can recover the direct costs of telecom construction in their streets but cannot charge an occupancy fee for the space the infrastructure takes up.<Footnote id={fOccupancyFees} /> Mersereau argues this amounts to a public subsidy. Applying annual per-metre fees proposed or contracted in Canadian cities to the infrastructure built in Toronto from 2012 to 2022, Mersereau estimates an occupancy fee of about $75.8 million a year as of 2022.
 </p>
 
 <p>
-	Together, the City's records show that from 2012 to 2022, most new fibre construction was done by one company (Bell), with little overlap between companies, under streets where no occupancy fee is charged. The City already collects these records as part of coordinating construction in its streets. The same freedom of information request to the CRTC found no data. Mersereau recommends that the CRTC collect this data from municipalities on a regular basis, both to track competition and to inform how the use of public space is valued. Without such data the regulator is "operating in a state of partial blindness."<Footnote id={fBlindness} />
+	Together, the City's records show that from 2012 to 2022, one company, Bell, did most new fibre construction, with little overlap between companies, under streets where no occupancy fee is charged. The City already collects these records as part of coordinating construction in its streets. The CRTC, asked for the same records, said it had none. Mersereau recommends that the CRTC collect this data from municipalities on a regular basis, both to track competition and to inform how the use of public space is valued. Without such data the regulator is "operating in a state of partial blindness."<Footnote id={fBlindness} />
 </p>
 
 <Footnotes footnotes={footnoteStore.footnotes} />
