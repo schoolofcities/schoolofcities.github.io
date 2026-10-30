@@ -12,7 +12,7 @@ const embedMeta = import.meta.glob('./published/*/embed.json', {
 });
 
 const paper =
-	"Mersereau, M. (2026). \"In the end, Bell always wins …\" A critical analysis of concentration in Toronto's fibre-internet service market. Telecommunications Policy, 50(3), 103086";
+	"Mersereau, M. (2026). \"In the end, Bell always wins …\" A critical analysis of concentration in Toronto's fibre-internet service market. Telecommunications Policy";
 
 const charts = {
 	'fibre-construction-totals': {

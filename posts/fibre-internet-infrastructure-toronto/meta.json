@@ -5,7 +5,7 @@
 	"authors": ["Jeff Allen"],
 	"published": "2026-11-02",
 	"license": "CC-BY-4.0",
-	"protected": true,
+	"protected": false,
 	"cardImage": "fibre-construction-totals",
 	"geography": ["Toronto"],
 	"tags": ["internet", "infrastructure", "policy"],
@@ -28,6 +28,15 @@
 			"title": "Broadband Infrastructure Market Insights (BRIMI)",
 			"link": "https://brimi.ca/",
 			"linkType": "Website"
+		},
+		{
+			"relation": "resource",
+			"type": "post",
+			"authors": ["School of Cities"],
+			"year": 2026,
+			"title": "Broadband Infrastructure Market Insights (BRIMI): A Broadband Data Space for Canadian Cities",
+			"link": "https://schoolofcities.utoronto.ca/broadband-infrastructure-market-insights-brimi-a-broadband-data-space-for-canadian-cities/",
+			"linkType": "Link"
 		}
 	]
 }
