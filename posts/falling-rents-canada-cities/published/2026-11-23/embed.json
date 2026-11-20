@@ -1,0 +1,18 @@
+{
+	"city-rent-trajectories": {
+		"width": 720,
+		"height": 992
+	},
+	"headline-context": {
+		"width": 720,
+		"height": 674
+	},
+	"net-change-map": {
+		"width": 720,
+		"height": 933
+	},
+	"rent-change-histogram": {
+		"width": 720,
+		"height": 852
+	}
+}
