@@ -1,5 +1,5 @@
 <script>
-	import { formatAuthorList, lastUpdated, licenseLabel, licenseUrl } from './meta.js';
+	import { authorParts, lastUpdated, licenseLabel, licenseUrl } from './meta.js';
 	import { TAG_ICONS, TAG_ICON_POSTS } from './tagIcons.js';
 
 	let { meta, slug } = $props();
@@ -50,7 +50,7 @@
 		     revised post gets a labelled line per date; each date is nowrap, so
 		     it never breaks at a hyphen. -->
 		<div class="credits">
-			<span class="authors">{formatAuthorList(meta.authors)}</span>
+			<span class="authors">{#each authorParts(meta.authors, meta.authorLinks) as part}{#if part.url}<a href={part.url} target="_blank" rel="noopener noreferrer">{part.text}</a>{:else}{part.text}{/if}{/each}</span>
 			<span class="post-facts">
 				{#if lastUpdated(meta.changelog)}
 					<span class="nowrap"><em>First published:</em> {meta.published}</span>
@@ -191,12 +191,14 @@
 		color: rgba(255, 255, 255, 0.99);
 	}
 
-	.license-line a {
+	.license-line a,
+	.authors a {
 		color: inherit;
 		font-family: inherit;
 	}
 
-	.license-line a:hover {
+	.license-line a:hover,
+	.authors a:hover {
 		color: var(--brandYellow);
 	}
 
