@@ -1,0 +1,29 @@
+{
+	"title": "Tracking residential dwelling conversions across Canada",
+	"type": "post",
+	"summary": "New dwellings from building conversions in Canada more than doubled from 2018 to 2025, rising to more than 10% of all new dwellings in issued building permits.",
+	"authors": ["Jeff Allen"],
+	"published": "2024-07-08",
+	"license": "CC-BY-4.0",
+	"protected": true,
+	"cardImage": "conversions-by-cma",
+	"geography": ["Canada"],
+	"tags": ["housing", "policy", "land use"],
+	"documents": [
+		{
+			"relation": "resource",
+			"type": "project-site",
+			"authors": ["School of Cities"],
+			"year": 2024,
+			"title": "Gentle Density in Canadian Cities",
+			"link": "https://schoolofcities.github.io/gentle-density",
+			"linkType": "Website"
+		}
+	],
+	"changelog": [
+		{
+			"date": "2026-11-19",
+			"note": "Moved from the gentle-density project site and updated to permits issued from 2018 to 2025, from Statistics Canada table 34-10-0292-01, which replaced the archived table 34-10-0285-01."
+		}
+	]
+}
