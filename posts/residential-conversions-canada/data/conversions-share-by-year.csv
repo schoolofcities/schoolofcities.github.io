@@ -1,0 +1,321 @@
+cma,year,new_construction,conversions,percent_from_conversions
+All Canada,2018,218470,14465,6.21
+All Canada,2019,214566,16328,7.07
+All Canada,2020,231492,17555,7.05
+All Canada,2021,277336,24402,8.09
+All Canada,2022,251907,22893,8.33
+All Canada,2023,237784,23247,8.91
+All Canada,2024,256800,30988,10.77
+All Canada,2025,273345,32705,10.69
+"Abbotsford-Mission, British Columbia",2018,1186,8,0.67
+"Abbotsford-Mission, British Columbia",2019,1748,21,1.19
+"Abbotsford-Mission, British Columbia",2020,838,17,1.99
+"Abbotsford-Mission, British Columbia",2021,1442,23,1.57
+"Abbotsford-Mission, British Columbia",2022,1110,36,3.14
+"Abbotsford-Mission, British Columbia",2023,1301,49,3.63
+"Abbotsford-Mission, British Columbia",2024,1615,74,4.38
+"Abbotsford-Mission, British Columbia",2025,2248,94,4.01
+"Barrie, Ontario",2018,1252,26,2.03
+"Barrie, Ontario",2019,313,236,42.99
+"Barrie, Ontario",2020,1824,260,12.48
+"Barrie, Ontario",2021,2646,335,11.24
+"Barrie, Ontario",2022,2544,323,11.27
+"Barrie, Ontario",2023,1626,271,14.29
+"Barrie, Ontario",2024,1765,319,15.31
+"Barrie, Ontario",2025,1044,263,20.12
+"Belleville-Quinte West, Ontario",2018,508,6,1.17
+"Belleville-Quinte West, Ontario",2019,771,28,3.50
+"Belleville-Quinte West, Ontario",2020,640,19,2.88
+"Belleville-Quinte West, Ontario",2021,624,56,8.24
+"Belleville-Quinte West, Ontario",2022,541,83,13.30
+"Belleville-Quinte West, Ontario",2023,464,140,23.18
+"Belleville-Quinte West, Ontario",2024,743,161,17.81
+"Belleville-Quinte West, Ontario",2025,446,87,16.32
+"Brantford, Ontario",2018,867,27,3.02
+"Brantford, Ontario",2019,714,42,5.56
+"Brantford, Ontario",2020,1457,42,2.80
+"Brantford, Ontario",2021,1257,93,6.89
+"Brantford, Ontario",2022,1759,139,7.32
+"Brantford, Ontario",2023,809,188,18.86
+"Brantford, Ontario",2024,768,157,16.97
+"Brantford, Ontario",2025,1549,153,8.99
+"Calgary, Alberta",2018,11654,349,2.91
+"Calgary, Alberta",2019,11672,619,5.04
+"Calgary, Alberta",2020,9146,616,6.31
+"Calgary, Alberta",2021,16067,546,3.29
+"Calgary, Alberta",2022,17302,772,4.27
+"Calgary, Alberta",2023,19605,1693,7.95
+"Calgary, Alberta",2024,21626,4050,15.77
+"Calgary, Alberta",2025,24717,1688,6.39
+"Chilliwack, British Columbia",2018,881,52,5.57
+"Chilliwack, British Columbia",2019,871,58,6.24
+"Chilliwack, British Columbia",2020,778,40,4.89
+"Chilliwack, British Columbia",2021,991,54,5.17
+"Chilliwack, British Columbia",2022,836,22,2.56
+"Chilliwack, British Columbia",2023,600,17,2.76
+"Chilliwack, British Columbia",2024,592,38,6.03
+"Chilliwack, British Columbia",2025,601,24,3.84
+"Edmonton, Alberta",2018,10831,931,7.92
+"Edmonton, Alberta",2019,10224,261,2.49
+"Edmonton, Alberta",2020,11500,388,3.26
+"Edmonton, Alberta",2021,13173,362,2.67
+"Edmonton, Alberta",2022,14285,983,6.44
+"Edmonton, Alberta",2023,13103,1043,7.37
+"Edmonton, Alberta",2024,19802,2044,9.36
+"Edmonton, Alberta",2025,22773,1890,7.66
+"Fredericton, New Brunswick",2018,318,13,3.93
+"Fredericton, New Brunswick",2019,452,9,1.95
+"Fredericton, New Brunswick",2020,777,29,3.60
+"Fredericton, New Brunswick",2021,829,35,4.05
+"Fredericton, New Brunswick",2022,1041,87,7.71
+"Fredericton, New Brunswick",2023,990,35,3.41
+"Fredericton, New Brunswick",2024,815,20,2.40
+"Fredericton, New Brunswick",2025,1670,58,3.36
+"Greater Sudbury, Ontario",2018,227,88,27.94
+"Greater Sudbury, Ontario",2019,190,83,30.40
+"Greater Sudbury, Ontario",2020,374,70,15.77
+"Greater Sudbury, Ontario",2021,395,66,14.32
+"Greater Sudbury, Ontario",2022,467,65,12.22
+"Greater Sudbury, Ontario",2023,381,99,20.62
+"Greater Sudbury, Ontario",2024,283,212,42.83
+"Greater Sudbury, Ontario",2025,391,221,36.11
+"Guelph, Ontario",2018,969,174,15.22
+"Guelph, Ontario",2019,919,328,26.30
+"Guelph, Ontario",2020,645,219,25.35
+"Guelph, Ontario",2021,655,221,25.23
+"Guelph, Ontario",2022,966,256,20.95
+"Guelph, Ontario",2023,957,495,34.09
+"Guelph, Ontario",2024,661,188,22.14
+"Guelph, Ontario",2025,418,272,39.42
+"Halifax, Nova Scotia",2018,2903,164,5.35
+"Halifax, Nova Scotia",2019,3888,185,4.54
+"Halifax, Nova Scotia",2020,3583,229,6.01
+"Halifax, Nova Scotia",2021,4396,288,6.15
+"Halifax, Nova Scotia",2022,5340,316,5.59
+"Halifax, Nova Scotia",2023,4956,624,11.18
+"Halifax, Nova Scotia",2024,5320,468,8.09
+"Halifax, Nova Scotia",2025,5882,520,8.12
+"Hamilton, Ontario",2018,3353,191,5.39
+"Hamilton, Ontario",2019,3339,287,7.92
+"Hamilton, Ontario",2020,3373,249,6.87
+"Hamilton, Ontario",2021,4061,641,13.63
+"Hamilton, Ontario",2022,2696,402,12.98
+"Hamilton, Ontario",2023,5150,677,11.62
+"Hamilton, Ontario",2024,2693,563,17.29
+"Hamilton, Ontario",2025,2510,827,24.78
+"Kamloops, British Columbia",2018,882,20,2.22
+"Kamloops, British Columbia",2019,779,32,3.95
+"Kamloops, British Columbia",2020,789,134,14.52
+"Kamloops, British Columbia",2021,419,59,12.34
+"Kamloops, British Columbia",2022,837,37,4.23
+"Kamloops, British Columbia",2023,468,20,4.10
+"Kamloops, British Columbia",2024,585,40,6.40
+"Kamloops, British Columbia",2025,933,51,5.18
+"Kelowna, British Columbia",2018,2728,163,5.64
+"Kelowna, British Columbia",2019,2893,133,4.40
+"Kelowna, British Columbia",2020,1573,112,6.65
+"Kelowna, British Columbia",2021,3595,129,3.46
+"Kelowna, British Columbia",2022,2816,112,3.83
+"Kelowna, British Columbia",2023,3893,114,2.85
+"Kelowna, British Columbia",2024,1827,107,5.53
+"Kelowna, British Columbia",2025,1824,168,8.43
+"Kingston, Ontario",2018,731,31,4.07
+"Kingston, Ontario",2019,1513,85,5.32
+"Kingston, Ontario",2020,1413,127,8.25
+"Kingston, Ontario",2021,1220,108,8.13
+"Kingston, Ontario",2022,724,88,10.84
+"Kingston, Ontario",2023,1495,135,8.28
+"Kingston, Ontario",2024,1311,156,10.63
+"Kingston, Ontario",2025,1144,292,20.33
+"Kitchener-Cambridge-Waterloo, Ontario",2018,2667,375,12.33
+"Kitchener-Cambridge-Waterloo, Ontario",2019,5973,349,5.52
+"Kitchener-Cambridge-Waterloo, Ontario",2020,4596,414,8.26
+"Kitchener-Cambridge-Waterloo, Ontario",2021,5235,683,11.54
+"Kitchener-Cambridge-Waterloo, Ontario",2022,4238,860,16.87
+"Kitchener-Cambridge-Waterloo, Ontario",2023,5121,1116,17.89
+"Kitchener-Cambridge-Waterloo, Ontario",2024,3246,1042,24.30
+"Kitchener-Cambridge-Waterloo, Ontario",2025,3750,977,20.67
+"Lethbridge, Alberta",2018,656,32,4.65
+"Lethbridge, Alberta",2019,769,30,3.75
+"Lethbridge, Alberta",2020,373,28,6.98
+"Lethbridge, Alberta",2021,734,37,4.80
+"Lethbridge, Alberta",2022,388,52,11.82
+"Lethbridge, Alberta",2023,332,15,4.32
+"Lethbridge, Alberta",2024,739,24,3.15
+"Lethbridge, Alberta",2025,809,30,3.58
+"London, Ontario",2018,3160,99,3.04
+"London, Ontario",2019,3596,104,2.81
+"London, Ontario",2020,5275,83,1.55
+"London, Ontario",2021,5005,280,5.30
+"London, Ontario",2022,3154,250,7.34
+"London, Ontario",2023,2303,337,12.77
+"London, Ontario",2024,3704,671,15.34
+"London, Ontario",2025,5029,723,12.57
+"Moncton, New Brunswick",2018,691,15,2.12
+"Moncton, New Brunswick",2019,1354,25,1.81
+"Moncton, New Brunswick",2020,1909,14,0.73
+"Moncton, New Brunswick",2021,1984,42,2.07
+"Moncton, New Brunswick",2022,2223,15,0.67
+"Moncton, New Brunswick",2023,2254,15,0.66
+"Moncton, New Brunswick",2024,2536,67,2.57
+"Moncton, New Brunswick",2025,2721,125,4.39
+"Montréal, Quebec",2018,30754,2866,8.52
+"Montréal, Quebec",2019,24213,3397,12.30
+"Montréal, Quebec",2020,28368,2213,7.24
+"Montréal, Quebec",2021,27445,3529,11.39
+"Montréal, Quebec",2022,19768,1612,7.54
+"Montréal, Quebec",2023,15193,1484,8.90
+"Montréal, Quebec",2024,19132,3361,14.94
+"Montréal, Quebec",2025,25451,3120,10.92
+"Nanaimo, British Columbia",2018,1127,73,6.08
+"Nanaimo, British Columbia",2019,1682,93,5.24
+"Nanaimo, British Columbia",2020,1251,74,5.58
+"Nanaimo, British Columbia",2021,823,69,7.74
+"Nanaimo, British Columbia",2022,1351,93,6.44
+"Nanaimo, British Columbia",2023,1291,45,3.37
+"Nanaimo, British Columbia",2024,537,91,14.49
+"Nanaimo, British Columbia",2025,458,65,12.43
+"Oshawa, Ontario",2018,2377,300,11.21
+"Oshawa, Ontario",2019,1609,248,13.35
+"Oshawa, Ontario",2020,3622,301,7.67
+"Oshawa, Ontario",2021,3840,365,8.68
+"Oshawa, Ontario",2022,3985,515,11.44
+"Oshawa, Ontario",2023,2209,434,16.42
+"Oshawa, Ontario",2024,1450,345,19.22
+"Oshawa, Ontario",2025,985,768,43.81
+"Ottawa-Gatineau, Ontario-Quebec",2018,9217,656,6.64
+"Ottawa-Gatineau, Ontario-Quebec",2019,12109,382,3.06
+"Ottawa-Gatineau, Ontario-Quebec",2020,12104,587,4.63
+"Ottawa-Gatineau, Ontario-Quebec",2021,13274,794,5.64
+"Ottawa-Gatineau, Ontario-Quebec",2022,12730,792,5.86
+"Ottawa-Gatineau, Ontario-Quebec",2023,12517,596,4.55
+"Ottawa-Gatineau, Ontario-Quebec",2024,13378,707,5.02
+"Ottawa-Gatineau, Ontario-Quebec",2025,15369,1291,7.75
+"Québec, Quebec",2018,5223,408,7.25
+"Québec, Quebec",2019,5955,445,6.95
+"Québec, Quebec",2020,6301,675,9.68
+"Québec, Quebec",2021,8226,1035,11.18
+"Québec, Quebec",2022,7202,558,7.19
+"Québec, Quebec",2023,4947,754,13.23
+"Québec, Quebec",2024,8587,985,10.29
+"Québec, Quebec",2025,8186,1121,12.04
+"Peterborough, Ontario",2018,561,18,3.11
+"Peterborough, Ontario",2019,442,80,15.33
+"Peterborough, Ontario",2020,684,86,11.17
+"Peterborough, Ontario",2021,600,70,10.45
+"Peterborough, Ontario",2022,579,81,12.27
+"Peterborough, Ontario",2023,352,94,21.08
+"Peterborough, Ontario",2024,234,107,31.38
+"Peterborough, Ontario",2025,236,58,19.73
+"Regina, Saskatchewan",2018,1019,29,2.77
+"Regina, Saskatchewan",2019,525,27,4.89
+"Regina, Saskatchewan",2020,841,10,1.18
+"Regina, Saskatchewan",2021,933,14,1.48
+"Regina, Saskatchewan",2022,912,24,2.56
+"Regina, Saskatchewan",2023,1466,41,2.72
+"Regina, Saskatchewan",2024,1322,172,11.51
+"Regina, Saskatchewan",2025,1467,324,18.09
+"Saguenay, Quebec",2018,632,75,10.61
+"Saguenay, Quebec",2019,569,154,21.30
+"Saguenay, Quebec",2020,559,99,15.05
+"Saguenay, Quebec",2021,1053,100,8.67
+"Saguenay, Quebec",2022,541,190,25.99
+"Saguenay, Quebec",2023,696,96,12.12
+"Saguenay, Quebec",2024,1347,169,11.15
+"Saguenay, Quebec",2025,867,180,17.19
+"Saint John, New Brunswick",2018,335,58,14.76
+"Saint John, New Brunswick",2019,467,48,9.32
+"Saint John, New Brunswick",2020,614,44,6.69
+"Saint John, New Brunswick",2021,969,58,5.65
+"Saint John, New Brunswick",2022,600,90,13.04
+"Saint John, New Brunswick",2023,727,52,6.68
+"Saint John, New Brunswick",2024,819,74,8.29
+"Saint John, New Brunswick",2025,878,98,10.04
+"Saskatoon, Saskatchewan",2018,1443,199,12.12
+"Saskatoon, Saskatchewan",2019,1327,222,14.33
+"Saskatoon, Saskatchewan",2020,2229,241,9.76
+"Saskatoon, Saskatchewan",2021,2113,392,15.65
+"Saskatoon, Saskatchewan",2022,1956,307,13.57
+"Saskatoon, Saskatchewan",2023,2339,427,15.44
+"Saskatoon, Saskatchewan",2024,2993,563,15.83
+"Saskatoon, Saskatchewan",2025,3396,874,20.47
+"Sherbrooke, Quebec",2018,1411,148,9.49
+"Sherbrooke, Quebec",2019,1667,260,13.49
+"Sherbrooke, Quebec",2020,2023,68,3.25
+"Sherbrooke, Quebec",2021,2884,73,2.47
+"Sherbrooke, Quebec",2022,1707,115,6.31
+"Sherbrooke, Quebec",2023,1428,98,6.42
+"Sherbrooke, Quebec",2024,2166,108,4.75
+"Sherbrooke, Quebec",2025,2276,263,10.36
+"St. Catharines-Niagara, Ontario",2018,2567,122,4.54
+"St. Catharines-Niagara, Ontario",2019,2629,135,4.88
+"St. Catharines-Niagara, Ontario",2020,2917,292,9.10
+"St. Catharines-Niagara, Ontario",2021,2782,232,7.70
+"St. Catharines-Niagara, Ontario",2022,3496,249,6.65
+"St. Catharines-Niagara, Ontario",2023,2384,230,8.80
+"St. Catharines-Niagara, Ontario",2024,2116,366,14.75
+"St. Catharines-Niagara, Ontario",2025,2261,480,17.51
+"St. John's, Newfoundland and Labrador",2018,656,15,2.24
+"St. John's, Newfoundland and Labrador",2019,496,20,3.88
+"St. John's, Newfoundland and Labrador",2020,475,20,4.04
+"St. John's, Newfoundland and Labrador",2021,582,15,2.51
+"St. John's, Newfoundland and Labrador",2022,697,69,9.01
+"St. John's, Newfoundland and Labrador",2023,597,73,10.90
+"St. John's, Newfoundland and Labrador",2024,918,146,13.72
+"St. John's, Newfoundland and Labrador",2025,1198,285,19.22
+"Thunder Bay, Ontario",2018,189,30,13.70
+"Thunder Bay, Ontario",2019,319,15,4.49
+"Thunder Bay, Ontario",2020,168,75,30.86
+"Thunder Bay, Ontario",2021,206,44,17.60
+"Thunder Bay, Ontario",2022,205,18,8.07
+"Thunder Bay, Ontario",2023,326,22,6.32
+"Thunder Bay, Ontario",2024,387,24,5.84
+"Thunder Bay, Ontario",2025,342,69,16.79
+"Toronto, Ontario",2018,37830,2873,7.06
+"Toronto, Ontario",2019,31885,4201,11.64
+"Toronto, Ontario",2020,41571,5776,12.20
+"Toronto, Ontario",2021,48903,9133,15.74
+"Toronto, Ontario",2022,33807,8898,20.84
+"Toronto, Ontario",2023,38804,7400,16.02
+"Toronto, Ontario",2024,36772,7792,17.48
+"Toronto, Ontario",2025,31425,6041,16.12
+"Trois-Rivières, Quebec",2018,751,53,6.59
+"Trois-Rivières, Quebec",2019,630,44,6.53
+"Trois-Rivières, Quebec",2020,740,58,7.27
+"Trois-Rivières, Quebec",2021,1422,43,2.94
+"Trois-Rivières, Quebec",2022,1230,36,2.84
+"Trois-Rivières, Quebec",2023,1435,56,3.76
+"Trois-Rivières, Quebec",2024,1686,87,4.91
+"Trois-Rivières, Quebec",2025,1512,209,12.14
+"Vancouver, British Columbia",2018,26236,860,3.17
+"Vancouver, British Columbia",2019,25992,804,3.00
+"Vancouver, British Columbia",2020,22104,831,3.62
+"Vancouver, British Columbia",2021,24509,685,2.72
+"Vancouver, British Columbia",2022,33032,865,2.55
+"Vancouver, British Columbia",2023,29924,781,2.54
+"Vancouver, British Columbia",2024,27722,908,3.17
+"Vancouver, British Columbia",2025,28149,708,2.45
+"Victoria, British Columbia",2018,4315,635,12.83
+"Victoria, British Columbia",2019,3134,188,5.66
+"Victoria, British Columbia",2020,2964,205,6.47
+"Victoria, British Columbia",2021,4654,171,3.54
+"Victoria, British Columbia",2022,4197,246,5.54
+"Victoria, British Columbia",2023,4394,187,4.08
+"Victoria, British Columbia",2024,5177,223,4.13
+"Victoria, British Columbia",2025,4220,193,4.37
+"Windsor, Ontario",2018,1054,17,1.59
+"Windsor, Ontario",2019,1374,24,1.72
+"Windsor, Ontario",2020,1758,63,3.46
+"Windsor, Ontario",2021,1832,125,6.39
+"Windsor, Ontario",2022,1919,196,9.27
+"Windsor, Ontario",2023,966,176,15.41
+"Windsor, Ontario",2024,1856,337,15.37
+"Windsor, Ontario",2025,1378,355,20.48
+"Winnipeg, Manitoba",2018,4563,51,1.11
+"Winnipeg, Manitoba",2019,5423,136,2.45
+"Winnipeg, Manitoba",2020,4809,141,2.85
+"Winnipeg, Manitoba",2021,7044,85,1.19
+"Winnipeg, Manitoba",2022,5381,134,2.43
+"Winnipeg, Manitoba",2023,6166,86,1.38
+"Winnipeg, Manitoba",2024,5790,39,0.67
+"Winnipeg, Manitoba",2025,6450,310,4.59

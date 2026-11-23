@@ -12,7 +12,8 @@ export const TAG_ICON_POSTS = [
 	'spatial-access-to-public-libraries-toronto',
 	'foreign-buyer-tax-vancouver-toronto',
 	'fibre-internet-infrastructure-toronto',
-	'voter-turnout-municipal-elections-ontario'
+	'voter-turnout-municipal-elections-ontario',
+	'residential-conversions-canada'
 ];
 
 export const TAG_ICONS = {
@@ -47,6 +48,10 @@ export const TAG_ICONS = {
 	// wifi
 	internet:
 		'M14.87 6.06L13.4 7.54C10.14 4.26 4.86 4.26 1.6 7.54L0.14 6.08C-0.03 5.9 -0.05 5.63 0.09 5.44L0.16 5.36C2.24 3.44 4.68 2.49 7.5 2.5C10.32 2.51 12.76 3.46 14.83 5.35C15.04 5.54 15.06 5.86 14.87 6.06ZM12.49 8.45L10.68 10.28C8.92 8.52 6.08 8.52 4.33 10.28L2.51 8.45C5.27 5.68 9.74 5.68 12.49 8.45ZM8.79 12.92C8.16 13.63 7.08 13.7 6.37 13.07C6.31 13.02 6.26 12.97 6.22 12.92C5.63 12.25 5.69 11.24 6.36 10.65C6.61 10.42 6.92 10.29 7.26 10.25C7.35 10.24 7.43 10.24 7.52 10.24L7.6 10.24L7.69 10.25C8.57 10.3 9.24 11.06 9.19 11.95C9.17 12.26 9.06 12.55 8.88 12.8L8.79 12.92Z',
+	// Not from Pinhead: drawn for this site. A plat map, five lots of different
+	// sizes with a lane between them, on the same 15 x 15 viewBox.
+	'land use':
+		'M1 1h6v5h-6zM8 1h6v3h-6zM8 5h6v4h-6zM1 7h6v7h-6zM8 10h6v4h-6z',
 	// tram_track_crossing_dashed_line
 	infrastructure:
 		'M5.5 7L5 7L5 8L5.5 8L5.5 10L0 10L0 5L5.5 5L5.5 7ZM1 7L1 8L3 8L3 7L1 7ZM9.5 8L10 8L10 7L9.5 7L9.5 5L15 5L15 10L9.5 10L9.5 8ZM12 7L12 8L14 8L14 7L12 7ZM6 0L7 0L7 15L6 15L6 0ZM8 0L9 0L9 15L8 15L8 0Z',
