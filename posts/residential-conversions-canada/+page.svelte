@@ -26,7 +26,7 @@
 	);
 	const fRules = footnoteStore.addFootnote(
 		[
-			"Ontario and British Columbia have recently changed their rules to allow more dwelling units on lots with a single house. Ontario's 2022 act requires zoning to permit up to three dwelling units per lot in serviced areas, and BC required many municipalities to allow three to four by June 30, 2024, with extensions for some. Alberta moved the other way: Calgary repealed its blanket rezoning in 2026, and in October 2026 the province directed Edmonton to revert to its pre-2024 infill rules. These data end in 2025, so they cannot show whether any of these changes affected conversions. Toronto's percent was already above 15% in 2021, and only the last 18 months of data follow BC's deadline.",
+			"Ontario and British Columbia have recently changed their rules to allow more dwelling units on lots with a single house. Ontario's 2022 act requires zoning to permit up to three dwelling units per lot in serviced areas, and B.C. required many municipalities to allow three to four by June 30, 2024, with extensions for some. Alberta moved the other way: Calgary repealed its blanket rezoning in 2026, and in October 2026 the province directed Edmonton to revert to its pre-2024 infill rules. These data end in 2025, so they cannot show whether any of these changes affected conversions. Toronto's percent was already above 15% in 2021, and only the last 18 months of data follow B.C.'s deadline.",
 			"Government of Ontario. *More Homes Built Faster*. [URL](https://www.ontario.ca/page/more-homes-built-faster).",
 			"Borden Ladner Gervais. (2022, December 1). Bill 23 in Ontario: the More Homes Built Faster Act, 2022 receives Royal Assent. [URL](https://www.blg.com/en/insights/2022/12/bill-23-in-ontario-the-more-homes-built-faster-act-2022-receives-royal-assent).",
 			"Province of British Columbia. *Small-scale, multi-unit housing*. [URL](https://www2.gov.bc.ca/gov/content/housing-tenancy/local-governments-and-housing/housing-initiatives/smale-scale-multi-unit-housing).",
@@ -79,7 +79,7 @@
 <div class="text">
 
 <p>
-	We used data from Statistics Canada's <a href={surveyUrl} target="_blank" rel="noopener noreferrer">Building Permits Survey</a>. This survey tracks attributes of building permits issued in Census Metropolitan Areas (CMA) on a monthly basis. The survey includes the number of new dwelling units to be created from building conversions, based on building permits issued in each month. Using this data, we can rank and compare the number and percent of new dwelling units from building conversions by metro area.
+	We used data from Statistics Canada's <a href={surveyUrl} target="_blank" rel="noopener noreferrer">Building Permits Survey</a>. This survey tracks attributes of building permits issued in census metropolitan areas (CMA) on a monthly basis. The survey includes the number of new dwelling units to be created from building conversions, based on building permits issued in each month. Using this data, we can rank and compare the number and percent of new dwelling units from building conversions by metro area.
 </p>
 
 </div>
