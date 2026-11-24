@@ -22,7 +22,7 @@ const charts = {
 		source,
 		alt: 'A bar chart of yearly counts above a line chart of percent, sharing the years 2018 to 2025. Both rise over the period, with the biggest yearly increases in 2021 and 2024, and the percent levels off in 2025.',
 		note: 'Dwelling units to be created according to building permits issued in each year. These are not starts or completions, as some permits won’t lead to construction. Counts are rounded to the nearest hundred.',
-		data: ['canada-annual.csv', 'dwelling-units-created-monthly.csv'],
+		data: ['canada-annual.csv'],
 		widths: [360, 720],
 		graphicVerb: 'created'
 	},
@@ -31,9 +31,9 @@ const charts = {
 		subtitle:
 			'Total and percent of new dwellings from building conversions in each census metropolitan area, 2018 to 2025 (based on issued building permits)',
 		source,
-		alt: 'A bar chart of 39 census metropolitan areas, sorted by number of dwelling units from conversions, with bars coloured by percent from yellow (low) to purple (high). Montréal is second to Toronto. The highest percents are in smaller regions, such as Guelph and Greater Sudbury.',
+		alt: 'A bar chart of 39 census metropolitan areas, sorted by number of dwelling units from conversions, with bars coloured by percent from yellow (low) to purple (high). Montreal is second to Toronto. The highest percents are in smaller regions, such as Guelph and Greater Sudbury.',
 		note: 'Dwelling units to be created according to building permits issued from 2018 to 2025, not dwelling units completed. Percent is of all permits for new dwelling units, from new construction and conversions.',
-		data: ['conversions-by-cma.csv', 'dwelling-units-created-monthly.csv'],
+		data: ['conversions-by-cma.csv'],
 		widths: [360, 720],
 		graphicVerb: 'created'
 	},
@@ -53,7 +53,7 @@ const charts = {
 		subtitle:
 			'Percent of new dwellings created by converting existing buildings, by type of conversion, 2018 to 2025 (issued building permits)',
 		source,
-		alt: 'A unit chart with one vertical bar of 100 squares for Canada and for each of eight regions, split into three types of conversion. Single dwelling to multiple dwellings is over 70% in Toronto, Vancouver, Edmonton and Calgary, while multiple to multiple leads in Montréal and Québec and non-residential to residential in Winnipeg. Ottawa-Gatineau is more evenly split.',
+		alt: 'A unit chart with one vertical bar of 100 squares for Canada and for each of eight regions, split into three types of conversion. Single dwelling to multiple dwellings is over 70% in Toronto, Vancouver, Edmonton and Calgary, while multiple to multiple leads in Montreal and Quebec and non-residential to residential in Winnipeg. Ottawa-Gatineau is more evenly split.',
 		note: 'Dwelling units to be created according to building permits issued from 2018 to 2025. Conversions are the sum of three types of work: non-residential to residential, single dwelling to multiple dwellings, and multiple dwellings to multiple dwellings. Percents are rounded so that each bar adds to 100%. Totals are rounded to the nearest hundred.',
 		data: 'conversions-by-cma.csv',
 		widths: [360, 720, 1080],

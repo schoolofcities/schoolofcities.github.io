@@ -23,8 +23,8 @@
 		Winnipeg: -97.14,
 		Toronto: -79.38,
 		'Ottawa-Gatineau': -75.7,
-		Montréal: -73.57,
-		Québec: -71.21
+		Montreal: -73.57,
+		Quebec: -71.21
 	};
 	const minLabel = 10;
 
