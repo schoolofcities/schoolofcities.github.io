@@ -32,7 +32,7 @@
 
 <style>
     .chart-header {
-        border-top: solid 1px var(--brandGray);
+        border-top: solid 1px var(--brandGray, #d0d1c9);
         padding-top: 10px;
         margin-bottom: 14px;
     }

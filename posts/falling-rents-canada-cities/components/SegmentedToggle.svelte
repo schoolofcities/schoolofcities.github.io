@@ -23,7 +23,8 @@
 <style>
     .toggle {
         display: inline-flex;
-        gap: 10px;
+        flex-wrap: wrap;
+        gap: 8px 10px;
     }
     .toggle button {
         font-family: OpenSans, sans-serif;

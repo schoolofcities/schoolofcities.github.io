@@ -1,7 +1,7 @@
 <script>
     /**
      * Body of the asking-rent pop-up shared by the map and the trajectory chart (the title is the card's own bold heading).
-     * A small two-row table — after inflation, then nominal — with the net change and the monthly asking rent, start → latest.
+     * A small two-row table — after inflation, then before inflation — with the net change and the monthly asking rent, start → latest.
      * Under each row a thin bar shows the change in dollars: a line marks the starting rent, and the shading runs to the right of it
      * for an increase or to the left for a decrease. Almost every change is an increase, so the line sits near the left and most of the
      * bar is room for increases. Both rows (and every pop-up on the page) share one dollar scale.
@@ -50,7 +50,7 @@
         <i class="fill" class:down={realShade.down} style="left: {realShade.left}%; width: {realShade.width}%"></i><i class="mid" style="left: {zero}%"></i>
     </span>
 
-    <span class="lbl" class:on={measure === 'nominal'}>Nominal</span>
+    <span class="lbl" class:on={measure === 'nominal'}>Before inflation</span>
     <span class="chg" class:on={measure === 'nominal'}>{pct(nominalPct)}</span>
     <span class="usd" class:on={measure === 'nominal'}>{usd(baseRent)} → {usd(latestRent)}</span>
     <span class="bar" aria-hidden="true">
@@ -105,7 +105,7 @@
     .peak {
         margin-top: 6px;
         padding-top: 5px;
-        border-top: solid 1px var(--brandGray);
+        border-top: solid 1px var(--brandGray, #d0d1c9);
         font-size: 12px;
         color: var(--brandGray90);
     }

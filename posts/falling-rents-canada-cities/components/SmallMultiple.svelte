@@ -24,6 +24,7 @@
         yLabels = false,        // featured: print tick numbers inside the plot, top-left (the page does this for the first panel in each row only)
         active = false,         // tiny: reveal the y-axis numbers
         xTicks = [],            // featured: [{ label, i }] printed under the panel
+        yearTicks = [],         // [{ i }] one small unlabelled tick per year along the bottom edge, on every panel
         color = '#bf2150',      // the city's line, coloured like its arrow on the map
     } = $props();
 
@@ -100,7 +101,7 @@
                 {/if}
             {/each}
             {#each xTicks as t, k}
-                <text x={xScale(t.i)} y={innerH + 11.5} class="chart-axis-label tick" text-anchor={k === 0 ? 'start' : k === xTicks.length - 1 ? 'end' : 'middle'}>{t.label}</text>
+                <text x={xScale(t.i)} y={innerH + 13} class="chart-axis-label tick" text-anchor={k === 0 ? 'start' : k === xTicks.length - 1 ? 'end' : 'middle'}>{t.label}</text>
             {/each}
             <text x="0" y="-4" class="panel-title" class:large class:compact>{title}</text>
         {:else}
@@ -112,6 +113,12 @@
                 {/each}
             {/if}
         {/if}
+
+        <!-- the bottom edge: a hairline with one small tick per year (the first and last years are labelled on the featured panels) -->
+        <line x1="0" x2={innerW} y1={innerH} y2={innerH} class="base-line" />
+        {#each yearTicks as t}
+            <line x1={xScale(t.i)} x2={xScale(t.i)} y1={innerH} y2={innerH + (featured ? 3 : 2.5)} class="year-tick" />
+        {/each}
 
         {#if refPath}
             <path d={refPath} fill="none" stroke={C_REF} stroke-width={featured ? 1.9 : 1.3} stroke-linecap="round" stroke-linejoin="round" />
@@ -141,9 +148,11 @@
 
     svg { display: block; overflow: visible; }
 
-    .grid-line { stroke: var(--brandGray); stroke-width: 0.5; }
+    .grid-line { stroke: var(--brandGray, #d0d1c9); stroke-width: 0.5; }
     .zero-line { stroke: var(--brandGray50); stroke-width: 0.75; }
-    .tiny-zero { stroke: var(--brandGray); stroke-width: 0.6; }
+    .base-line { stroke: var(--brandGray, #d0d1c9); stroke-width: 0.6; }
+    .year-tick { stroke: var(--brandGray50); stroke-width: 0.8; }
+    .tiny-zero { stroke: var(--brandGray, #d0d1c9); stroke-width: 0.6; }
     .tiny-zero.on { stroke: var(--brandGray50); }
 
     .active-bg { fill: #f3f3f1; }

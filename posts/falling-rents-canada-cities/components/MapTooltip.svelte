@@ -5,7 +5,9 @@
     //
     // Plain by design: a white card with a thin dark outline, a bold title, then either the simple
     // value / descriptor lines or a snippet of the parent's own content (e.g. a tiny bar graphic).
-    let { x, y, title, value = '', descriptor = '', width = null, children = null, ondismiss = null } = $props();
+    // `yBelow` (optional): where the tooltip hangs from if it has to open BELOW the anchor — for an anchor that is a whole panel (y = its top edge, yBelow = its bottom edge),
+    // so the tooltip never sits on top of the thing it describes.
+    let { x, y, yBelow = null, title, value = '', descriptor = '', width = null, children = null, ondismiss = null } = $props();
 
     // ChartFrame puts the graphic inside a scroll container and a container-query boundary. Either one would
     // clip a position: fixed tooltip, or anchor it to the chart instead of the window, so the tooltip moves
@@ -17,7 +19,7 @@
 
     let el = $state(null);
     let visible = $state(false);
-    // svelte-ignore state_referenced_locally -- starts at the pointer, then the effect below clamps it into the window
+    // svelte-ignore state_referenced_locally -- starts at the anchor, then the effect below clamps it into the window
     let finalX = $state(x);
     let flipBelow = $state(false);
 
@@ -34,7 +36,10 @@
         if (ax + rect.width / 2 > vw - pad) ax = vw - rect.width / 2 - pad;
 
         finalX = ax;
-        flipBelow = y - rect.height - 10 < pad; // flip below cursor when near the top
+        // above the anchor unless it doesn't fit there and there is more room below
+        const roomAbove = y - 10 - pad;
+        const roomBelow = window.innerHeight - (yBelow ?? y) - 10 - pad;
+        flipBelow = rect.height > roomAbove && roomBelow > roomAbove;
         visible = true;
     });
 
@@ -49,7 +54,7 @@
     class="map-tooltip"
     class:flip-below={flipBelow}
     class:fixed-width={width !== null}
-    style="left: {finalX}px; top: {y}px; opacity: {visible ? 1 : 0};{width !== null ? ` width: ${width}px;` : ''}"
+    style="left: {finalX}px; top: {flipBelow && yBelow !== null ? yBelow : y}px; opacity: {visible ? 1 : 0};{width !== null ? ` width: ${width}px;` : ''}"
     bind:this={el}
     use:portal
 >

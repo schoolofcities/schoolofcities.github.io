@@ -21,16 +21,21 @@
     // ─── layout ────────────────────────────────────────────────────────────────
     let width = $state(0);
     let compact = $derived(width < 520);
-    const SEP = 8;                                           // extra air between the context and no-context parts of a bar
+    const SEP = 5;                                           // extra air between the context and no-context parts of a bar
     let barH = $derived(compact ? 30 : 38);
     const padY = 6;                                          // room above and below the ticks for the selected tick to stand taller
     let svgH = $derived(barH + padY * 2);
     let maxN = $derived(Math.max(...groups.map((g) => g.n)));
-    let step = $derived(Math.max(1, (width - SEP) / maxN));  // one tick width for both bars, so the two bar lengths compare directly
-    let gap = $derived(Math.min(2, Math.max(0.7, step * 0.3)));
+
+    // Every headline is one line of the same width, exactly the same distance from the next, in both bars; the longest bar (rising) runs the full width of the graphic.
+    // The spacing is exact rather than snapped to whole device pixels: snapping a non-whole step makes lines bunch into visible groups (e.g. of four).
+    // The lines are drawn anti-aliased (no crisp edges) so that they read as an even, regular texture on any screen.
+    const DUTY = 0.62;                                       // share of each step that is line (the rest is white)
+    let tickW = $derived(Math.max(0.5, ((width - SEP) / maxN) * DUTY));                           // css px per line
+    let step  = $derived(maxN > 1 ? (width - SEP - tickW) / (maxN - 1) : tickW / DUTY);            // css px from one line to the next, so the last line ends at the right edge
 
     const sepOf = (g) => (g.n_context > 0 && g.n_context < g.n ? SEP : 0);
-    const xOf = (g, i) => i * step + (i >= g.n_context ? sepOf(g) : 0);
+    const xOf = (g, i) => i * step + (i >= g.n_context && sepOf(g) > 0 ? SEP : 0);
 
     // x (px from the left of the bar) -> index of the tick under it, snapping across the gaps so the pointer never falls between two ticks
     function indexAt(g, x) {
@@ -47,6 +52,7 @@
     const fmtDate = (iso) => { const [y, m, d] = iso.split('-').map(Number); return `${MONTHS[m - 1]} ${d}, ${y}`; };
     const directionTag = (g) => g.label;                     // "Rents falling" / "Rents rising"
     const pct = (v) => `${Math.round(v)}%`;
+    const listOf = (names) => (names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names.join(''));
 
     // ─── hover / tap / keyboard ────────────────────────────────────────────────
     // sel = { row, idx, pinned }: the tick whose card is open. A pinned card stays open when the pointer leaves (click, tap, or keyboard).
@@ -146,24 +152,22 @@
 
 <div class="hc" bind:this={root}>
     <ChartHeader
-        title="A headline gives some context if it says the change is small, compares it with the past or a peak, or says rents are still high"
+        title="A headline gives some context if it says the change is small or slowing, that rents are still high or above an earlier level, or that the trend differs elsewhere"
         hint="Hover or tap a line to read the headline."
     >
-        {#snippet legend()}
-            <div class="key" role="group" aria-label="Colours">
-                <span class="key-item"><span class="chip" style="background: {COLOR_CONTEXT}"></span>Some context</span>
-                <span class="key-item"><span class="chip" style="background: {COLOR_NONE}"></span>Little context</span>
-            </div>
-        {/snippet}
     </ChartHeader>
 
     <div class="rows" bind:clientWidth={width}>
+        <!-- on the first row's title line (right-aligned); on a narrow screen there is no room beside the title, so it sits just above the rows -->
+        <div class="key" class:inline={compact} role="group" aria-label="Colours">
+            <span class="key-item"><span class="chip" style="background: {COLOR_CONTEXT}"></span>Some context</span>
+            <span class="key-item"><span class="chip" style="background: {COLOR_NONE}"></span>Little context</span>
+        </div>
         {#each groups as g, ri (g.id)}
             <section class="row" aria-label="{g.label}: {g.n_context} of {g.n} headlines have some context">
-                <div class="row-head">
-                    <p class="row-title"><span class="dir">{g.label}</span><span class="muted">{g.n} headlines</span></p>
-                    <p class="row-stat"><span class="pct">{pct(g.share)}</span> have some context<span class="muted">({g.n_context} of {g.n})</span></p>
-                </div>
+                <p class="row-title"><span class="dir">{g.label}</span><span class="muted">{g.n} headlines</span></p>
+                <!-- the red section is the left end of the bar, so its figure sits straight above it -->
+                <p class="row-stat"><span class="chip" style="background: {COLOR_CONTEXT}"></span><span class="pct">{pct(g.share)}</span> have some context<span class="muted">({g.n_context} of {g.n})</span></p>
 
                 <div class="bar-wrap" bind:this={wraps[ri]}>
                     {#if width > 0}
@@ -182,8 +186,8 @@
                                 {@const isSel = sel && sel.row === ri && sel.idx === i}
                                 {@const dim = sel && sel.row === ri && !isSel}
                                 <rect
-                                    x={xOf(g, i) + gap / 2} y={isSel ? padY - 5 : padY}
-                                    width={Math.max(0.8, step - gap)} height={isSel ? barH + 10 : barH}
+                                    x={xOf(g, i)} y={isSel ? padY - 5 : padY}
+                                    width={tickW} height={isSel ? barH + 10 : barH}
                                     fill={h.c ? COLOR_CONTEXT : COLOR_NONE}
                                     opacity={dim ? DIM : 1}
                                 />
@@ -220,7 +224,7 @@
                                 </div>
                                 <p class="c-title">{h.t}</p>
                                 <p class="c-sub">{h.o} · {fmtDate(h.d)}</p>
-                                {#if h.c && h.f.length}
+                                {#if h.f.length}
                                     <p class="c-why">{h.f.map((f) => meta.flag_labels[f]).join(' · ')}</p>
                                 {/if}
                                 <a class="c-link" href={h.u} target="_blank" rel="noopener noreferrer">Read the article ↗</a>
@@ -240,22 +244,16 @@
         width: 100%;
     }
 
-    .rows { width: 100%; }
+    .rows { width: 100%; position: relative; }
     .row { margin-top: 10px; }
-    .row:first-child { margin-top: 0; }
+    .row:first-of-type { margin-top: 0; }
 
-    .row-head {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 0 16px;
-    }
-    .row-head p { margin: 0; padding: 0; font-family: OpenSans, sans-serif; line-height: 20px; font-size: 14px; color: var(--brandGray80); }
+    .row p { margin: 0; padding: 0; font-family: OpenSans, sans-serif; line-height: 20px; font-size: 14px; color: var(--brandGray80); text-align: left; }
+    .row-stat { display: flex; align-items: center; gap: 6px; margin-top: 1px; }
     .dir { font-family: OpenSansBold, sans-serif; font-weight: normal; font-size: 15px; margin-right: 8px; color: var(--brandGray90); }
-    .pct { font-family: OpenSansBold, sans-serif; font-weight: normal; font-size: 15px; color: var(--brandGray90); }
+    .pct { font-family: OpenSansBold, sans-serif; font-weight: normal; font-size: 15px; color: var(--brandGray90); margin-right: -2px; }
     .muted { font-size: 12.5px; color: var(--brandGray60); }
-    .row-stat .muted { margin-left: 6px; }
+    .row-stat .muted { margin-left: 2px; }
 
     .bar-wrap { position: relative; }
     svg { display: block; overflow: visible; touch-action: pan-y; cursor: pointer; }
@@ -264,7 +262,8 @@
     .hit { touch-action: pan-y; }
 
     /* year/colour key */
-    .key { display: inline-flex; gap: 14px; flex-wrap: wrap; }
+    .key { position: absolute; top: 0; right: 0; height: 20px; display: flex; align-items: center; gap: 14px; }
+    .key.inline { position: static; height: auto; margin-bottom: 8px; }
     .key-item { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--brandGray70); }
     .chip { display: inline-block; width: 10px; height: 10px; flex: none; }
 
@@ -291,7 +290,7 @@
         align-items: center;
         gap: 5px;
         padding: 1px 7px 1px 6px;
-        border: 1px solid var(--brandGray);
+        border: 1px solid var(--brandGray, #d0d1c9);
         font-size: 11px;
         line-height: 17px;
         color: var(--brandGray80);

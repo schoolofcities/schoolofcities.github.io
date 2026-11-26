@@ -1,18 +1,18 @@
 {
+	"asking-vs-paid": {
+		"width": 720,
+		"height": 995
+	},
 	"city-rent-trajectories": {
 		"width": 720,
-		"height": 992
+		"height": 1009
 	},
 	"headline-context": {
 		"width": 720,
-		"height": 674
+		"height": 697
 	},
 	"net-change-map": {
 		"width": 720,
-		"height": 933
-	},
-	"rent-change-histogram": {
-		"width": 720,
-		"height": 852
+		"height": 918
 	}
 }
