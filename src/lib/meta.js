@@ -44,6 +44,18 @@ export function formatAuthorList(authors = []) {
 }
 
 /**
+ * The same list as formatAuthorList, as pieces, so a name can be a link.
+ * `links` is meta.json's optional `authorLinks`: { "Name": "https://..." }.
+ */
+export function authorParts(authors = [], links = {}) {
+	const n = authors.length;
+	return authors.flatMap((name, i) => {
+		const separator = i === 0 ? '' : n === 2 ? ' and ' : i === n - 1 ? ', and ' : ', ';
+		return [...(separator ? [{ text: separator }] : []), { text: name, url: links?.[name] }];
+	});
+}
+
+/**
  * The three ways a document in meta.json can relate to a post:
  *
  *   from      the post communicates a result from that work — an academic

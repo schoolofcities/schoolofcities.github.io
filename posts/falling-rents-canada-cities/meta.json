@@ -1,0 +1,24 @@
+{
+	"title": "Are rents falling in Canada's cities?",
+	"type": "post",
+	"summary": "Asking rents have started to fall in many Canadian cities, but even after inflation they remain above their 2019 levels in almost every one.",
+	"authors": ["Aniket Kali"],
+	"authorLinks": { "Aniket Kali": "https://www.linkedin.com/in/aniket-kali-8a8b9921b/" },
+	"published": "2026-11-23",
+	"license": "CC-BY-4.0",
+	"protected": true,
+	"cardImage": "net-change-map",
+	"geography": ["Canada"],
+	"tags": ["housing"],
+	"documents": [
+		{
+			"relation": "from",
+			"type": "code",
+			"authors": ["School of Cities"],
+			"year": 2026,
+			"title": "Renters: data, code and classified headlines for housing affordability and rental market analysis",
+			"link": "https://github.com/schoolofcities/renters",
+			"linkType": "GitHub"
+		}
+	]
+}
