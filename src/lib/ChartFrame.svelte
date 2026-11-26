@@ -19,7 +19,8 @@
 	const chartAuthors = $derived(meta.authors ?? authors);
 
 	// meta.description (optional, set per-chart in charts.js) is the long
-	// description: one string, or an array of them for several paragraphs.
+	// description, for screen readers only: one string, or an array of them for
+	// several paragraphs.
 	const descriptionParagraphs = $derived([meta.description ?? []].flat());
 
 
@@ -224,14 +225,35 @@
 		<p class="chart-subtitle">{meta.subtitle}</p>
 	{/if}
 
+	<!-- The alt text, then the long description if the chart has one: for screen
+	     readers only, read straight after the title and subtitle and before any
+	     of the chart's own controls. The chart's drawn parts are hidden from
+	     screen readers by <ChartGraphic> inside each chart component, so these
+	     stand in for them; controls stay outside those wrappers and are
+	     announced as normal.
+
+	     The alt is read as one string, so it stays short (one to three
+	     sentences). The description carries anything more a screen-reader user
+	     needs and the post text doesn't give — it matters most on figure pages
+	     and embeds, which have no post text around them. Ordinary paragraphs,
+	     so it can be stepped through sentence by sentence. Never shown on
+	     screen: sighted readers get the same detail from the chart itself and
+	     the post around it. -->
+	<p class="chart-alt">{meta.alt}</p>
+	{#each descriptionParagraphs as paragraph}
+		<p class="chart-alt">{paragraph}</p>
+	{/each}
+
 	<!-- tabindex/role/aria-label: this scrolls horizontally whenever the frame is
 	     narrower than the graphic (charts with a fixed meta.widths, e.g. the
 	     1080px maps), and a scroll container that is not focusable cannot be
 	     scrolled by keyboard at all — WCAG 2.1.1. Focusable unconditionally, since
-	     whether it actually overflows depends on the viewport. -->
+	     whether it actually overflows depends on the viewport. Labelled briefly
+	     rather than with the title, which screen readers have just read as the
+	     heading above. -->
 	<div class="chart-scroll-wrap">
-		<div class="chart-scroll" tabindex="0" role="group" aria-label={meta.title} use:trackScroll>
-			<div class="chart-body" role="img" aria-label={meta.alt}>
+		<div class="chart-scroll" tabindex="0" role="group" aria-label="Scrollable chart" use:trackScroll>
+			<div class="chart-body">
 				{#if children}
 					{@render children()}
 				{:else}
@@ -240,23 +262,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- The long description. meta.alt on the graphic above is read out as one
-	     unbroken string and is invisible to everyone else, so it stays short;
-	     the detail lives here as ordinary text, outside the role="img" wrapper
-	     and straight after it so the two are read together,
-	     where a screen reader can step through it and any reader can open it.
-	     Native <details>, so it works with scripting off. -->
-	{#if descriptionParagraphs.length > 0}
-		<details class="chart-description">
-			<summary>Description of this graphic</summary>
-			<div class="chart-description-text">
-				{#each descriptionParagraphs as paragraph}
-					<p>{paragraph}</p>
-				{/each}
-			</div>
-		</details>
-	{/if}
 
 	<div class="chart-footer">
 		<div class="chart-source-group">
@@ -559,6 +564,20 @@
 		margin: 0 0 4px 0;
 	}
 
+	/* Visually hidden, still read by screen readers: the standard clip pattern,
+	   since display: none or visibility: hidden would hide it from them too. */
+	.chart-alt {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
 	/* The container charts query against (@container in a chart's own styles),
 	   at the exact snapped width rather than the frame's, so a chart lays out
 	   the same however narrow the frame is. No --graphic-w (charts without
@@ -733,53 +752,6 @@
 		color: var(--brandGray55);
 		margin: 0;
 		padding: 0;
-	}
-
-	.chart-description {
-		margin-bottom: 12px;
-		padding: 8px 12px;
-		/* Half a step lighter than --brandGray05, the lightest grey token. */
-		background-color: #f9f9f9;
-		/* Hugs its contents: just the summary's words when closed, the text
-		   column (capped at 680px below) when open. */
-		box-sizing: border-box;
-		width: fit-content;
-		max-width: 100%;
-	}
-
-	.chart-description summary {
-		font-family: OpenSansItalic;
-		font-weight: normal;
-		font-size: 12px;
-		line-height: 16px;
-		color: var(--brandGray55);
-		cursor: pointer;
-		/* Shrink-wrapped, so only the words are clickable, not the whole row. */
-		width: fit-content;
-		text-decoration: underline;
-	}
-
-	.chart-description summary:hover {
-		color: var(--brandGray90);
-	}
-
-	.chart-description p {
-		font-family: OpenSans;
-		font-weight: normal;
-		font-size: 13px;
-		line-height: 19px;
-		color: var(--brandGray70);
-		max-width: 680px;
-		margin: 0;
-		padding: 0;
-	}
-
-	.chart-description-text {
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-		margin-top: 8px;
-		padding-bottom: 4px;
 	}
 
 	/* 318px, not 360px: container queries measure .chart-frame's content-box,

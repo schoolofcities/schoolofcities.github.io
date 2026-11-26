@@ -8,7 +8,6 @@
 	import Footnotes from '$lib/footnotes/Footnotes.svelte';
 	import { createFootnoteStore } from '$lib/footnotes/footnoteUtils.js';
 
-	const paperDoc = meta.documents.find((d) => d.type === 'paper');
 	const brimiDoc = meta.documents.find((d) => d.type === 'project-site');
 
 	const footnoteStore = createFootnoteStore();

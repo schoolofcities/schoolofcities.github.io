@@ -8,13 +8,14 @@
 	import { BASE_PATH, SITE_ORIGIN } from './site.js';
 	import { lastUpdated, licenseUrl, socialImage } from './meta.js';
 
-	let { meta, charts, route, noindex = false } = $props();
+	// `card` is the post's card.png URL, if it has one (see socialImage).
+	let { meta, charts, card, route, noindex = false } = $props();
 
 	const SITE_NAME = 'School of Cities';
 
 	const url = $derived(route ? `${SITE_ORIGIN}${BASE_PATH}${route}` : undefined);
 	const modified = $derived(lastUpdated(meta.changelog));
-	const image = $derived(socialImage(charts, meta.cardImage));
+	const image = $derived(socialImage(charts, card));
 	const imageUrl = $derived(image ? `${SITE_ORIGIN}${image.url}` : undefined);
 
 	// schema.org description of the post, for search engines and AI systems —
@@ -68,7 +69,9 @@
 	{/if}
 	{#if imageUrl}
 		<meta property="og:image" content={imageUrl} />
-		<meta property="og:image:alt" content={image.alt} />
+		{#if image.alt}
+			<meta property="og:image:alt" content={image.alt} />
+		{/if}
 	{/if}
 
 	<!-- summary_large_image only renders large if an image is present; without

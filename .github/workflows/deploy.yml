@@ -13,9 +13,9 @@ name: Deploy
 on:
   push:
     branches: [main]
-    # Editing notes shouldn't redeploy the site.
+    # Editing docs shouldn't redeploy the site.
     paths-ignore:
-      - 'notes/**'
+      - 'docs/**'
       - '**.md'
   workflow_dispatch:
 

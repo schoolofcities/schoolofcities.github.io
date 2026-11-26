@@ -11,9 +11,9 @@ export default defineConfig({
 	plugins: [dsv(), sveltekit()],
 
 	server: {
-		// posts/ lives outside src/, which SvelteKit's dev server otherwise
-		// refuses to serve files from directly (see notes doc: content lives
-		// in a top-level posts/ folder, not under src/routes/).
+		// Post content lives in a top-level posts/ folder rather than under
+		// src/routes/, and SvelteKit's dev server otherwise refuses to serve
+		// files from outside src/.
 		fs: {
 			allow: [projectRoot]
 		},

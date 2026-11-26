@@ -1,0 +1,10 @@
+{
+	"title": "The geography of Toronto's outdoor skating rinks",
+	"type": "feature",
+	"url": "https://schoolofcities.github.io/access-to-outdoor-rinks-toronto",
+	"summary": "Mapping and charting how proximity to outdoor skating rinks varies across the City of Toronto and for different groups of people.",
+	"authors": ["Jeff Allen", "Teresa Lau"],
+	"published": "2024-01-16",
+	"geography": ["Toronto, ON"],
+	"tags": ["parks", "accessibility", "demographics"]
+}

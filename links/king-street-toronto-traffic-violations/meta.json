@@ -1,0 +1,21 @@
+{
+	"title": "Traffic violations on the King Street Transit Priority Corridor",
+	"type": "feature",
+	"url": "https://schoolofcities.github.io/king-street-toronto/traffic-violations",
+	"summary": "Analyzing and visualizing traffic violations on the King Street Transit Priority Corridor in Toronto.",
+	"authors": ["Jeff Allen", "Qi-Sheng Chen"],
+	"published": "2023-11-17",
+	"geography": ["Toronto, ON"],
+	"tags": ["public transit", "driving", "enforcement", "local government"],
+	"documents": [
+		{
+			"relation": "from",
+			"type": "code",
+			"authors": ["School of Cities"],
+			"year": 2023,
+			"title": "King Street Toronto",
+			"link": "https://github.com/schoolofcities/king-street-toronto",
+			"linkType": "GitHub"
+		}
+	]
+}

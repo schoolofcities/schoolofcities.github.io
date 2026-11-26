@@ -1,0 +1,22 @@
+{
+	"title": "Transportation justice for night and evening shift workers in Canada",
+	"type": "feature",
+	"url": "https://schoolofcities.github.io/evening-and-night-commuting",
+	"summary": "Maps and charts of where night and evening shift workers in Canada live and how they commute, from a study of the well-being and justice implications of commuting outside daytime hours.",
+	"authors": ["Matthew Palm", "Jeff Allen"],
+	"published": "2023-11-01",
+	"geography": ["Canada", "Vancouver, BC", "Burnaby, BC", "Coquitlam, BC", "Richmond, BC", "Surrey, BC", "Langley, BC", "Montreal, QC", "Laval, QC", "Longueuil, QC", "Brossard, QC", "Toronto, ON", "Brampton, ON", "Mississauga, ON", "Vaughan, ON", "Richmond Hill, ON", "Markham, ON", "Pickering, ON"],
+	"tags": ["public transit", "demographics", "night", "equity"],
+	"documents": [
+		{
+			"relation": "from",
+			"type": "paper",
+			"authors": ["Matthew Palm", "Jeff Allen", "Steven Farber"],
+			"year": 2023,
+			"title": "Shifted out: The well-being and justice implications of evening and night commuting",
+			"publication": "Transportation Research Part D: Transport and Environment",
+			"link": "https://doi.org/10.1016/j.trd.2023.103875",
+			"linkType": "DOI"
+		}
+	]
+}

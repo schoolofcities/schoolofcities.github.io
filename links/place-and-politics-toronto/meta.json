@@ -1,0 +1,21 @@
+{
+	"title": "Place and politics in Toronto",
+	"type": "project",
+	"url": "https://schoolofcities.github.io/place-and-politics-toronto/",
+	"summary": "A blog series mapping Toronto's election results and the city's social geography, from amalgamation in 1997 to the 2026 mayoral election.",
+	"authors": ["Zack Taylor", "Jeff Allen", "Aniket Kali"],
+	"published": "2022-11-02",
+	"geography": ["Toronto, ON"],
+	"tags": ["elections", "local government", "democracy"],
+	"changelog": [
+		{ "date": "2022-11-25", "note": "Part 2: Toronto's two rights" },
+		{ "date": "2022-11-30", "note": "Part 3: The electoral geography of progressivism in Toronto" },
+		{ "date": "2022-12-14", "note": "Part 4: Which candidates are most alike?" },
+		{ "date": "2023-07-14", "note": "Part 5: Mapping the 2023 mayoral by-election" },
+		{ "date": "2026-09-29", "note": "Part 6: Social geography and the mayoral vote" },
+		{ "date": "2026-10-22", "note": "Part 7: The five Torontos" },
+		{ "date": "2026-10-26", "note": "Part 8: One city, uneven participation" },
+		{ "date": "2026-11-04", "note": "Part 9: The 2026 mayoral election: Local landslides" },
+		{ "date": "2026-11-10", "note": "Part 10: The 2026 mayoral election: What kinds of neighbourhoods voted for whom?" }
+	]
+}

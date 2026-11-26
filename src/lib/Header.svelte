@@ -1,28 +1,19 @@
 <script>
-	import logoBlueColour from './images/sofc-uoft-logo-blue-colour.svg';
-	import logoWhiteColour from './images/sofc-uoft-logo-white-colour.svg';
-	import logoBlack from './images/sofc-uoft-logo-black.svg';
-	import logoWhite from './images/sofc-uoft-logo-white.svg';
+	import logo from './images/sofc-uoft-logo-white-colour.svg';
 
-	let { logoType = 'Blue', backgroundColor = 'var(--brandWhite)' } = $props();
+	// `flat` drops the shadow and light edge, so the header melts into the navy home
+	// page; a post keeps the lifted look.
+	let { backgroundColor = 'var(--brandDarkBlue)', flat = false } = $props();
 </script>
 
-<header class="logo-container" style="background-color: {backgroundColor}">
+<header class="logo-container" class:flat style="background-color: {backgroundColor}">
 	<a
 		href="https://schoolofcities.utoronto.ca/"
 		target="_blank"
 		rel="noopener noreferrer"
 		class="logo-link"
 	>
-		{#if logoType === 'Blue'}
-			<img src={logoBlueColour} alt="UofT and School of Cities logos" class="logo" />
-		{:else if logoType === 'White'}
-			<img src={logoWhiteColour} alt="UofT and School of Cities logos" class="logo" />
-		{:else if logoType === 'Black'}
-			<img src={logoBlack} alt="UofT and School of Cities logos" class="logo" />
-		{:else if logoType === 'WhiteOnly'}
-			<img src={logoWhite} alt="UofT and School of Cities logos" class="logo" />
-		{/if}
+		<img src={logo} alt="UofT and School of Cities logos" class="logo" />
 	</a>
 </header>
 
@@ -30,6 +21,7 @@
 	.logo-container {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		height: 65px;
 		margin-top: 0px;
 		margin-bottom: 0px;
@@ -43,6 +35,11 @@
 		position: relative;
 		z-index: 1;
 		padding: 0px;
+	}
+
+	.logo-container.flat {
+		box-shadow: none;
+		border-bottom-color: rgba(255, 255, 255, 0.12);
 	}
 
 	.logo {

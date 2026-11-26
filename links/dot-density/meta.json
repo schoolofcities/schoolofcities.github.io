@@ -1,0 +1,10 @@
+{
+	"title": "Toronto 2021 dot density map",
+	"type": "explorer",
+	"url": "https://schoolofcities.github.io/dot-density/",
+	"summary": "A 3D dot density map of where people lived in Toronto in the 2021 Census.",
+	"authors": ["Jeff Allen", "Scott McCallum"],
+	"published": "2025-09-09",
+	"geography": ["Toronto, ON"],
+	"tags": ["demographics"]
+}

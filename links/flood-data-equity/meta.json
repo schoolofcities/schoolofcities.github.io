@@ -1,0 +1,10 @@
+{
+	"title": "Taking stock of data on flooding in the GTA",
+	"type": "explorer",
+	"url": "https://schoolofcities.github.io/flood-data-equity/",
+	"summary": "An interactive tool for searching for data related to flooding risk in the Greater Toronto Area.",
+	"authors": ["Michael Liu", "Jeff Allen"],
+	"published": "2024-08-01",
+	"geography": ["Toronto, ON", "Durham Region", "Halton Region", "Peel Region", "York Region"],
+	"tags": ["climate", "infrastructure", "local government"]
+}

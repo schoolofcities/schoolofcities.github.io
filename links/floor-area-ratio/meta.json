@@ -1,0 +1,10 @@
+{
+	"title": "Toronto floor area ratio map",
+	"type": "explorer",
+	"url": "https://schoolofcities.github.io/floor-area-ratio/",
+	"summary": "Visualizing Toronto's urban density with floor area ratio (FAR) values across the city.",
+	"authors": ["Scott McCallum", "Jeff Allen"],
+	"published": "2025-05-05",
+	"geography": ["Toronto, ON"],
+	"tags": ["land use", "housing", "zoning"]
+}

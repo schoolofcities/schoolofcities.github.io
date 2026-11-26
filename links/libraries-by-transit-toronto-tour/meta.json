@@ -1,0 +1,10 @@
+{
+	"title": "Visit every Toronto library by transit",
+	"type": "explorer",
+	"url": "https://schoolofcities.github.io/libraries-by-transit/toronto-tour",
+	"summary": "Ten animated, interactive tours of Toronto Public Library branches. Follow each route by TTC and on foot, branch by branch.",
+	"authors": ["Lanrick Bennett Jr.", "Jeff Allen"],
+	"published": "2026-10-14",
+	"geography": ["Toronto, ON"],
+	"tags": ["public libraries", "public transit", "walking"]
+}

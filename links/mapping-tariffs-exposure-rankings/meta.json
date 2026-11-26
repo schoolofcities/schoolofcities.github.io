@@ -1,0 +1,14 @@
+{
+	"title": "Ranking Canadian urban areas by their potential direct exposure of U.S. tariffs",
+	"type": "explorer",
+	"url": "https://mappingtariffs.org/mt/exposure/rankings",
+	"summary": "Compare Canadian metropolitan areas by the number and share of jobs and businesses potentially exposed to U.S. tariffs.",
+	"authors": ["Tara Vinodrai", "Karen Chapple", "Muhammad Khalis Bin Samion", "Aniket Kali", "Yihoi Jung", "Jeff Allen"],
+	"published": "2025-10-15",
+	"geography": ["Canada"],
+	"tags": ["economy", "trade"],
+	"project": "mapping-tariffs",
+	"changelog": [
+		{ "date": "2026-09-15", "note": "Updated" }
+	]
+}

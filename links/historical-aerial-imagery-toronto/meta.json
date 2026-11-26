@@ -1,0 +1,10 @@
+{
+	"title": "Historical aerial imagery Toronto",
+	"type": "explorer",
+	"url": "https://schoolofcities.github.io/historical-aerial-imagery-toronto/",
+	"summary": "Compare how Toronto looked from above in aerial imagery from 15 years between 1939 and 2024.",
+	"authors": ["Jeff Allen"],
+	"published": "2025-01-01",
+	"geography": ["Toronto, ON"],
+	"tags": ["land use", "history", "climate", "urban growth"]
+}

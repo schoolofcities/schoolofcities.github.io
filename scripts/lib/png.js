@@ -165,10 +165,24 @@ export function inspectPng(file) {
 	const height = buf.readUInt32BE(20);
 	const colourType = buf[25];
 
+	// Whether the file can hold transparency: an alpha channel (types 4 and 6)
+	// or a tRNS chunk, which gives palette and plain images transparent colours.
+	// Read from the chunk list only, so it says the file *can* be transparent,
+	// not that any pixel is — telling those apart means decoding every pixel.
+	let hasTransparency = colourType === 4 || colourType === 6;
+	for (let at = 8; at + 8 <= buf.length && !hasTransparency; ) {
+		const length = buf.readUInt32BE(at);
+		const type = buf.toString('ascii', at + 4, at + 8);
+		if (type === 'tRNS') hasTransparency = true;
+		if (type === 'IDAT' || type === 'IEND') break; // tRNS always comes before image data
+		at += 12 + length;
+	}
+
 	return {
 		width,
 		height,
 		colourType,
+		hasTransparency,
 		// 3 is the palette type; 0/2/4/6 all store full colour per pixel.
 		isPalette: colourType === 3,
 		bytes: buf.length,

@@ -1,6 +1,7 @@
 <script>
 	import { scaleLinear } from 'd3';
 	import percentiles from '../data/travel_time_percentiles.csv';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	// Each group's darkest choropleth-ramp color from demographics-grid.svelte, so a
 	// group is the same color in every chart on this page.
@@ -186,31 +187,33 @@
 	{/each}
 {/snippet}
 
-<div class="legend">
-	<div class="diagram-title">Percentile of travel time</div>
-	<svg viewBox="0 0 280 46" class="legend-diagram">
-		<text x="10" y="10" class="diagram-label" text-anchor="start">10th</text>
-		<text x="90" y="10" class="diagram-label" text-anchor="middle">25th</text>
-		<text x="140" y="10" class="diagram-label" text-anchor="middle">Median</text>
-		<text x="190" y="10" class="diagram-label" text-anchor="middle">75th</text>
-		<text x="270" y="10" class="diagram-label" text-anchor="end">90th</text>
+<ChartGraphic>
+	<div class="legend">
+		<div class="diagram-title">Percentile of travel time</div>
+		<svg viewBox="0 0 280 46" class="legend-diagram">
+			<text x="10" y="10" class="diagram-label" text-anchor="start">10th</text>
+			<text x="90" y="10" class="diagram-label" text-anchor="middle">25th</text>
+			<text x="140" y="10" class="diagram-label" text-anchor="middle">Median</text>
+			<text x="190" y="10" class="diagram-label" text-anchor="middle">75th</text>
+			<text x="270" y="10" class="diagram-label" text-anchor="end">90th</text>
 
-		<line x1="10" x2="270" y1="28" y2="28" class="whisker" stroke="var(--brandGray55)" />
-		<line x1="10" x2="10" y1="23" y2="33" class="whisker" stroke="var(--brandGray55)" />
-		<line x1="270" x2="270" y1="23" y2="33" class="whisker" stroke="var(--brandGray55)" />
+			<line x1="10" x2="270" y1="28" y2="28" class="whisker" stroke="var(--brandGray55)" />
+			<line x1="10" x2="10" y1="23" y2="33" class="whisker" stroke="var(--brandGray55)" />
+			<line x1="270" x2="270" y1="23" y2="33" class="whisker" stroke="var(--brandGray55)" />
 
-		<rect x="90" y="20" width="100" height="16" fill="var(--brandGray55)" class="box" />
-		<line x1="140" x2="140" y1="20" y2="36" class="median-line" />
-	</svg>
-</div>
+			<rect x="90" y="20" width="100" height="16" fill="var(--brandGray55)" class="box" />
+			<line x1="140" x2="140" y1="20" y2="36" class="median-line" />
+		</svg>
+	</div>
 
-<div class="panels panels-wide">
-	{@render boxplots(wide)}
-</div>
+	<div class="panels panels-wide">
+		{@render boxplots(wide)}
+	</div>
 
-<div class="panels panels-narrow">
-	{@render boxplots(narrow)}
-</div>
+	<div class="panels panels-narrow">
+		{@render boxplots(narrow)}
+	</div>
+</ChartGraphic>
 
 <style>
 	.panels {

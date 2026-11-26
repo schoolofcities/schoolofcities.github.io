@@ -1,5 +1,6 @@
 <script>
 	import mapImage from '../images/toronto-sidewalks-qgis-for-web-labels.png';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	// Sampled from the rendered PNG's own line colors, so the legend matches what's drawn.
 	// Grouped by source: the first three come from the 2019 PedNet baseline, the last
@@ -20,26 +21,28 @@
 	];
 </script>
 
-<div class="map">
-	<img src={mapImage} width="2040" height="1084" alt="" />
+<ChartGraphic>
+	<div class="map">
+		<img src={mapImage} width="2040" height="1084" alt="" />
 
-	<!-- ward/area svg labels to come, positioned in this same 2040x1084 space -->
+		<!-- ward/area svg labels to come, positioned in this same 2040x1084 space -->
 
-	<div class="legend">
-		<div class="legend-title">Toronto streets</div>
-		{#each legendGroups as group, i}
-			<div class="legend-group" class:first={i === 0}>
-				<div class="legend-group-title">{group.title}</div>
-				{#each group.items as item}
-					<div class="legend-row">
-						<span class="swatch" style="background: {item.color};"></span>
-						<span class="legend-label">{item.label}</span>
-					</div>
-				{/each}
-			</div>
-		{/each}
+		<div class="legend">
+			<div class="legend-title">Toronto streets</div>
+			{#each legendGroups as group, i}
+				<div class="legend-group" class:first={i === 0}>
+					<div class="legend-group-title">{group.title}</div>
+					{#each group.items as item}
+						<div class="legend-row">
+							<span class="swatch" style="background: {item.color};"></span>
+							<span class="legend-label">{item.label}</span>
+						</div>
+					{/each}
+				</div>
+			{/each}
+		</div>
 	</div>
-</div>
+</ChartGraphic>
 
 <style>
 	.map {

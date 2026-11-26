@@ -3,6 +3,7 @@
 	import data from '../data/turnout-by-municipality.csv';
 	import provincial from '../data/provincial-turnout.csv';
 	import federal from '../data/federal-turnout.csv';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	// The municipality highlighted in purple, chosen in the search box under the
 	// chart's title. Empty by default, so exports and the no-JS page show the
@@ -343,15 +344,19 @@
 	);
 </script>
 
-<div class="legend-title">Voter turnout in municipal elections</div>
+<ChartGraphic>
+	<div class="legend-title">Voter turnout in municipal elections</div>
+</ChartGraphic>
 
 <div class="legend">
-	<div class="legend-item">
-		<svg class="legend-swatch" viewBox="0 0 24 10" width="24" height="10" aria-hidden="true">
-			<line x1="0" x2="24" y1="5" y2="5" stroke="var(--brandPink)" stroke-opacity="0.36" stroke-width="1" />
-		</svg>
-		<span>Each thin line is one municipality's turnout</span>
-	</div>
+	<ChartGraphic>
+		<div class="legend-item">
+			<svg class="legend-swatch" viewBox="0 0 24 10" width="24" height="10" aria-hidden="true">
+				<line x1="0" x2="24" y1="5" y2="5" stroke="var(--brandPink)" stroke-opacity="0.36" stroke-width="1" />
+			</svg>
+			<span>Each thin line is one municipality's turnout</span>
+		</div>
+	</ChartGraphic>
 	<div class="legend-item">
 		<svg class="legend-swatch" viewBox="0 0 24 10" width="24" height="10" aria-hidden="true">
 			<line x1="0" x2="24" y1="5" y2="5" stroke="var(--brandPurple)" stroke-width="3" />
@@ -494,13 +499,15 @@
 	</svg>
 {/snippet}
 
-<div class="slope slope-wide">
-	{@render slope(wide)}
-</div>
+<ChartGraphic>
+	<div class="slope slope-wide">
+		{@render slope(wide)}
+	</div>
 
-<div class="slope slope-narrow">
-	{@render slope(narrow)}
-</div>
+	<div class="slope slope-narrow">
+		{@render slope(narrow)}
+	</div>
+</ChartGraphic>
 
 <style>
 	.slope svg {

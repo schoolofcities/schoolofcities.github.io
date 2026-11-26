@@ -1,9 +1,11 @@
 <script>
-	export let id;
-	let footnoteId = `footnote-${id[0]}`;
-	let refId = `footnote-ref-${id[0]}`;
-	let footnoteText = id[1];
-	let isHovered = false;
+	// `id` is the [number, html] pair returned by footnoteStore.addFootnote().
+	let { id } = $props();
+
+	const footnoteId = $derived(`footnote-${id[0]}`);
+	const refId = $derived(`footnote-ref-${id[0]}`);
+
+	let isHovered = $state(false);
 	let hideTimeout;
 
 	// A short grace period before hiding, cancelled if the mouse re-enters (either
@@ -19,24 +21,27 @@
 		clearTimeout(hideTimeout);
 		hideTimeout = setTimeout(() => (isHovered = false), 250);
 	}
+
+	function jumpToFootnote(event) {
+		event.preventDefault();
+		document.getElementById(footnoteId)?.scrollIntoView({ behavior: 'auto', block: 'start' });
+	}
 </script>
 
 <span class="footnote-ref-wrapper">
 	<a
 		id={refId}
 		href={`#${footnoteId}`}
-		class="footnote-ref" on:click|preventDefault={() => {
-			const element = document.getElementById(footnoteId);
-			if (element) element.scrollIntoView({ behavior: 'auto', block: 'start' });
-		}}
-		on:mouseenter={show}
-		on:mouseleave={scheduleHide}
+		class="footnote-ref"
+		onclick={jumpToFootnote}
+		onmouseenter={show}
+		onmouseleave={scheduleHide}
 	>
 		<span>[{id[0]}]</span>
-	</a>{#if isHovered}<div class="footnoteTooltip" on:mouseenter={show} on:mouseleave={scheduleHide}>
+	</a>{#if isHovered}<div class="footnoteTooltip" onmouseenter={show} onmouseleave={scheduleHide}>
 			<span class="footnoteNumber">[{id[0]}]</span>
 			<p>
-				{@html footnoteText}
+				{@html id[1]}
 			</p>
 		</div>{/if}
 </span>
@@ -47,7 +52,7 @@
 		font-size: 1em;
 		line-height: 1;
 		display: inline;
-		white-space: nowrap; 
+		white-space: nowrap;
 	}
 	.footnote-ref {
 		vertical-align: super;
@@ -108,8 +113,8 @@
 		flex: 1;
 		min-width: 0;
 		white-space: normal;
-    	word-wrap: break-word;
-    	overflow-wrap: break-word;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
 	}
 
 	/* Space between references in the same footnote: one full line. */

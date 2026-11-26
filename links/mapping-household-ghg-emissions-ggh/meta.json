@@ -1,0 +1,33 @@
+{
+	"title": "Mapping household GHG emissions in the Greater Golden Horseshoe",
+	"type": "post",
+	"url": "https://schoolofcities.utoronto.ca/mapping-household-ghg-emissions-in-the-greater-golden-horseshoe/",
+	"summary": "Maps and charts of household greenhouse gas emissions at both regional and neighbourhood scales across the Greater Golden Horseshoe.",
+	"authors": ["Jeff Allen"],
+	"published": "2025-09-19",
+	"geography": [
+		"Ontario",
+		"Durham Region",
+		"York Region",
+		"Toronto, ON",
+		"Peel Region",
+		"Halton Region",
+		"Hamilton, ON",
+		"Northumberland County",
+		"Peterborough County",
+		"Peterborough, ON",
+		"Kawartha Lakes, ON",
+		"Simcoe County",
+		"Barrie, ON",
+		"Orillia, ON",
+		"Dufferin County",
+		"Wellington County",
+		"Guelph, ON",
+		"Waterloo Region",
+		"Brant County",
+		"Brantford, ON",
+		"Haldimand County",
+		"Niagara Region"
+	],
+	"tags": ["emissions", "climate", "land use", "urban growth"]
+}

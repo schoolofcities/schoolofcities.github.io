@@ -4,6 +4,7 @@
 	import { cubicInOut } from 'svelte/easing';
 	import { fade } from 'svelte/transition';
 	import data from '../data/conversions-by-cma.csv';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	const fmt = format(',');
 
@@ -71,16 +72,18 @@
 		</div>
 
 		<div class="legend">
-			<div class="legend-title">% of all new dwelling units from conversions</div>
-			<div class="legend-bins" style="background: linear-gradient(to right, {ramp.join(', ')});"></div>
-			<div class="legend-ticks">
-				{#each legendTicks as t, i}
-					{@const end = i === 0 || i === legendTicks.length - 1}
-					<span class="legend-tick" class:last={i === legendTicks.length - 1} style="left: {((t - lo) / (hi - lo)) * 100}%;">
-						{#if end}<span class="legend-label">{t}%</span>{/if}
-					</span>
-				{/each}
-			</div>
+			<ChartGraphic>
+				<div class="legend-title">% of all new dwelling units from conversions</div>
+				<div class="legend-bins" style="background: linear-gradient(to right, {ramp.join(', ')});"></div>
+				<div class="legend-ticks">
+					{#each legendTicks as t, i}
+						{@const end = i === 0 || i === legendTicks.length - 1}
+						<span class="legend-tick" class:last={i === legendTicks.length - 1} style="left: {((t - lo) / (hi - lo)) * 100}%;">
+							{#if end}<span class="legend-label">{t}%</span>{/if}
+						</span>
+					{/each}
+				</div>
+			</ChartGraphic>
 		</div>
 
 		<div class="toggle" role="group" aria-label="Scale">
@@ -92,37 +95,39 @@
 		</div>
 	</div>
 
-	<div class="plot">
-		<div class="axis-row">
-			<div class="axis-title"># of new dwelling units from conversions</div>
-			<div class="ticks" aria-hidden="true">
-				{#each axis.ticks as t}
-					<span class="tick" class:minor={axis.minor?.includes(t)} style="left: {axis.x(t)}%;">{kFormat(t)}</span>
-				{/each}
-			</div>
-		</div>
-
-		<div class="body">
-			<div class="grid" aria-hidden="true">
-				{#each axis.ticks as t}
-					<span class="gridline" style="left: {axis.x(t)}%;"></span>
-				{/each}
-			</div>
-
-			{#each sorted as row (row.name)}
-				{@const w = axis.x(row.conv)}
-				<div class="row" animate:flip={{ duration: moveMs, easing: cubicInOut }}>
-					<div class="name">{row.name}</div>
-					<div class="track">
-						<div class="bar" class:stem={scaleType === 'log'} style="width: {w}%; --c: {colorFor(row.pct)};"></div>
-						{#key sortBy}
-							<span class="value" style="left: {w}%;" in:fade={{ duration: fadeMs, delay: moveMs / 2 }}>{labelFor(row)}</span>
-						{/key}
-					</div>
+	<ChartGraphic>
+		<div class="plot">
+			<div class="axis-row">
+				<div class="axis-title"># of new dwelling units from conversions</div>
+				<div class="ticks" aria-hidden="true">
+					{#each axis.ticks as t}
+						<span class="tick" class:minor={axis.minor?.includes(t)} style="left: {axis.x(t)}%;">{kFormat(t)}</span>
+					{/each}
 				</div>
-			{/each}
+			</div>
+
+			<div class="body">
+				<div class="grid" aria-hidden="true">
+					{#each axis.ticks as t}
+						<span class="gridline" style="left: {axis.x(t)}%;"></span>
+					{/each}
+				</div>
+
+				{#each sorted as row (row.name)}
+					{@const w = axis.x(row.conv)}
+					<div class="row" animate:flip={{ duration: moveMs, easing: cubicInOut }}>
+						<div class="name">{row.name}</div>
+						<div class="track">
+							<div class="bar" class:stem={scaleType === 'log'} style="width: {w}%; --c: {colorFor(row.pct)};"></div>
+							{#key sortBy}
+								<span class="value" style="left: {w}%;" in:fade={{ duration: fadeMs, delay: moveMs / 2 }}>{labelFor(row)}</span>
+							{/key}
+						</div>
+					</div>
+				{/each}
+			</div>
 		</div>
-	</div>
+	</ChartGraphic>
 </div>
 
 <style>

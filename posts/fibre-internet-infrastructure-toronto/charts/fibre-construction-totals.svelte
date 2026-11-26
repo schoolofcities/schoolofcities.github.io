@@ -5,6 +5,7 @@
 	import rogersMap from '../images/fibre-rogers-qgis.png';
 	import beanfieldMap from '../images/fibre-bean-qgis.png';
 	import allMap from '../images/fibre-all-qgis.png';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	// Same company colours on the bars and the maps.
 	const colors = {
@@ -153,63 +154,67 @@
 </script>
 
 <div class="chart">
-	<svg class="bars wide" viewBox="0 0 {wide.width} {wide.height}">
-		{#each rows as row, r}
-			<g transform="translate(0, {r * wide.rowH})">
-				<text x="0" y={titleY} class="row-title">{row.label}</text>
-				{#each row.segments as seg, i}
-					{@const l = labelFor(seg, i)}
-					<text x={l.x} y={wide.nameY} text-anchor={l.anchor} class="value company">{seg.company}</text>
-					<rect
-						x={l.anchor === 'end' ? l.x - underline.width : l.x}
-						y={wide.nameY + underline.gap}
-						width={underline.width}
-						height={underline.height}
-						fill={colors[seg.company]}
-					/>
-					<text x={l.x} y={wide.pctY} text-anchor={l.anchor} class="value pct">{seg.count}%</text>
-					<text x={l.x} y={wide.countY} text-anchor={l.anchor} class="value count">{seg.value}</text>
-					{#each Array(seg.count) as _, k}
+	<ChartGraphic>
+		<svg class="bars wide" viewBox="0 0 {wide.width} {wide.height}">
+			{#each rows as row, r}
+				<g transform="translate(0, {r * wide.rowH})">
+					<text x="0" y={titleY} class="row-title">{row.label}</text>
+					{#each row.segments as seg, i}
+						{@const l = labelFor(seg, i)}
+						<text x={l.x} y={wide.nameY} text-anchor={l.anchor} class="value company">{seg.company}</text>
 						<rect
-							x={(seg.start + k) * wide.unitW}
-							y={wide.barY}
-							width={wide.unitW - wide.gap}
-							height={wide.barH}
-							rx="1"
+							x={l.anchor === 'end' ? l.x - underline.width : l.x}
+							y={wide.nameY + underline.gap}
+							width={underline.width}
+							height={underline.height}
 							fill={colors[seg.company]}
 						/>
+						<text x={l.x} y={wide.pctY} text-anchor={l.anchor} class="value pct">{seg.count}%</text>
+						<text x={l.x} y={wide.countY} text-anchor={l.anchor} class="value count">{seg.value}</text>
+						{#each Array(seg.count) as _, k}
+							<rect
+								x={(seg.start + k) * wide.unitW}
+								y={wide.barY}
+								width={wide.unitW - wide.gap}
+								height={wide.barH}
+								rx="1"
+								fill={colors[seg.company]}
+							/>
+						{/each}
 					{/each}
-				{/each}
-			</g>
-		{/each}
-	</svg>
+				</g>
+			{/each}
+		</svg>
 
-	<svg class="bars narrow" viewBox="0 0 {narrow.width} {narrow.height}">
-		{#each rows as row, r}
-			<g transform="translate(0, {r * narrow.rowH})">
-				<text x="0" y={titleY} class="row-title">{row.label}</text>
-				{#each row.segments as seg, i}
-					{@const y = narrow.listY + i * narrow.lineH}
-					{#each Array(seg.count) as _, k}
-						<rect
-							x={(seg.start + k) * narrow.unitW}
-							y={narrow.barY}
-							width={narrow.unitW - narrow.gap}
-							height={narrow.barH}
-							fill={colors[seg.company]}
-						/>
+		<svg class="bars narrow" viewBox="0 0 {narrow.width} {narrow.height}">
+			{#each rows as row, r}
+				<g transform="translate(0, {r * narrow.rowH})">
+					<text x="0" y={titleY} class="row-title">{row.label}</text>
+					{#each row.segments as seg, i}
+						{@const y = narrow.listY + i * narrow.lineH}
+						{#each Array(seg.count) as _, k}
+							<rect
+								x={(seg.start + k) * narrow.unitW}
+								y={narrow.barY}
+								width={narrow.unitW - narrow.gap}
+								height={narrow.barH}
+								fill={colors[seg.company]}
+							/>
+						{/each}
+						<rect x={narrow.cols.swatch} y={y - 10} width="10" height="10" fill={colors[seg.company]} />
+						<text x={narrow.cols.name} {y} class="value company">{seg.company}</text>
+						<text x={narrow.cols.pct} {y} class="value pct">{seg.count}%</text>
+						<text x={narrow.cols.count} {y} class="value count">{seg.value}</text>
 					{/each}
-					<rect x={narrow.cols.swatch} y={y - 10} width="10" height="10" fill={colors[seg.company]} />
-					<text x={narrow.cols.name} {y} class="value company">{seg.company}</text>
-					<text x={narrow.cols.pct} {y} class="value pct">{seg.count}%</text>
-					<text x={narrow.cols.count} {y} class="value count">{seg.value}</text>
-				{/each}
-			</g>
-		{/each}
-	</svg>
+				</g>
+			{/each}
+		</svg>
+	</ChartGraphic>
 
 	<div class="maps">
-		<div class="maps-title">Streets with fibre construction permits</div>
+		<ChartGraphic>
+			<div class="maps-title">Streets with fibre construction permits</div>
+		</ChartGraphic>
 		<div class="map-toggle" role="group" aria-label="Choose which company's map to show">
 			{#each maps as map}
 				<button

@@ -1,5 +1,6 @@
 <script>
 	import mapImage from '../images/toronto-libraries-access.png';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	// Sampled from the pre-rendered PNGs' own fill colors, so the legend bar matches what's drawn.
 	const bandColors = ['#4d6185', '#42a7c4', '#93d9f5'];
@@ -65,66 +66,68 @@
 	];
 </script>
 
-<div class="maps">
-	{#each panels as panel}
-		<div class="map">
-			<img
-					src={mapImage}
-					style="top: {panel.imageTop};"
-					width="2160"
-					height="2400"
-					alt=""
-				/>
+<ChartGraphic>
+	<div class="maps">
+		{#each panels as panel}
+			<div class="map">
+				<img
+						src={mapImage}
+						style="top: {panel.imageTop};"
+						width="2160"
+						height="2400"
+						alt=""
+					/>
 
-			<svg class="ward-labels" viewBox="0 0 2160 1200" preserveAspectRatio="none">
-				{#each wards as ward}
-					<text x={ward.x} y={ward.y}>{ward.code.toString().padStart(2, '0')}</text>
-				{/each}
-				{#each places as place}
-					<text class="place" x={place.x} y={place.y}>{place.name}</text>
-				{/each}
-			</svg>
+				<svg class="ward-labels" viewBox="0 0 2160 1200" preserveAspectRatio="none">
+					{#each wards as ward}
+						<text x={ward.x} y={ward.y}>{ward.code.toString().padStart(2, '0')}</text>
+					{/each}
+					{#each places as place}
+						<text class="place" x={place.x} y={place.y}>{place.name}</text>
+					{/each}
+				</svg>
 
-			<div class="panel-title">
-				Travel time by <span class="mode-underline">{panel.modeText}</span> to<br />the nearest
-				public library
-			</div>
-
-			<div class="legend" style="bottom: {panel.legendBottom};">
-				<div class="legend-row extra-legend-row first-legend-row">
-					<span class="library-swatch"></span>
-					<span class="extra-legend-label">Public library</span>
+				<div class="panel-title">
+					Travel time by <span class="mode-underline">{panel.modeText}</span> to<br />the nearest
+					public library
 				</div>
-				<div class="legend-title">Travel time by {panel.legendMode} (minutes)</div>
-				<div class="legend-row">
-					<div class="legend-bar">
-						{#each bandColors as color}
-							<div class="legend-segment" style="background: {color};"></div>
-						{/each}
-						<span class="legend-tick" style="left: 33.333%;">15</span>
-						<span class="legend-tick" style="left: 66.667%;">30</span>
+
+				<div class="legend" style="bottom: {panel.legendBottom};">
+					<div class="legend-row extra-legend-row first-legend-row">
+						<span class="library-swatch"></span>
+						<span class="extra-legend-label">Public library</span>
+					</div>
+					<div class="legend-title">Travel time by {panel.legendMode} (minutes)</div>
+					<div class="legend-row">
+						<div class="legend-bar">
+							{#each bandColors as color}
+								<div class="legend-segment" style="background: {color};"></div>
+							{/each}
+							<span class="legend-tick" style="left: 33.333%;">15</span>
+							<span class="legend-tick" style="left: 66.667%;">30</span>
+						</div>
+					</div>
+					<div class="legend-row extra-legend-row after-bar-row">
+						<svg class="ward-swatch" viewBox="0 0 16 16">
+							<polygon
+								points="3,2 10,1 15,5 13,11 14,15 7,14 1,10 2,5"
+								fill="none"
+								stroke="#000826"
+								stroke-width="1.4"
+								stroke-linejoin="round"
+							/>
+						</svg>
+						<span class="extra-legend-label">Municipal ward boundaries</span>
+					</div>
+					<div class="legend-row extra-legend-row">
+						<span class="transit-line-swatch"></span>
+						<span class="extra-legend-label">Major transit lines</span>
 					</div>
 				</div>
-				<div class="legend-row extra-legend-row after-bar-row">
-					<svg class="ward-swatch" viewBox="0 0 16 16">
-						<polygon
-							points="3,2 10,1 15,5 13,11 14,15 7,14 1,10 2,5"
-							fill="none"
-							stroke="#000826"
-							stroke-width="1.4"
-							stroke-linejoin="round"
-						/>
-					</svg>
-					<span class="extra-legend-label">Municipal ward boundaries</span>
-				</div>
-				<div class="legend-row extra-legend-row">
-					<span class="transit-line-swatch"></span>
-					<span class="extra-legend-label">Major transit lines</span>
-				</div>
 			</div>
-		</div>
-	{/each}
-</div>
+		{/each}
+	</div>
+</ChartGraphic>
 
 <style>
 	.maps {

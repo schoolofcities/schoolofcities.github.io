@@ -1,6 +1,7 @@
 <script>
 	import { scaleLinear, mean } from 'd3';
 	import data from '../data/turnout-and-mayoral-vote.csv';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	const years = [2014, 2018, 2022];
 
@@ -142,11 +143,6 @@
 	const narrow = buildLayout({ W: 318, left: 36, right: 10, top: 28, plotH: 190, gapX: 0, gapY: 84, bottom: 52, columns: 1, fontSize: 11, dotR: 4 });
 </script>
 
-<div class="legend-title">
-	Voter turnout relative to the winning mayoral candidate's share of the vote
-</div>
-
-
 {#snippet scatter(layout)}
 	<svg viewBox="0 0 {layout.W} {layout.H}" width={layout.W} height={layout.H} style="--label-size: {layout.fontSize}px;">
 		{#each layout.frames as f}
@@ -223,13 +219,19 @@
 	</svg>
 {/snippet}
 
-<div class="scatter scatter-wide">
-	{@render scatter(wide)}
-</div>
+<ChartGraphic>
+	<div class="legend-title">
+		Voter turnout relative to the winning mayoral candidate's share of the vote
+	</div>
 
-<div class="scatter scatter-narrow">
-	{@render scatter(narrow)}
-</div>
+	<div class="scatter scatter-wide">
+		{@render scatter(wide)}
+	</div>
+
+	<div class="scatter scatter-narrow">
+		{@render scatter(narrow)}
+	</div>
+</ChartGraphic>
 
 <style>
 	.scatter svg {

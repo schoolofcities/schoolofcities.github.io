@@ -1,0 +1,24 @@
+{
+	"title": "Downtown recovery",
+	"type": "project",
+	"url": "https://downtownrecovery.com/",
+	"summary": "Pandemic recovery trajectories across North American cities.",
+	"authors": ["Karen Chapple", "Hannah Moore", "Michael Leong", "Daniel Huang", "Amir Forouhar", "Laura Schmahmann", "Joy Wang", "Jeff Allen"],
+	"published": "2023-01-03",
+	"geography": ["Canada", "United States"],
+	"tags": ["downtowns", "activity patterns", "economy"],
+	"changelog": [
+		{ "date": "2023-06-01", "note": "Added: Downtown recovery rankings" },
+		{ "date": "2023-06-27", "note": "Added: Downtown recovery correlations" },
+		{ "date": "2023-10-16", "note": "Updated: Downtown recovery rankings and correlations" },
+		{ "date": "2023-10-31", "note": "Added: Reviving downtowns and transit: A potential path to post-pandemic recovery" },
+		{ "date": "2023-11-27", "note": "Added: How does the definition of downtown affect its recovery rate?" },
+		{ "date": "2024-01-04", "note": "Added: Understanding post-pandemic recovery for individual buildings" },
+		{ "date": "2024-03-15", "note": "Added: Attracting activity to North American downtowns: Understanding downtown recovery across the course of a week" },
+		{ "date": "2024-12-04", "note": "Added: Canada recovery trends" },
+		{ "date": "2025-07-15", "note": "Added: Transit-oriented communities and post-pandemic urban resilience in Toronto" },
+		{ "date": "2025-08-15", "note": "Added: A “flight to quality”? Not so fast." },
+		{ "date": "2025-12-15", "note": "Added: Want to prevent a doom loop? Look at Canada" },
+		{ "date": "2026-01-28", "note": "Added: US downtown recovery trends" }
+	]
+}

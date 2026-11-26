@@ -20,9 +20,10 @@
 // from, so an unfinished post can be previewed locally but not published.
 //
 // Most of what's checked here fails silently at runtime by design: a data file
-// that doesn't exist just drops a row from the Download menu, a `cardImage`
-// naming nothing falls back to another chart. That is the right behaviour for a
-// reader and the wrong behaviour for an author, which is why these checks exist.
+// that doesn't exist just drops a row from the Download menu, a chart never
+// exported just leaves a post without a social image. That is the right
+// behaviour for a reader and the wrong behaviour for an author, which is why
+// these checks exist.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -35,8 +36,29 @@ import { GEOGRAPHY, TAGS } from '../src/lib/tags.js';
 
 const rootDir = fileURLToPath(new URL('..', import.meta.url));
 const postsDir = path.join(rootDir, 'posts');
+const linksDir = path.join(rootDir, 'links');
 
-const REQUIRED_META = ['title', 'type', 'summary', 'authors', 'published', 'license'];
+// The catalogue schema. Every item — a post here, or a link to work hosted
+// elsewhere — shares these fields, so the home page can list and filter them the
+// same way. Posts and links each add a few of their own below.
+const REQUIRED_SHARED = ['title', 'type', 'summary', 'authors', 'published', 'tags', 'geography'];
+const REQUIRED_META = [...REQUIRED_SHARED, 'license'];
+const REQUIRED_LINK = [...REQUIRED_SHARED, 'url'];
+
+// What a linked item can be. Posts hosted elsewhere (e.g. on the SofC
+// WordPress site) are `post` too, so porting one here changes nothing about
+// how it's described. A `project` is a standalone hub bringing several pieces
+// of work together; those pieces can have entries of their own that name it
+// in their `project` field. Projects only ever live in links/: posts/ holds
+// nothing but posts.
+const LINK_TYPES = ['post', 'feature', 'explorer', 'project'];
+
+// Fields that only make sense for a post built in this repo.
+const POST_ONLY = ['protected'];
+
+// Every card image (the home page thumbnail, and a post's social card) is this
+// size: 1.91:1, the shape social platforms show shared links at.
+const CARD = { width: 1200, height: 630 };
 const REQUIRED_CHART = ['title', 'source', 'alt'];
 const KEBAB = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -67,27 +89,37 @@ function listDir(dir) {
 	return fs.existsSync(dir) ? fs.readdirSync(dir) : [];
 }
 
-function checkMeta(slug, meta) {
-	for (const key of REQUIRED_META) {
-		if (meta[key] === undefined || meta[key] === '' || (Array.isArray(meta[key]) && !meta[key].length)) {
-			error(slug, `meta.json is missing required field "${key}"`);
+/** Checks every catalogue item gets, post or link. `key` labels the report. */
+function checkShared(key, meta, required) {
+	for (const field of required) {
+		if (meta[field] === undefined || meta[field] === '' || (Array.isArray(meta[field]) && !meta[field].length)) {
+			error(key, `meta.json is missing required field "${field}"`);
 		}
 	}
 
-	// Only posts live in this repo; explorers and data stories are built and
-	// hosted separately, so any other value means this file came from elsewhere.
-	if (meta.type !== undefined && meta.type !== 'post') {
-		error(slug, `meta.json has type "${meta.type}" — this repo only holds "post"`);
+	if (meta.published !== undefined && !isValidDate(meta.published)) {
+		error(key, `meta.json published "${meta.published}" is not a valid ISO date (YYYY-MM-DD)`);
 	}
 
-	if (meta.published !== undefined && !isValidDate(meta.published)) {
-		error(slug, `meta.json published "${meta.published}" is not a valid ISO date (YYYY-MM-DD)`);
+	checkVocabulary(key, meta);
+}
+
+function checkMeta(slug, meta) {
+	checkShared(slug, meta, REQUIRED_META);
+
+	// Explorers and features are built and hosted separately; one listed on the
+	// home page belongs in links/, which points to it.
+	if (meta.type !== undefined && meta.type !== 'post') {
+		error(slug, `meta.json has type "${meta.type}" — posts/ only holds "post"; link to other work from links/`);
 	}
 
 	if (typeof meta.protected !== 'boolean') {
 		error(slug, `meta.json "protected" must be true or false, got ${JSON.stringify(meta.protected)}`);
 	}
+}
 
+/** Changelog dates, tags, geography and documents: the same rules for posts and links. */
+function checkVocabulary(slug, meta) {
 	for (const entry of meta.changelog ?? []) {
 		if (!isValidDate(entry.date)) {
 			error(slug, `meta.json changelog date "${entry.date}" is not a valid ISO date (YYYY-MM-DD)`);
@@ -95,7 +127,7 @@ function checkMeta(slug, meta) {
 	}
 
 	for (const tag of meta.tags ?? []) {
-		if (!TAGS.includes(tag)) {
+		if (!Object.hasOwn(TAGS, tag)) {
 			warn(slug, `tag "${tag}" is not in src/lib/tags.js — add it there, or use an existing term`);
 		}
 	}
@@ -121,12 +153,131 @@ function checkMeta(slug, meta) {
 	}
 }
 
+/**
+ * A card.png, where there is one: the item's home page thumbnail, and a post's
+ * social card. Required for links; optional for posts, which use a chart export
+ * until they have one.
+ */
+function checkCard(key, dir, required) {
+	const file = path.join(dir, 'card.png');
+	if (!fs.existsSync(file)) {
+		if (required) error(key, `has no card.png — the ${CARD.width} × ${CARD.height} image shown on the home page`);
+		return;
+	}
+
+	const info = inspectPng(file);
+	if (info.width !== CARD.width || info.height !== CARD.height) {
+		error(key, `card.png is ${info.width} × ${info.height} — it must be exactly ${CARD.width} × ${CARD.height}`);
+	}
+	if (info.bytes > MAX_PNG_BYTES) {
+		error(key, `card.png is ${(info.bytes / 1048576).toFixed(2)} MB, over the ${MAX_PNG_BYTES / 1048576} MB limit`);
+	}
+	// A card is a finished image, not work in progress, so both of these are
+	// errors: flat (social platforms fill transparent areas with black, grey or
+	// white unpredictably) and quantised (it's downloaded on every home page
+	// view). An opaque quantised PNG carries no transparency data at all, so
+	// once it's quantised, any transparency flagged here is real.
+	if (!info.isPalette) {
+		error(key, 'card.png is not quantised (stored as full colour) — run npm run optimize-pngs -- --path <file>');
+	}
+	if (info.hasTransparency) {
+		error(
+			key,
+			'card.png has transparency — flatten it onto a background colour before quantising ' +
+				'(e.g. convert in.png -background white -alpha remove out.png)'
+		);
+	}
+}
+
+/**
+ * Items in links/: work hosted elsewhere — standalone explorers, features, and
+ * posts on other sites — listed on the home page alongside the posts here. One
+ * folder each, holding meta.json and card.png. Returns each parsed meta.json by folder name.
+ */
+function checkLinks() {
+	const metas = {};
+	const slugs = fs.existsSync(linksDir)
+		? fs.readdirSync(linksDir, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort()
+		: [];
+
+	for (const slug of slugs) {
+		const key = `links/${slug}`;
+		const dir = path.join(linksDir, slug);
+
+		if (!KEBAB.test(slug)) {
+			error(key, 'folder name must be kebab-case — it identifies the item, and becomes its URL if it is ported to a post');
+		}
+
+		const file = path.join(dir, 'meta.json');
+		if (!fs.existsSync(file)) {
+			error(key, 'has no meta.json');
+			continue;
+		}
+		let meta;
+		try {
+			meta = JSON.parse(fs.readFileSync(file, 'utf8'));
+		} catch (err) {
+			error(key, `meta.json is not valid JSON — ${err.message}`);
+			continue;
+		}
+
+		metas[slug] = meta;
+		checkShared(key, meta, REQUIRED_LINK);
+
+		if (meta.type !== undefined && !LINK_TYPES.includes(meta.type)) {
+			error(key, `meta.json has type "${meta.type}" — must be one of ${LINK_TYPES.join(', ')}`);
+		}
+
+		if (meta.url !== undefined) {
+			let ok = false;
+			try {
+				ok = ['http:', 'https:'].includes(new URL(meta.url).protocol);
+			} catch {
+				// not a URL at all
+			}
+			if (!ok) error(key, `meta.json url "${meta.url}" is not a full http(s) address`);
+		}
+
+		for (const field of POST_ONLY) {
+			if (meta[field] !== undefined) {
+				error(key, `meta.json has "${field}", which only applies to posts built in this repo`);
+			}
+		}
+
+		checkCard(key, dir, true);
+	}
+
+	return metas;
+}
+
+/**
+ * An item's optional `project`: the folder name of the project in links/ it is
+ * part of. Posts can name one too. Projects don't nest.
+ */
+function checkProject(key, meta, linkMetas) {
+	if (meta.project === undefined) return;
+
+	if (meta.type === 'project') {
+		error(key, 'meta.json is a project, so it can\'t also belong to one — remove "project"');
+		return;
+	}
+
+	const parent = linkMetas[meta.project];
+	if (!parent) {
+		error(key, `meta.json project "${meta.project}" is not a folder in links/`);
+	} else if (parent.type !== 'project') {
+		error(key, `meta.json project "${meta.project}" is a ${parent.type}, not a project`);
+	}
+}
+
 function checkCharts(slug, charts) {
 	const dir = path.join(postsDir, slug);
 	const componentFiles = listDir(path.join(dir, 'charts')).filter((f) => f.endsWith('.svelte'));
 	const componentKeys = componentFiles.map((f) => path.basename(f, '.svelte'));
 	const dataFiles = listDir(path.join(dir, 'data'));
 	const referencedData = new Set();
+	const pageFile = path.join(dir, '+page.svelte');
+	const pageSource = fs.existsSync(pageFile) ? fs.readFileSync(pageFile, 'utf8') : '';
 
 	for (const [key, chart] of Object.entries(charts)) {
 		if (!KEBAB.test(key)) {
@@ -135,17 +286,44 @@ function checkCharts(slug, charts) {
 
 		if (!componentKeys.includes(key)) {
 			error(slug, `charts.js has "${key}" but charts/${key}.svelte does not exist`);
+		} else {
+			// Text checks on the source, like the data-import scan below: they
+			// can't prove the component renders correctly, only that the
+			// required pieces are written in. Both are errors rather than
+			// warnings because the result is wrong, not unfinished.
+
+			// ChartFrame gives every chart its title, alt text, source line and
+			// Download/Share buttons. A chart missing from the page body, or drawn
+			// without the frame, has none of them.
+			const framed = new RegExp(`<ChartFrame\\b[^>]*\\bchartKey=["']${key}["']`);
+			if (!framed.test(pageSource)) {
+				error(
+					slug,
+					`chart "${key}" is not shown in a ChartFrame in +page.svelte — ` +
+						`add <ChartFrame ... chartKey="${key}"> around its component`
+				);
+			}
+
+			// ChartGraphic hides a chart's drawn parts from screen readers, which
+			// get the alt text ChartFrame reads out instead. Without it they hear
+			// every tick and label in markup order.
+			const component = fs.readFileSync(path.join(dir, 'charts', `${key}.svelte`), 'utf8');
+			if (!/<ChartGraphic\b/.test(component)) {
+				error(
+					slug,
+					`charts/${key}.svelte does not use <ChartGraphic> — wrap its drawn parts ` +
+						`(SVGs, images, legends, labels) in it, leaving any controls outside`
+				);
+			}
 		}
 
 		for (const field of REQUIRED_CHART) {
 			if (!chart[field]) error(slug, `chart "${key}" is missing "${field}"`);
 		}
 
-		// Optional, but without it the short alt is all a screen-reader user
-		// gets: ChartFrame hides everything inside the graphic from them.
-		if ([chart.description ?? []].flat().filter(Boolean).length === 0) {
-			warn(slug, `chart "${key}" has no "description" — the long description shown under the graphic`);
-		}
+		// `description` is optional and not checked: whether a chart needs more
+		// than its alt, note and the post's text is a judgment for review (see
+		// docs/visualization-review-checklist.md), not something a script can tell.
 
 		for (const file of [chart.data ?? []].flat().filter(Boolean)) {
 			referencedData.add(file);
@@ -221,12 +399,6 @@ function checkVersions(slug, meta) {
 	}
 }
 
-function checkCardImage(slug, meta, charts) {
-	if (meta.cardImage && !(meta.cardImage in charts)) {
-		error(slug, `meta.json cardImage "${meta.cardImage}" is not a chart in charts.js`);
-	}
-}
-
 function checkImages(slug) {
 	const dir = path.join(postsDir, slug);
 
@@ -289,9 +461,13 @@ function report(strict) {
 	const errors = problems.filter((p) => p.level === 'error');
 	const warnings = problems.filter((p) => p.level === 'warning');
 
-	for (const slug of [...new Set(problems.map((p) => p.post))].sort()) {
-		console.log(`\nposts/${slug}`);
-		for (const { level, message } of problems.filter((p) => p.post === slug)) {
+	// Posts are reported by slug; links and site-wide checks already carry a
+	// full label ("links/<slug>", "(site)").
+	const label = (key) => (key.startsWith('links/') || key.startsWith('(') ? key : `posts/${key}`);
+
+	for (const key of [...new Set(problems.map((p) => p.post))].sort()) {
+		console.log(`\n${label(key)}`);
+		for (const { level, message } of problems.filter((p) => p.post === key)) {
 			console.log(`  ${level === 'error' ? 'error  ' : 'warning'}  ${message}`);
 		}
 	}
@@ -354,9 +530,21 @@ async function main() {
 
 		checkMeta(slug, meta);
 		checkCharts(slug, charts);
-		checkCardImage(slug, meta, charts);
 		checkVersions(slug, meta);
 		checkImages(slug);
+		checkCard(slug, path.join(postsDir, slug), false);
+	}
+
+	const linkMetas = checkLinks();
+	const linkSlugs = Object.keys(linkMetas);
+
+	for (const slug of slugs) if (metas[slug]) checkProject(slug, metas[slug], linkMetas);
+	for (const [slug, meta] of Object.entries(linkMetas)) checkProject(`links/${slug}`, meta, linkMetas);
+
+	// One name space across both folders: a link is ported by moving its folder
+	// into posts/, and the home page identifies items by folder name.
+	for (const slug of linkSlugs.filter((s) => slugs.includes(s))) {
+		error(`links/${slug}`, `is also a post (posts/${slug}) — remove the link once a post replaces it`);
 	}
 
 	// Checked at the only moment it is at risk: when someone edits it for a domain
@@ -377,9 +565,23 @@ async function main() {
 		);
 	}
 
+	// A repeated place would be offered twice in the home page's geography filter.
+	for (const place of GEOGRAPHY.filter((p, i) => GEOGRAPHY.indexOf(p) !== i)) {
+		error('(site)', `"${place}" is listed more than once in GEOGRAPHY in src/lib/tags.js`);
+	}
+
+	// Every tag is drawn as an icon above the title of any post that uses it, so
+	// a tag added to the list without one would leave an empty circle.
+	for (const [tag, icon] of Object.entries(TAGS)) {
+		// An SVG path always starts with a moveto: M, or m for relative.
+		if (typeof icon !== 'string' || !/^\s*[Mm]/.test(icon)) {
+			error('(site)', `tag "${tag}" in src/lib/tags.js has no icon — add its SVG path (see the comment above TAGS)`);
+		}
+	}
+
 	if (problems.length === 0) {
 		const chartCount = slugs.reduce((n, s) => n + Object.keys(posts[s]?.charts ?? {}).length, 0);
-		console.log(`${slugs.length} post(s), ${chartCount} chart(s) — no problems found.`);
+		console.log(`${slugs.length} post(s), ${chartCount} chart(s), ${linkSlugs.length} link(s) — no problems found.`);
 		return;
 	}
 

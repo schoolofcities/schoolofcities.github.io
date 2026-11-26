@@ -1,23 +1,22 @@
 <script>
 	import { formatAuthorList, lastUpdated, licenseLabel, licenseUrl } from './meta.js';
-	import { TAG_ICONS, TAG_ICON_POSTS } from './tagIcons.js';
+	import { TAGS } from './tags.js';
 
-	let { meta, slug } = $props();
+	let { meta } = $props();
 
 	// Ring colours, given by position: the first icon is always yellow, and so
 	// on. By position rather than by tag, since three colours can't give every
 	// tag its own.
 	const iconColors = ['var(--brandYellow)', 'var(--brandLightBlue)', 'var(--brandLightGreen)'];
 
-	// One circle for each of the first three tags that have an icon, in the
-	// tags' own order, which meta.json sets by priority.
+	// One circle for each of the post's first three tags, in the tags' own
+	// order, which meta.json sets by priority. Every tag in $lib/tags.js has an
+	// icon; the filter only skips a tag validate.js would already have flagged.
 	const tagIcons = $derived(
-		TAG_ICON_POSTS.includes(slug)
-			? (meta.tags ?? [])
-					.filter((tag) => TAG_ICONS[tag])
-					.slice(0, iconColors.length)
-					.map((tag, i) => ({ tag, path: TAG_ICONS[tag], color: iconColors[i] }))
-			: []
+		(meta.tags ?? [])
+			.filter((tag) => Object.hasOwn(TAGS, tag))
+			.slice(0, iconColors.length)
+			.map((tag, i) => ({ tag, path: TAGS[tag], color: iconColors[i] }))
 	);
 </script>
 
