@@ -1,0 +1,10 @@
+{
+	"title": "Evolving city: Tracking access to nature over time in Toronto",
+	"type": "feature",
+	"url": "https://schoolofcities.github.io/historical-land-cover-toronto/",
+	"summary": "Mapping the history and evolution of land cover (forest, grass, built-up area) in Toronto from 1939 to 2017.",
+	"authors": ["Françoise Cardou", "Nicholas Sookhan", "Jeff Allen", "Dan Silver", "Scott MacIvor", "Marc Cadotte"],
+	"published": "2024-11-10",
+	"geography": ["Toronto, ON"],
+	"tags": ["land use", "parks", "history", "urban growth", "suburbs"]
+}

@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maps/Dataviz project workflow</title>
+<meta name="description" content="Step-by-step workflow for School of Cities maps and data visualization projects, from intake to publish.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+	/* Brand colours from src/lib/styles.css */
+	:root {
+		--brandDarkBlue: #1E3765;
+		--brandMedBlue: #007FA3;
+		--brandLightBlue: #6FC7EA;
+		--brandPurple: #6D247A;
+		--brandYellow: #F1C500;
+		--brandBlack: #000000;
+
+		--bg: #ffffff;
+		--surface: #f5f7fa;
+		--border: #d9dee6;
+		--text: #1a1f29;
+		--muted: #525c6b;
+		--accent: var(--brandMedBlue);
+		--accent-strong: var(--brandDarkBlue);
+		--accent-soft: #e3f1f6;
+		--team: var(--brandPurple);
+		--team-soft: #f1e6f3;
+		--tbd-bg: #fff7d6;
+		--tbd-border: #d9b000;
+		--tbd-text: #5c4a00;
+		--selected-text: #ffffff;
+	}
+	@media (prefers-color-scheme: dark) {
+		:root:not([data-theme="light"]) {
+			--bg: #12161d;
+			--surface: #1b212b;
+			--border: #313a48;
+			--text: #e7ebf1;
+			--muted: #a3adbb;
+			--accent: var(--brandLightBlue);
+			--accent-strong: #9fd9f0;
+			--accent-soft: #1b3440;
+			--team: #d49ade;
+			--team-soft: #34213a;
+			--tbd-bg: #3a3212;
+			--tbd-border: #b39200;
+			--tbd-text: #f5e39a;
+			--selected-text: #0b1420;
+		}
+	}
+	:root[data-theme="dark"] {
+		--bg: #12161d;
+		--surface: #1b212b;
+		--border: #313a48;
+		--text: #e7ebf1;
+		--muted: #a3adbb;
+		--accent: var(--brandLightBlue);
+		--accent-strong: #9fd9f0;
+		--accent-soft: #1b3440;
+		--team: #d49ade;
+		--team-soft: #34213a;
+		--tbd-bg: #3a3212;
+		--tbd-border: #b39200;
+		--tbd-text: #f5e39a;
+		--selected-text: #0b1420;
+	}
+
+	* { box-sizing: border-box; }
+	html { -webkit-text-size-adjust: 100%; }
+	body {
+		margin: 0;
+		background: var(--bg);
+		color: var(--text);
+		font-family: "Open Sans", system-ui, sans-serif;
+		font-size: 16px;
+		line-height: 1.55;
+	}
+	.wrap {
+		max-width: 760px;
+		margin: 0 auto;
+		padding: 40px 16px 80px;
+	}
+	button { font-family: inherit; }
+	.top-bar {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 12px;
+	}
+	h1 {
+		font-size: 30px;
+		line-height: 1.2;
+		margin: 0 0 8px;
+		color: var(--accent-strong);
+	}
+	.h1-icon {
+		font-size: .85em;
+		margin-right: 4px;
+	}
+	.theme-toggle {
+		flex: none;
+		font-size: 18px;
+		line-height: 1;
+		width: 38px;
+		height: 38px;
+		border: 1px solid var(--border);
+		border-radius: 50%;
+		background: var(--surface);
+		color: var(--text);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 2px;
+	}
+	.theme-toggle:hover { border-color: var(--accent); }
+	.theme-toggle:focus-visible {
+		outline: 3px solid var(--accent);
+		outline-offset: 2px;
+	}
+	.lede {
+		color: var(--text);
+		margin: 16px 0 32px;
+	}
+	a { color: var(--accent); }
+
+	/* Chooser */
+	.chooser {
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 0px;
+		padding: 20px;
+		margin-bottom: 32px;
+	}
+	fieldset {
+		border: 0;
+		margin: 0 0 20px;
+		padding: 0;
+	}
+	fieldset:last-child { margin-bottom: 0; }
+	legend {
+		font-weight: 700;
+		font-size: 15px;
+		margin-bottom: 10px;
+		padding: 0;
+	}
+	.options {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 10px;
+	}
+
+	@media (max-width: 480px) {
+		.options {
+			grid-template-columns: 1fr;
+		}
+	}
+	.option input {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+	.option label {
+		display: block;
+		height: 100%;
+		cursor: pointer;
+		border: 2px solid var(--border);
+		border-radius: 0px;
+		padding: 10px 12px;
+		background: var(--bg);
+		transition: border-color .15s, background .15s;
+	}
+	.option label strong {
+		display: block;
+		font-size: 15px;
+	}
+	.option label span {
+		display: block;
+		font-size: 13px;
+		color: var(--muted);
+		line-height: 1.4;
+		margin-top: 2px;
+	}
+	.option label:hover { border-color: var(--accent); }
+	.option input:focus-visible + label {
+		outline: 3px solid var(--accent);
+		outline-offset: 2px;
+	}
+	/* Dark text on both, since white on light blue/yellow is too low contrast */
+	.option input:checked + label {
+		color: var(--brandBlack);
+	}
+	.option input:checked + label span { color: var(--brandBlack); opacity: 1; }
+	.option input[name=product]:checked + label {
+		border-color: var(--brandLightBlue);
+		background: var(--brandLightBlue);
+	}
+	.option input[name=intake]:checked + label {
+		border-color: var(--brandYellow);
+		background: var(--brandYellow);
+	}
+	.option input:disabled + label {
+		cursor: not-allowed;
+		opacity: .45;
+	}
+	.intro { margin: 0 0 16px; font-size: 14px; }
+	.examples {
+		margin: 0 0 32px;
+	}
+	.examples h2 {
+		font-size: 16px;
+		margin: 0 0 6px;
+		color: var(--accent-strong);
+	}
+	.examples ul {
+		margin: 0;
+		padding-left: 20px;
+		font-size: 14px;
+	}
+	.examples li { margin-bottom: 4px; }
+	.hint {
+		font-size: 13px;
+		color: var(--muted);
+		margin: 8px 0 0;
+		min-height: 1.4em;
+	}
+
+	/* Path header */
+	.path-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 8px 16px;
+		border-bottom: 2px solid var(--accent-strong);
+		padding-bottom: 8px;
+		margin-bottom: 16px;
+	}
+	.path-head h2 {
+		margin: 0;
+		font-size: 22px;
+		color: var(--accent-strong);
+	}
+	.path-meta {
+		font-size: 13px;
+		color: var(--muted);
+		display: flex;
+		gap: 12px;
+		align-items: center;
+	}
+	button.linkish {
+		font: inherit;
+		color: var(--accent);
+		background: none;
+		border: 0;
+		padding: 0;
+		cursor: pointer;
+		text-decoration: underline;
+	}
+
+	/* Roles */
+	.roles {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 10px;
+		margin-bottom: 28px;
+	}
+	/* Role colours: the same colour marks a role in its card, in the step headers, and wherever work is sent to it */
+	[data-role="partner"] { --role: #AB1368; }
+	[data-role="lead"] { --role: var(--brandMedBlue); }
+	[data-role="graphics-reviewer"] { --role: #00A189; }
+	[data-role="internal"] { --role: #EBA00F; }
+	[data-role="external"] { --role: #DC4633; }
+	[data-role="copy-edit"] { --role: var(--brandPurple); }
+	@media (prefers-color-scheme: dark) {
+		:root:not([data-theme="light"]) [data-role="partner"] { --role: #e0579f; }
+		:root:not([data-theme="light"]) [data-role="copy-edit"] { --role: #b56cc2; }
+	}
+	:root[data-theme="dark"] [data-role="partner"] { --role: #e0579f; }
+	:root[data-theme="dark"] [data-role="copy-edit"] { --role: #b56cc2; }
+	.role b::before, .pill::before, summary .who::before {
+		content: "";
+		display: inline-block;
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background: var(--role, var(--muted));
+		margin-right: 6px;
+		vertical-align: 1px;
+	}
+	.role {
+		border: 1px solid var(--border);
+		border-left: 5px solid var(--role, var(--border));
+		border-radius: 0px;
+		padding: 10px 12px;
+		font-size: 15px;
+		line-height: 1.45;
+	}
+	.role b {
+		display: block;
+		font-size: 14px;
+		color: var(--accent-strong);
+	}
+
+	/* Steps */
+	ol.steps {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		position: relative;
+	}
+	ol.steps::before {
+		content: "";
+		position: absolute;
+		left: 14px;
+		top: 18px;
+		bottom: 18px;
+		width: 2px;
+		background: var(--border);
+	}
+	.step {
+		position: relative;
+		padding-left: 46px;
+		margin-bottom: 14px;
+	}
+	.step-num {
+		position: absolute;
+		left: 0;
+		top: 13px;
+		width: 30px;
+		height: 30px;
+		border-radius: 0px;
+		background: var(--accent);
+		color: var(--selected-text);
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1;
+	}
+	.step.team .step-num { background: var(--team); }
+	.step.done .step-num::after {
+		content: "✓";
+		position: absolute;
+		right: -4px;
+		bottom: -4px;
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: var(--bg);
+		color: var(--accent);
+		font-size: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--border);
+	}
+	details.card {
+		border: 1px solid var(--border);
+		border-radius: 0px;
+		background: var(--bg);
+	}
+	details.card[open] { background: var(--surface); }
+	summary {
+		list-style: none;
+		cursor: pointer;
+		padding: 14px 16px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+	summary::-webkit-details-marker { display: none; }
+	summary:focus-visible {
+		outline: 3px solid var(--accent);
+		outline-offset: 2px;
+		border-radius: 0px;
+	}
+	summary h3 {
+		margin: 0;
+		font-size: 17px;
+		flex: 1 1 auto;
+	}
+	summary .who {
+		font-size: 13px;
+		color: var(--muted);
+	}
+	summary::after {
+		content: "+";
+		font-size: 20px;
+		color: var(--muted);
+		line-height: 1;
+	}
+	details[open] > summary::after { content: "−"; }
+	.badge {
+		font-size: 11px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: .04em;
+		color: var(--team);
+		background: var(--team-soft);
+		border-radius: 0px;
+		padding: 2px 6px;
+	}
+	.card-body {
+		padding: 0 16px 16px;
+	}
+	.card-body p { margin: 0 0 12px; font-size: 14px; line-height: 1.5; }
+	.card-body h4 {
+		font-size: 16px;
+		font-weight: 700;
+		color: var(--accent-strong);
+		margin: 18px 0 6px;
+	}
+	.card-body h4:first-child { margin-top: 0; }
+	.card-body ul {
+		margin: 0 0 12px;
+		padding-left: 20px;
+		font-size: 14px;
+		line-height: 1.5;
+	}
+	.card-body li { margin-bottom: 4px; }
+
+	/* Checklist */
+	ul.checks {
+		list-style: none;
+		padding-left: 0;
+		font-size: 14px;
+		line-height: 1.5;
+	}
+	ul.checks li { margin-bottom: 6px; }
+	ul.checks ul {
+		list-style: none;
+		padding-left: 28px;
+		margin: 6px 0 0;
+	}
+	.check {
+		display: flex;
+		gap: 10px;
+		align-items: flex-start;
+	}
+	.check input {
+		cursor: pointer;
+		margin: 3px 0 0;
+		width: 16px;
+		height: 16px;
+		flex: none;
+		accent-color: var(--accent);
+	}
+	.check input:checked + span {
+		color: var(--muted);
+		text-decoration: line-through;
+		text-decoration-color: var(--border);
+	}
+
+	.sendto {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 6px;
+		margin-bottom: 12px;
+	}
+	ol.review-seq {
+		margin: 0 0 12px;
+		padding-left: 22px;
+		font-size: 14px;
+		line-height: 1.5;
+	}
+	ol.review-seq li { margin-bottom: 8px; }
+	ol.review-seq li::marker { font-weight: 700; color: var(--muted); }
+	.pill {
+		font-size: 13px;
+		background: color-mix(in srgb, var(--role, var(--accent)) 12%, var(--bg));
+		border: 1px solid color-mix(in srgb, var(--role, var(--accent)) 55%, var(--bg));
+		color: var(--text);
+		border-radius: 0px;
+		padding: 2px 10px;
+		white-space: nowrap;
+	}
+	.note {
+		font-size: 14px;
+		color: var(--muted);
+		border-left: 3px solid var(--border);
+		padding-left: 10px;
+	}
+	.tbd {
+		font-size: 14px;
+		background: var(--tbd-bg);
+		border: 1px dashed var(--tbd-border);
+		color: var(--tbd-text);
+		border-radius: 0px;
+		padding: 8px 10px;
+		margin: 12px 0;
+	}
+	.tbd::before {
+		content: "To decide: ";
+		font-weight: 700;
+	}
+	.next {
+		display: inline-block;
+		margin-top: 4px;
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--selected-text);
+		background: var(--accent);
+		border: 0;
+		border-radius: 0px;
+		padding: 8px 12px;
+		cursor: pointer;
+	}
+	.next:focus-visible {
+		outline: 3px solid var(--accent-strong);
+		outline-offset: 2px;
+	}
+
+	.empty {
+		border: 2px dashed var(--border);
+		border-radius: 0px;
+		padding: 24px;
+		text-align: center;
+		color: var(--muted);
+	}
+
+	footer {
+		margin-top: 48px;
+		font-size: 13px;
+		color: var(--muted);
+	}
+
+	@media (max-width: 480px) {
+		h1 { font-size: 25px; }
+		.wrap { padding-top: 24px; }
+		.step { padding-left: 40px; }
+		.step-num { width: 26px; height: 26px; font-size: 14px; top: 14px; }
+		ol.steps::before { left: 12px; }
+	}
+
+	@media print {
+		.chooser, .path-meta, footer { display: none; }
+		details.card { break-inside: avoid; }
+		details.card > .card-body { display: block !important; }
+	}
+</style>
+<script>
+	// Applied before paint so there's no flash of the wrong theme
+	try {
+		var savedTheme = JSON.parse(localStorage.getItem("mapsviz-theme"));
+		if (savedTheme === "light" || savedTheme === "dark") {
+			document.documentElement.setAttribute("data-theme", savedTheme);
+		}
+	} catch {}
+</script>
+</head>
+<body>
+<div class="wrap">
+
+	<div class="top-bar">
+		<h1><span class="h1-icon" aria-hidden="true">🗺️</span> Maps/Dataviz project workflow</h1>
+		<button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false" title="Toggle light/dark mode">🌙</button>
+	</div>
+	<p class="lede">Steps and review points for School of Cities Maps and Data Visualization projects to follow after a project has already been approved.</p>
+
+	<form class="chooser ui" id="chooser">
+		<fieldset>
+			<legend>What are you making?</legend>
+			<div class="options">
+				<div class="option">
+					<input type="radio" name="product" id="p-graphics" value="graphics">
+					<label for="p-graphics"><strong>Graphics</strong><span>Standalone maps and charts created for other School of Cities or affiliate publications (reports, briefs, papers, websites, etc.).</span></label>
+				</div>
+				<div class="option">
+					<input type="radio" name="product" id="p-post" value="post">
+					<label for="p-post"><strong>Post</strong><span>Short standardized web pages that combine charts or maps with text to share findings and insights from urban data and research.</span></label>
+				</div>
+				<div class="option">
+					<input type="radio" name="product" id="p-explorer" value="explorer">
+					<label for="p-explorer"><strong>Explorer / tool</strong><span>Interactive charts and/or maps aimed at self-exploration of specific datasets.</span></label>
+				</div>
+				<div class="option">
+					<input type="radio" name="product" id="p-feature" value="feature">
+					<label for="p-feature"><strong>Feature</strong><span>Longer-form, higher-production pieces that go deep on a single subject, as a case study, visual essay, or narrative story.</span></label>
+				</div>
+			</div>
+		</fieldset>
+		<fieldset id="intake-set">
+			<legend>Who is this for?</legend>
+			<div class="options">
+				<div class="option">
+					<input type="radio" name="intake" id="i-partner" value="partner">
+					<label for="i-partner"><strong>A partner</strong><span><b>Partner-led</b>: We're making this for someone else's project or research (another School of Cities project, faculty affiliate, visiting expert, etc.).</span></label>
+				</div>
+				<div class="option">
+					<input type="radio" name="intake" id="i-team" value="team">
+					<label for="i-team"><strong>Our team</strong><span><b>Team-led</b>: Our own project. The Maps and Data Visualization team does the research as well as the graphics and writing.</span></label>
+				</div>
+			</div>
+			<p class="hint" id="intake-hint" aria-live="polite"></p>
+		</fieldset>
+	</form>
+
+	<section id="path" aria-live="polite"></section>
+
+	<footer>Checkboxes are saved in this browser only. Link to a specific path by copying the URL after choosing.</footer>
+</div>
+
+<script>
+// ---------------------------------------------------------------------------
+// Content. Edit here. Each path is a list of steps; `team: true` marks
+// steps that only exist for team-led projects. Body strings are HTML.
+// ---------------------------------------------------------------------------
+
+const graphicsListItems = [
+	"Title, subtitle, objective(s) of the graphic",
+	"Type of chart or map (bar chart, choropleth map, etc.)",
+	"Data source, and any required processing/transformation of data",
+	"Any notes, inspiration, ideas, or other information that will help when drafting"
+];
+
+const emailNote = `<p>Preferably by email, not Teams (messages are lost after 30 days).</p>`;
+
+// Guides in this repo's docs/ folder. GitHub links, so they work wherever this page is opened.
+const DOCS = "https://github.com/schoolofcities/schoolofcities.github.io/blob/main/docs";
+const vizGuide = `<a href="${DOCS}/visualization-review-checklist.md">SofC data visualization design guidelines</a>`;
+const writingGuide = `<a href="${DOCS}/writing-posts-review-checklist.md">post writing guidelines</a>`;
+
+const planNote = `<p class="note">All of this can change as you draft. The goal is a checklist and a rough plan before starting.</p>`;
+
+const POST_EXAMPLES = [
+	{
+		title: "Impacts of foreign buyer taxes on housing markets",
+		url: "https://schoolofcities.github.io/posts/foreign-buyer-tax-vancouver-toronto/"
+	},
+	{
+		title: "Mapping Heat Vulnerability in Toronto",
+		url: "https://schoolofcities.github.io/heat-vulnerability-toronto/"
+	},
+	{
+		title: "Air Pollution & Premature Mortality",
+		url: "https://schoolofcities.github.io/air-pollution-and-premature-mortality"
+	},
+	{
+		title: "Mapping Bike Share Trips In Toronto",
+		url: "https://schoolofcities.github.io/bike-share-toronto/trips-062024"
+	},
+	{
+		title: "Arc diagram of Yonge-University Subway Line (Line 1) trips",
+		url: "https://schoolofcities.github.io/transportation-tomorrow-survey/line-1-trips"
+	},
+	{
+		title: "Wildfires and Urban Air Quality",
+		url: "https://schoolofcities.github.io/urban-air-quality/wildfires"
+	},
+	{
+		title: "Mapping household GHG emissions in the Greater Golden Horseshoe",
+		url: "https://schoolofcities.utoronto.ca/mapping-household-ghg-emissions-in-the-greater-golden-horseshoe/"
+	},
+	{
+		title: "Mapping development changes along the Eglinton Crosstown corridor",
+		url: "https://schoolofcities.utoronto.ca/mapping-development-changes-along-the-eglinton-crosstown-corridor/"
+	},
+	{
+		title: "Where do the snow plows go?",
+		url: "https://schoolofcities.utoronto.ca/where-do-the-snow-plows-go/"
+	},
+	{
+		title: "Maps of Line 6 Finch West",
+		url: "https://schoolofcities.utoronto.ca/maps-of-line-6-finch-west/"
+	},
+	{
+		title: "Layers of Climate Risk in Canada",
+		url: "https://schoolofcities.utoronto.ca/layers-of-climate-risk-in-canada/"
+	}
+];
+
+const EXPLORE_EXAMPLES = [
+	{
+		title: "Mapping tariffs",
+		url: "https://schoolofcities.github.io/tariffs/map"
+	},
+	{
+		title: "Toronto 2021 Dot Density Map",
+		url: "https://schoolofcities.github.io/dot-density/"
+	},
+	{
+		title: "Toronto Floor Area Ratio Map",
+		url: "https://schoolofcities.github.io/floor-area-ratio/"
+	},
+	{
+		title: "Greater Golden Horseshoe Transport Geography",
+		url: "https://schoolofcities.github.io/transportation-tomorrow-survey/"
+	},
+	{
+		title: "Charting mode share in Toronto via ternary charts",
+		url: "https://schoolofcities.github.io/transportation-tomorrow-survey/mode-ternary"
+	}
+];
+
+const FEATURE_EXAMPLES = [
+	{
+		title: "Who Are Streets For?",
+		url: "https://schoolofcities.github.io/who-are-streets-for/"
+	},
+	{
+		text: "TOD Canada case study: {link}",
+		title: "Cooksville",
+		url: "https://schoolofcities.github.io/tod-canada/case-study/cooksville"
+	},
+	{
+		title: "Kensington Market Commercial Change",
+		url: "https://schoolofcities.github.io/kensington-market/commercial-change"
+	},
+	{
+		title: "Toronto's Linguistic Heritage",
+		url: "https://schoolofcities.github.io/languages/toronto-linguistic-history"
+	},
+	{
+		title: "Rightward shifts amongst visible minorities in the Greater Toronto Area",
+		url: "https://schoolofcities.github.io/gta-immigration/rightward-minorities"
+	},
+	{
+		title: "Canada's Street Trees",
+		url: "https://schoolofcities.github.io/urban-forests/street-trees-across-canada"
+	},
+	{
+		text: "EDDIT case study: {link}",
+		title: "Connecting the Dots: Showcasing the benefits of public transportation",
+		url: "https://schoolofcities.github.io/eddit/eau-claire-wi"
+	}
+];
+
+
+const PATHS = {
+	graphics: {
+		title: "Graphics · partner-led",
+		intro: "A School of Cities or affiliate project requires graphics (charts, maps, etc.).",
+		examples: [
+			{
+				text: "Graphics for the {link} report series",
+				title: "Learning from what works",
+				url: "https://schoolofcities.utoronto.ca/research-publications/learning-from-what-works/"
+			},
+			{
+				text: "Graphics for the {link} report series",
+				title: "Infrastructure deficit",
+				url: "https://schoolofcities.utoronto.ca/research-publications/infrastructure-deficit/"
+			},
+			{
+				text: "Graphics for the {link} report",
+				title: "State of Local Democracy in Canada",
+				url: "https://utoronto.scholaris.ca/items/ee90a010-6b1e-4439-9020-6e8b8f3ea887"
+			},
+			{
+				text: "Graphics for the {link} report",
+				title: "Donde Vivimos",
+				url: "https://utoronto.scholaris.ca/items/2415135a-9f1c-42ab-b926-ba37b981bbec"
+			},
+			{
+				text: "Graphics for the {link} blog post",
+				title: "Neighbourhood Abandonment in the American Rust Belt",
+				url: "https://schoolofcities.utoronto.ca/neighbourhood-abandonment-in-the-american-rust-belt/"
+			}
+		],
+		roles: [
+			["Partner", "Person requesting the graphics, e.g. a report author or the lead of an internal project."],
+			["Project lead", "Staff assigned by Jeff to design and create the graphics."],
+			["Maps/viz reviewer", "Jeff. If Jeff is the project lead, he finds 1–2 others for draft review."]
+		],
+		steps: [
+			{
+				id: "plan",
+				title: "Plan",
+				who: "Project lead",
+				body: `
+					<h4>Create a plan with</h4>
+					${checks([
+						"Note of intended audience(s) (e.g. general, policy, academic, etc.), which guides design of graphics (e.g. level of detail, text, labels, etc.)",
+						{ text: "A list or spreadsheet of each graphic we plan to create. For each:", sub: graphicsListItems },
+						"Approximate timeline, including any fixed dates/deadlines"
+					])}
+					${planNote}
+					<h4>Share with</h4>
+					${emailNote}
+					${sequence([
+						["Maps/viz reviewer", "does a quick check and answers any questions. Project lead updates the plan with their feedback."],
+						["Partner", "gives feedback before starting (optional, depending on the scope of the project and how involved they are)."]
+					])}`
+			},
+			{
+				id: "draft",
+				title: "Draft + review",
+				who: "Project lead",
+				body: `
+					<p>Acquire data (as needed) and draft each graphic, following the ${vizGuide} and the <a href="https://github.com/schoolofcities/schoolofcities.github.io/blob/main/CONTRIBUTING.md">contributing instructions</a> for <a href="https://github.com/schoolofcities/schoolofcities.github.io">schoolofcities.github.io</a>.</p>
+					<h4>Send to</h4>
+					${emailNote}
+					${sequence([
+						["Maps/viz reviewer", "reviews the drafts. Project lead revises them with their feedback. Then..."],
+						["Partner", "reviews the revised drafts. Project lead revises with their feedback."]
+					])}
+					<p>Iterate as needed.</p>
+					<h4>Create a post?</h4>
+					${pills(["Project lead", "Maps/viz reviewer", "Partner"])}
+					<p>Together, decide whether the graphics should also become a public-facing post, as an additional knowledge mobilization product alongside the original publication. A post could tell a story around the core findings, or go into more technical detail about how the graphics were made. But it may not be worth the effort for some projects.</p>
+					<button type="button" class="next" data-goto="post-partner">Making a post too? Go to Post · partner-led →</button>`
+			},
+			{
+				id: "publish",
+				title: "Publish",
+				who: "Project lead",
+				body: `
+					<p>When everything is finished:</p>
+					${checks([
+						"Add graphics to the main GitHub repository, following the <a href=\"https://github.com/schoolofcities/schoolofcities.github.io/blob/main/CONTRIBUTING.md\">contributing instructions</a>",
+						"Share link with the partner",
+						"Share link with whoever is doing layout for the overall product (report, website, etc.)",
+						"Share link with anyone else who might be interested"
+					])}`
+			}
+		]
+	},
+
+	"post-partner": {
+		title: "Post · partner-led",
+		intro: "A School of Cities or affiliate project requires a post.",
+		examples: POST_EXAMPLES,
+		roles: [
+			["Partner", "Person requesting the post, e.g. the author of a paper or the lead of an internal project."],
+			["Project lead", "Staff assigned by Jeff to design and create the post and its graphics."],
+			["Maps/viz reviewer", "Jeff. If Jeff is the project lead, he finds 1–2 others for draft review."],
+			["Copy-edit reviewer", "Usually Felicity."]
+		],
+		steps: [
+			{
+				id: "plan",
+				title: "Plan",
+				who: "Project lead",
+				body: `
+					<h4>Create a plan with</h4>
+					${checks([
+						"Main finding(s) or insight(s) the post will communicate",
+						{ text: "A list or spreadsheet of each graphic we plan to create. For each:", sub: graphicsListItems },
+						"Approximate timeline, including any fixed dates/deadlines",
+						"Related outputs, planned or already published (papers, reports, briefs, case studies, repositories, websites, etc.)"
+					])}
+					${planNote}
+					<h4>Share with</h4>
+					${emailNote}
+					${sequence([
+						["Maps/viz reviewer", "does a quick check and answers any questions. Project lead updates the plan with their feedback."],
+						["Partner", "gives feedback before starting (optional, depending on the scope of the project and how involved they are)."]
+					])}`
+			},
+			{
+				id: "draft",
+				title: "Draft + review",
+				who: "Project lead",
+				body: `
+					<p>Acquire data (as needed) and draft the post and its graphics, following the ${vizGuide}, the ${writingGuide}, and the <a href="https://github.com/schoolofcities/schoolofcities.github.io/blob/main/CONTRIBUTING.md">contributing instructions</a> for <a href="https://github.com/schoolofcities/schoolofcities.github.io">schoolofcities.github.io</a>.</p>
+					<h4>Send to</h4>
+					${emailNote}
+					${sequence([
+						["Maps/viz reviewer", "reviews the draft. Project lead revises it with their feedback. Then..."],
+						["Partner", "reviews the revised draft. Project lead revises with their feedback."]
+					])}
+					<p>Review covers the text, the graphics, and how they work together.</p>
+					<p>Iterate as needed.</p>
+					<h4>Then</h4>
+					<p>Send to the ${pill("copy-edit reviewer")} for a final text review.</p>`
+			},
+			{
+				id: "publish",
+				title: "Publish",
+				who: "Project lead",
+				body: `
+					<p>When everything is finished:</p>
+					${checks([
+						"Add the post to <a href=\"https://github.com/schoolofcities/schoolofcities.github.io\">schoolofcities.github.io</a>, following the <a href=\"https://github.com/schoolofcities/schoolofcities.github.io/blob/main/CONTRIBUTING.md\">contributing instructions</a>",
+						"Share link with the partner",
+						"Share link with the communications team (Felicity and Tony)",
+						"Share link with anyone else who might be interested"
+					])}`
+			}
+		]
+	},
+
+	"post-team": {
+		title: "Post · team-led",
+		intro: "The Maps and Data Visualization team is leading the research (knowledge production) and the communication aspects (i.e. knowledge mobilization) of a post, i.e. doing both the data analysis as well as the visualization and writing.",
+		examples: POST_EXAMPLES,
+		roles: [
+			["Project lead", "Jeff or staff who leads the research, graphics, and writing."],
+			["Maps/viz reviewer", "Jeff. If Jeff is the project lead, he finds 1–2 others for draft review."],
+			["Internal reviewer(s)", "SofC staff with relevant expertise who review the research and methods (optional)."],
+			["External reviewer(s)", "Subject matter expert(s), chosen at the research plan stage (optional)."],
+			["Copy-edit reviewer", "Usually Felicity."]
+		],
+		steps: [
+			{
+				id: "research-plan",
+				title: "Research plan",
+				team: true,
+				who: "Project lead",
+				body: `
+					<p>A very brief plan (100–200 words max), so we can assess it internally and decide whether we'll want outside subject matter expertise later.</p>
+					<h4>Include</h4>
+					${checks([
+						"<b>Objective</b>: 1–3 sentences. Research question(s), why we're doing this, who it's for",
+						"<b>Data</b>: source, coverage, exclusions, limitations",
+						"<b>Methods</b>: how data will be processed, analyzed, modelled (if applicable)",
+						"<b>Risks</b> (optional): what the data can't do, methods' limitations, what a null result would mean, etc. \"None identified yet\" is fine",
+						"<b>Visualization</b> (optional): ideas, examples, etc. on how we may want to visualize the data"
+					])}
+					<h4>Email to</h4>
+					${pills(["Maps/viz reviewer", "Internal reviewer(s) (if applicable)"])}
+					<p>For quick feedback / go-ahead. Use email, not Teams (messages are lost after 30 days). The email is our reference point later for checking whether the project drifted.</p>
+					<h4>Reviewers then</h4>
+					<ul>
+						<li>Flag obvious flaws (e.g. data has known limitations for the objective). If so, the project is scrapped or re-worked before too much work is done.</li>
+						<li>Flag whether we want an external subject matter expert, typically when processing or analysis is more detailed, or the post needs context and framing we can't be fully confident about in-house. If so, select who. One of the reviewers contacts them, unless the project lead already has a relationship with them.</li>
+					</ul>`
+			},
+			{
+				id: "research-review",
+				title: "Research review",
+				team: true,
+				who: "Project lead",
+				body: `
+					<p>Do the data collection, processing, and analysis. Document the process clearly and succinctly (can be in a notebook, markdown, Google Doc, Word doc, etc., whichever is easiest). Include initial results (tables, any charts/maps, but they don't have to be publication level graphics, just clear enough to understand findings and patterns).</p>
+					<h4>Reviewed by</h4>
+					${pills(["Maps/viz reviewer", "Internal reviewer(s) (if applicable)"])}
+					<p>They check that the data source is adequate, processing was well executed, the method(s) answer the questions / achieve the objectives noted in the research plan, results make sense, and limitations are clearly stated. The goal is confidence in the analysis before building charts and writing around it.</p>
+					<h4>Outcomes</h4>
+					<ul>
+						<li><b>Data issues, or method(s) don't support the findings:</b> stop, or reduce the scope and shrink to a simple descriptive piece if applicable.</li>
+						<li><b>Looks good:</b> minor refinement as needed, then proceed.</li>
+					</ul>
+					<p>Iterate.</p>
+					<h4>Optional: external review</h4>
+					${pills(["External reviewer(s)"])}
+					<p>Up to the judgement of the maps/viz reviewer and internal reviewer(s). If they aren't confident giving quality feedback, send it to the external reviewer(s) and/or other SofC staff who are a good fit.</p>
+					<h4>Turned out bigger than planned?</h4>
+					<p>If the results are strong enough to justify a case study, visual essay, or narrative treatment rather than a standard post, switch tracks here.</p>
+					<button type="button" class="next" data-goto="feature-team">Go to Feature plan · team-led →</button>`
+			},
+			{
+				id: "plan",
+				title: "Post plan",
+				who: "Project lead",
+				body: `
+					<h4>Create a post plan with</h4>
+					${checks([
+						"Main finding(s) or insight(s) the post will communicate",
+						{ text: "A list or spreadsheet of each graphic we plan to create. For each:", sub: graphicsListItems },
+						"Approximate timeline, including any fixed dates/deadlines",
+						"How methods will be shared on release: (1) markdown file on GitHub, (2) short methods description at the bottom of the post, and/or (3) a separate methods post. The first two for most projects; the third if the work is particularly detailed, makes strong claims, has interesting methods, or has value for future curriculum. Reviewers' questions and flags can go in the methods write-up",
+						"Whether to deposit data in Borealis (yes if a new dataset is created)"
+					])}
+					${planNote}
+					<h4>Share with</h4>
+					${emailNote}
+					${pills(["Maps/viz reviewer", "Internal reviewer(s) (if applicable)"])}
+					<p>For quick feedback before starting.</p>`
+			},
+			{
+				id: "draft",
+				title: "Draft + review",
+				who: "Project lead",
+				body: `
+					<p>Draft the post and its graphics, following the ${vizGuide}, the ${writingGuide}, and the <a href="https://github.com/schoolofcities/schoolofcities.github.io/blob/main/CONTRIBUTING.md">contributing instructions</a> for <a href="https://github.com/schoolofcities/schoolofcities.github.io">schoolofcities.github.io</a>.</p>
+					<h4>Send to</h4>
+					${emailNote}
+					${pills(["Maps/viz reviewer", "Internal reviewer(s) (if applicable)", "External reviewer(s) (if applicable)"])}
+					<p>Review covers the text, the graphics, and how they work together.</p>
+					<p>This review can take place concurrently, or in sequence if there are specific technical or design questions to work through.</p>
+					<p>Iterate as needed. Some projects may need to go back to the research stage if review calls for adjusting data or methods. That's okay.</p>
+					<h4>Then</h4>
+					<p>Send to the ${pill("copy-edit reviewer")} for a final text review.</p>`
+			},
+			{
+				id: "publish",
+				title: "Publish",
+				who: "Project lead",
+				body: `
+					<p>When everything is finished:</p>
+					${checks([
+						"Add the post to <a href=\"https://github.com/schoolofcities/schoolofcities.github.io\">schoolofcities.github.io</a>, following the <a href=\"https://github.com/schoolofcities/schoolofcities.github.io/blob/main/CONTRIBUTING.md\">contributing instructions</a>",
+						"Publish the methods write-up, as decided in the post plan",
+						"Deposit dataset in Borealis (if applicable)",
+						"Share link with the communications team (Felicity and Tony)",
+						"Share link with anyone else who might be interested"
+					])}`
+			}
+		]
+	},
+
+	"feature-partner": {
+		title: "Feature · partner-led",
+		intro: "A School of Cities or affiliate project calls for a feature: a case study, visual essay, or narrative piece with more production value and narrative room than a standard post.",
+		examples: FEATURE_EXAMPLES,
+		roles: [
+			["Partner", "Person requesting the feature, e.g. the author of a paper or the lead of an internal project."],
+			["Project lead", "Staff assigned by Jeff to design and create the feature and its graphics."],
+			["Maps/viz reviewer", "Jeff. If Jeff is the project lead, he finds 1–2 others for draft review."],
+			["Copy-edit reviewer", "Usually Felicity."]
+		],
+		steps: [
+			{
+				id: "plan",
+				title: "Plan",
+				who: "Project lead",
+				body: `
+					<h4>Create a plan with</h4>
+					${checks([
+						"Main finding(s) or insight(s) the feature will communicate",
+						"Intended audience(s) for the feature (general, policy, academic, etc.), which guides design of graphics (e.g. level of detail, visual hierarchy, text/labels, etc.) and writing style",
+						{ text: "A list or spreadsheet of each graphic we plan to create. For each:", sub: graphicsListItems },
+						"Approximate timeline, including any fixed dates/deadlines",
+						"Who is writing the text: the project lead or the partner (varies project to project)",
+						"Related outputs, planned or already published (papers, reports, briefs, case studies, repositories, websites, etc.)",
+						"Project repository name (features get their own GitHub repo and custom-built site, not <a href=\"https://github.com/schoolofcities/schoolofcities.github.io\">schoolofcities.github.io</a>)"
+					])}
+					${planNote}
+					<h4>Share with</h4>
+					${emailNote}
+					${sequence([
+						["Maps/viz reviewer", "does a quick check and answers any questions. Project lead updates the plan with their feedback."],
+						["Partner", "gives feedback before starting."]
+					])}`
+			},
+			{
+				id: "draft",
+				title: "Draft + review",
+				who: "Project lead",
+				body: `
+					<p>Acquire data (as needed) and draft the feature and its graphics on its own project site, following the ${vizGuide}.</p>
+					<h4>Send to</h4>
+					${emailNote}
+					${sequence([
+						["Maps/viz reviewer", "reviews the draft. Project lead revises it with their feedback."],
+						["Partner", "reviews the revised draft."]
+					])}
+					<p>Review covers the text, the graphics, and how they work together.</p>
+					<p>Iterate as needed.</p>
+					<h4>Then</h4>
+					<p>Send to the ${pill("copy-edit reviewer")} for a final text review.</p>`
+			},
+			{
+				id: "publish",
+				title: "Publish",
+				who: "Project lead",
+				body: `
+					<p>When everything is finished:</p>
+					${checks([
+						"Publish the feature on its own project site, following that project's contributing instructions",
+						"Share link with the partner",
+						"Share link with the communications team (Felicity and Tony)",
+						"Share link with anyone else who might be interested"
+					])}`
+			}
+		]
+	},
+
+	"feature-team": {
+		title: "Feature · team-led",
+		intro: "The Maps and Data Visualization team is leading the research (knowledge production) and the communication aspects (i.e. knowledge mobilization) of a feature, i.e. doing both the data analysis as well as the visualization and writing, at a higher production level and with more room for narrative than a standard post.",
+		examples: FEATURE_EXAMPLES,
+		roles: [
+			["Project lead", "Jeff or staff who leads the research, graphics, and writing."],
+			["Maps/viz reviewer", "Jeff. If Jeff is the project lead, he finds 1–2 others for draft review."],
+			["Internal reviewer(s)", "SofC staff with relevant expertise who review the research and methods (optional)."],
+			["External reviewer(s)", "Subject matter expert(s), chosen at the research plan stage (optional)."],
+			["Copy-edit reviewer", "Usually Felicity."]
+		],
+		steps: [
+			{
+				id: "research-plan",
+				title: "Research plan",
+				team: true,
+				who: "Project lead",
+				body: `
+					<p>A very brief plan (100–200 words max), so we can assess it internally and decide whether we'll want outside subject matter expertise later.</p>
+					<h4>Include</h4>
+					${checks([
+						"<b>Objective</b>: 1–3 sentences. Research question(s), why we're doing this, who it's for",
+						"<b>Data</b>: source, coverage, exclusions, limitations",
+						"<b>Methods</b>: how data will be processed, analyzed, modelled (if applicable)",
+						"<b>Risks</b> (optional): what the data can't do, methods' limitations, what a null result would mean, etc. \"None identified yet\" is fine",
+						"<b>Visualization</b> (optional): ideas, examples, etc. on how we may want to visualize the data"
+					])}
+					<h4>Email to</h4>
+					${pills(["Maps/viz reviewer", "Internal reviewer(s) (if applicable)"])}
+					<p>For quick feedback / go-ahead. Use email, not Teams (messages are lost after 30 days). The email is our reference point later for checking whether the project drifted.</p>
+					<h4>Reviewers then</h4>
+					<ul>
+						<li>Flag obvious flaws (e.g. data has known limitations for the objective). If so, the project is scrapped or re-worked before too much work is done.</li>
+						<li>Flag whether we want an external subject matter expert, typically when processing or analysis is more detailed, or the feature needs context and framing we can't be fully confident about in-house. If so, select who. One of the reviewers contacts them, unless the project lead already has a relationship with them.</li>
+					</ul>`
+			},
+			{
+				id: "research-review",
+				title: "Research review",
+				team: true,
+				who: "Project lead",
+				body: `
+					<p>Do the data collection, processing, and analysis. Document the process clearly and succinctly (can be in a notebook, markdown, Google Doc, Word doc, etc., whichever is easiest). Include initial results (tables, any charts/maps, but they don't have to be publication level graphics, just clear enough to understand findings and patterns).</p>
+					<h4>Reviewed by</h4>
+					${pills(["Maps/viz reviewer", "Internal reviewer(s) (if applicable)"])}
+					<p>They check that the data source is adequate, processing was well executed, the method(s) answer the questions / achieve the objectives noted in the research plan, results make sense, and limitations are clearly stated. The goal is confidence in the analysis before building charts and writing around it.</p>
+					<h4>Outcomes</h4>
+					<ul>
+						<li><b>Data issues, or method(s) don't support the findings:</b> stop, or reduce the scope and shrink to a simple descriptive piece if applicable.</li>
+						<li><b>Looks good:</b> minor refinement as needed, then proceed.</li>
+					</ul>
+					<p>Iterate.</p>
+					<h4>Optional: external review</h4>
+					${pills(["External reviewer(s)"])}
+					<p>Up to the judgement of the maps/viz reviewer and internal reviewer(s). If they aren't confident giving quality feedback, send it to the external reviewer(s) and/or other SofC staff who are a good fit.</p>
+					<h4>Not worth the extra production?</h4>
+					<p>If the results don't justify a case study, visual essay, or narrative treatment, a standard post may be a better fit for the effort. Switch tracks here.</p>
+					<button type="button" class="next" data-goto="post-team">Go to Post plan · team-led →</button>`
+			},
+			{
+				id: "plan",
+				title: "Feature plan",
+				who: "Project lead",
+				body: `
+					<h4>Create a feature plan with</h4>
+					${checks([
+						"Main finding(s) or insight(s) the feature will communicate",
+						"Intended audience(s) for the feature (general, policy, academic, etc.), which guides design of graphics (e.g. level of detail, visual hierarchy, text/labels, etc.) and writing style",
+						{ text: "A list or spreadsheet of each graphic we plan to create. For each:", sub: graphicsListItems },
+						"Approximate timeline, including any fixed dates/deadlines",
+						"How methods will be shared on release: (1) markdown file on GitHub, (2) short methods description at the bottom of the feature, and/or (3) a separate methods post. The first two for most projects; the third if the work is particularly detailed, makes strong claims, has interesting methods, or has value for future curriculum. Reviewers' questions and flags can go in the methods write-up",
+						"Whether to deposit data in Borealis (yes if a new dataset is created)",
+						"Project repository name (features get their own GitHub repo and custom-built site, not <a href=\"https://github.com/schoolofcities/schoolofcities.github.io\">schoolofcities.github.io</a>)"
+					])}
+					${planNote}
+					<h4>Share with</h4>
+					${emailNote}
+					${pills(["Maps/viz reviewer", "Internal reviewer(s) (if applicable)"])}
+					<p>For quick feedback before starting.</p>`
+			},
+			{
+				id: "draft",
+				title: "Draft + review",
+				who: "Project lead",
+				body: `
+					<p>Draft the feature and its graphics on its own project site, following the ${vizGuide}.</p>
+					<h4>Send to</h4>
+					${emailNote}
+					${pills(["Maps/viz reviewer", "Internal reviewer(s) (if applicable)", "External reviewer(s) (if applicable)"])}
+					<p>Review covers the text, the graphics, and how they work together.</p>
+					<p>This review can take place concurrently, or in sequence if there are specific technical or design questions to work through.</p>
+					<p>Iterate as needed. Some projects may need to go back to the research stage if review calls for adjusting data or methods. That's okay.</p>
+					<h4>Then</h4>
+					<p>Send to the ${pill("copy-edit reviewer")} for a final text review.</p>`
+			},
+			{
+				id: "publish",
+				title: "Publish",
+				who: "Project lead",
+				body: `
+					<p>When everything is finished:</p>
+					${checks([
+						"Publish the feature on its own project site, following that project's contributing instructions",
+						"Publish the methods write-up, as decided in the feature plan",
+						"Deposit dataset in Borealis (if applicable)",
+						"Share link with the communications team (Felicity and Tony)",
+						"Share link with anyone else who might be interested"
+					])}`
+			}
+		]
+	}
+};
+
+// ---------------------------------------------------------------------------
+// Rendering
+// ---------------------------------------------------------------------------
+
+// Checklist items get their storage keys after render (step id + position)
+function checks(items) {
+	const li = (item) => {
+		if (typeof item === "string") return `<li>${checkbox(item)}</li>`;
+		return `<li>${checkbox(item.text)}<ul>${item.sub.map(li).join("")}</ul></li>`;
+	};
+	return `<ul class="checks">${items.map(li).join("")}</ul>`;
+}
+
+// Only the box itself toggles; the text is tied to it for screen readers via aria-labelledby
+// (counter lives on the function because PATHS calls this before any top-level let would initialize)
+function checkbox(text) {
+	checkbox.count = (checkbox.count || 0) + 1;
+	const id = `check-text-${checkbox.count}`;
+	return `<div class="check"><input type="checkbox" data-check aria-labelledby="${id}"><span id="${id}">${text}</span></div>`;
+}
+
+// Maps a role name (as written in cards, pills, and step headers) to its colour key
+function roleKey(name) {
+	const n = name.toLowerCase();
+	if (n.startsWith("partner")) return "partner";
+	if (n.startsWith("project lead")) return "lead";
+	if (n.startsWith("maps/viz reviewer")) return "graphics-reviewer";
+	if (n.startsWith("internal")) return "internal";
+	if (n.startsWith("external")) return "external";
+	if (n.startsWith("copy-edit")) return "copy-edit";
+	return "";
+}
+
+function examplesHtml(examples) {
+	if (!examples || !examples.length) return "";
+	return `
+		<div class="examples">
+			<h2>Examples</h2>
+			<ul>
+				${examples.map((ex) => {
+					// `text` can place the link mid-sentence with {link}; otherwise the link stands alone
+					const link = `<a href="${ex.url}">${ex.title}</a>`;
+					return `<li>${ex.text ? ex.text.replace("{link}", link) : link}</li>`;
+				}).join("")}
+			</ul>
+		</div>`;
+}
+
+function pill(name) {
+	return `<span class="pill" data-role="${roleKey(name)}">${name}</span>`;
+}
+
+// Reviews that happen one after another: [[role, what happens], ...]
+function sequence(stages) {
+	return `<ol class="review-seq">${stages.map(([name, text]) => `<li>${pill(name)} ${text}</li>`).join("")}</ol>`;
+}
+
+function pills(names) {
+	return `<div class="sendto">${names.map(pill).join("")}</div>`;
+}
+
+const store = {
+	get(key) {
+		try { return JSON.parse(localStorage.getItem(key)); } catch { return null; }
+	},
+	set(key, value) {
+		try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+	},
+	remove(key) {
+		try { localStorage.removeItem(key); } catch {}
+	}
+};
+
+const pathEl = document.getElementById("path");
+const form = document.getElementById("chooser");
+const intakeHint = document.getElementById("intake-hint");
+const teamInput = document.getElementById("i-team");
+const partnerInput = document.getElementById("i-partner");
+
+function pathKey(product, intake) {
+	if (product === "graphics") return "graphics";
+	if (product === "explorer") return "explorer";
+	if (product === "feature" && intake) return `feature-${intake}`;
+	if (product === "post" && intake) return `post-${intake}`;
+	return null;
+}
+
+function currentChoice() {
+	return { product: form.product.value || null };
+}
+
+function syncIntake(product) {
+	if (product === "graphics") {
+		partnerInput.checked = true;
+		teamInput.disabled = true;
+		intakeHint.textContent = "Graphics projects are always partner-led. If we have an internal idea for an awesome map or chart, create it within a post with a bit of explanatory text.";
+	} else {
+		teamInput.disabled = false;
+		intakeHint.textContent = "";
+	}
+}
+
+function render() {
+	renderPath();
+	// External links open in a new tab
+	document.querySelectorAll('a[href^="http"]').forEach((a) => {
+		a.target = "_blank";
+		a.rel = "noopener";
+	});
+}
+
+function renderPath() {
+	const { product } = currentChoice();
+	syncIntake(product);
+	const key = pathKey(product, form.intake.value);
+
+	if (!key) {
+		pathEl.innerHTML = product
+			? `<div class="empty ui">Choose who this is for to see your path.</div>`
+			: `<div class="empty ui">Choose what you're making to see your path.</div>`;
+		try { history.replaceState(null, "", location.pathname); } catch {}
+		return;
+	}
+
+	try { history.replaceState(null, "", `#${key}`); } catch {}
+
+	if (key === "explorer") {
+		pathEl.innerHTML = `
+			${examplesHtml(EXPLORE_EXAMPLES)}
+			<div class="path-head"><h2>Explorers / tools</h2></div>
+			<div class="empty ui">This workflow is still to come.</div>`;
+		return;
+	}
+
+	const path = PATHS[key];
+	const saved = store.get(`workflow:${key}`) || {};
+
+	pathEl.innerHTML = `
+		${examplesHtml(path.examples)}
+		<div class="path-head">
+			<h2>${path.title}</h2>
+			<div class="path-meta">
+				<span>${path.steps.length} steps</span>
+				<button type="button" class="linkish" data-action="expand">Expand all</button>
+				<button type="button" class="linkish" data-action="reset">Clear checks</button>
+			</div>
+		</div>
+		${path.intro ? `<p class="intro">${path.intro}</p>` : ""}
+		<div class="roles">
+			${path.roles.map(([name, desc]) => `<div class="role" data-role="${roleKey(name)}"><b>${name}</b>${desc}</div>`).join("")}
+		</div>
+		<ol class="steps">
+			${path.steps.map((step, i) => `
+				<li class="step${step.team ? " team" : ""}" data-step="${step.id}">
+					<span class="step-num" aria-hidden="true">${i + 1}</span>
+					<details class="card"${i === 0 ? " open" : ""}>
+						<summary>
+							<h3>${i + 1}. ${step.title}</h3>
+							${step.team ? `<span class="badge">Team-led only</span>` : ""}
+							<span class="who" data-role="${roleKey(step.who)}">${step.who}</span>
+						</summary>
+						<div class="card-body">${step.body}</div>
+					</details>
+				</li>`).join("")}
+		</ol>`;
+
+	// Give each checkbox a stable key (step id + position) and restore state
+	pathEl.querySelectorAll(".step").forEach((stepEl) => {
+		const boxes = stepEl.querySelectorAll("input[data-check]");
+		boxes.forEach((box, n) => {
+			box.dataset.key = `${stepEl.dataset.step}:${n}`;
+			box.checked = Boolean(saved[box.dataset.key]);
+		});
+		updateDone(stepEl);
+	});
+}
+
+function updateDone(stepEl) {
+	const boxes = [...stepEl.querySelectorAll("input[data-check]")];
+	stepEl.classList.toggle("done", boxes.length > 0 && boxes.every((b) => b.checked));
+}
+
+function setChoice(key) {
+	const [product, intake] = key.split("-");
+	const p = form.querySelector(`input[name=product][value="${product}"]`);
+	if (p) p.checked = true;
+	const i = intake && form.querySelector(`input[name=intake][value="${intake}"]`);
+	if (i) i.checked = true;
+}
+
+form.addEventListener("change", render);
+
+pathEl.addEventListener("change", (e) => {
+	if (!e.target.matches("input[data-check]")) return;
+	const key = pathKey(form.product.value, form.intake.value);
+	const saved = store.get(`workflow:${key}`) || {};
+	saved[e.target.dataset.key] = e.target.checked;
+	store.set(`workflow:${key}`, saved);
+	updateDone(e.target.closest(".step"));
+});
+
+pathEl.addEventListener("click", (e) => {
+	const btn = e.target.closest("button");
+	if (!btn) return;
+	if (btn.dataset.goto) {
+		setChoice(btn.dataset.goto);
+		render();
+		form.scrollIntoView({ behavior: "smooth" });
+	} else if (btn.dataset.action === "expand") {
+		const cards = pathEl.querySelectorAll("details.card");
+		const allOpen = [...cards].every((d) => d.open);
+		cards.forEach((d) => (d.open = !allOpen));
+		btn.textContent = allOpen ? "Expand all" : "Collapse all";
+	} else if (btn.dataset.action === "reset") {
+		store.remove(`workflow:${pathKey(form.product.value, form.intake.value)}`);
+		render();
+	}
+});
+
+// Open every step when printing
+window.addEventListener("beforeprint", () => {
+	pathEl.querySelectorAll("details.card").forEach((d) => (d.open = true));
+});
+
+// Start from the URL hash if there is one, and follow it if it changes
+function fromHash() {
+	const key = location.hash.slice(1);
+	if (key === "graphics" || key === "explorer" || PATHS[key]) setChoice(key);
+	render();
+}
+window.addEventListener("hashchange", fromHash);
+fromHash();
+
+// Day/night toggle: overrides the OS-level prefers-color-scheme via [data-theme] on <html>
+const themeToggle = document.getElementById("theme-toggle");
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+function currentTheme() {
+	return document.documentElement.getAttribute("data-theme") || (prefersDark.matches ? "dark" : "light");
+}
+
+function applyThemeToggleUI() {
+	const isDark = currentTheme() === "dark";
+	themeToggle.textContent = isDark ? "☀️" : "🌙";
+	themeToggle.setAttribute("aria-pressed", String(isDark));
+	themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+}
+
+themeToggle.addEventListener("click", () => {
+	const next = currentTheme() === "dark" ? "light" : "dark";
+	document.documentElement.setAttribute("data-theme", next);
+	store.set("mapsviz-theme", next);
+	applyThemeToggleUI();
+});
+
+applyThemeToggleUI();
+</script>
+</body>
+</html>

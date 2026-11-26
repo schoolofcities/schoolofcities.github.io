@@ -1,0 +1,22 @@
+{
+	"title": "How reducing air pollution could extend thousands of lives",
+	"type": "feature",
+	"url": "https://schoolofcities.github.io/air-pollution-and-premature-mortality",
+	"summary": "Estimating how premature mortality is related to air pollution in Canadian metropolitan areas.",
+	"authors": ["Sabrina Chiodo", "Lief Pagalan", "Mackenzie Hurst", "Meghan O’Neill", "Helen Stylianou", "Lori M. Diemert", "Hong Chen", "Jeffrey R. Brook", "Andy Hong", "Laura C. Rosella", "Kosta Diochnos", "Jeff Allen", "Emily Sakaguchi"],
+	"published": "2024-09-04",
+	"geography": ["Canada"],
+	"tags": ["emissions", "climate", "health", "pollution"],
+	"documents": [
+		{
+			"relation": "from",
+			"type": "paper",
+			"authors": ["Sabrina Chiodo", "Lief Pagalan", "Mackenzie Hurst", "Meghan O’Neill", "Helen Stylianou", "Lori M. Diemert", "Hong Chen", "Jeffrey R. Brook", "Andy Hong", "Laura C. Rosella"],
+			"year": 2024,
+			"title": "Measuring the Health Co-Benefits of Air Pollution Interventions on Premature Deaths in Canadian Cities",
+			"publication": "Journal of City Climate Policy and Economy",
+			"link": "https://doi.org/10.3138/jccpe-2023-0019",
+			"linkType": "DOI"
+		}
+	]
+}

@@ -1,0 +1,11 @@
+{
+	"title": "Which candidates are most alike?",
+	"type": "explorer",
+	"url": "https://schoolofcities.github.io/place-and-politics-toronto/which-candidates-are-most-alike",
+	"summary": "An interactive tool comparing the geography of support for Toronto mayoral candidates from 1997 to 2026, ranking which candidates are most and least alike.",
+	"authors": ["Zack Taylor", "Jeff Allen"],
+	"published": "2022-12-14",
+	"geography": ["Toronto, ON"],
+	"tags": ["elections", "local government", "democracy"],
+	"project": "place-and-politics-toronto"
+}

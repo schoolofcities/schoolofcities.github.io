@@ -1,0 +1,14 @@
+{
+	"title": "Mapping potential direct exposure of U.S. tariffs in Canada",
+	"type": "explorer",
+	"url": "https://mappingtariffs.org/mt/exposure/map",
+	"summary": "Interactive map of businesses and jobs directly exposed to U.S. tariffs across Canadian neighbourhoods and municipalities.",
+	"authors": ["Muhammad Khalis Bin Samion", "Jeff Allen", "Yihoi Jung", "Tara Vinodrai", "Karen Chapple"],
+	"published": "2025-10-15",
+	"geography": ["Canada"],
+	"tags": ["economy", "trade"],
+	"project": "mapping-tariffs",
+	"changelog": [
+		{ "date": "2026-09-15", "note": "Updated" }
+	]
+}

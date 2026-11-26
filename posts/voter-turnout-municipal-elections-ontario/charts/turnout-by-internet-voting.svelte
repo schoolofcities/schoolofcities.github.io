@@ -2,6 +2,7 @@
 	import { scaleLinear, median, extent } from 'd3';
 	import turnout from '../data/turnout-by-municipality.csv';
 	import internet from '../data/internet-voting.csv';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	const startedColor = 'var(--brandMedBlue)';
 	const stoppedColor = 'var(--brandRed)';
@@ -125,10 +126,6 @@
 	const narrow = buildLayout({ W: 318, labelW: 132, plotRight: 284, sideLabels: false, directions: ['Decreased', 'Increased'], top: 50, headerH: 24, catH: 16, rowH: 24, pad: 5, boxGap: 6, groupGap: 18, bottom: 8, fontSize: 11, headL: 8, headW: 5 });
 </script>
 
-<div class="legend-title">Change in voter turnout from the previous municipal election</div>
-<div class="legend-subtitle">For example, turnout decreasing from 35% to 30% is shown as −5</div>
-
-
 {#snippet arrows(L)}
 	{@const x = L.x}
 	<svg viewBox="0 0 {L.W} {L.H}" width={L.W} height={L.H} style="--label-size: {L.fontSize}px;">
@@ -190,13 +187,18 @@
 	</svg>
 {/snippet}
 
-<div class="arrows arrows-wide">
-	{@render arrows(wide)}
-</div>
+<ChartGraphic>
+	<div class="legend-title">Change in voter turnout from the previous municipal election</div>
+	<div class="legend-subtitle">For example, turnout decreasing from 35% to 30% is shown as −5</div>
 
-<div class="arrows arrows-narrow">
-	{@render arrows(narrow)}
-</div>
+	<div class="arrows arrows-wide">
+		{@render arrows(wide)}
+	</div>
+
+	<div class="arrows arrows-narrow">
+		{@render arrows(narrow)}
+	</div>
+</ChartGraphic>
 
 <style>
 	.arrows svg {

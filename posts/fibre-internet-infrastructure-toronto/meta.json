@@ -6,8 +6,7 @@
 	"published": "2026-11-02",
 	"license": "CC-BY-4.0",
 	"protected": false,
-	"cardImage": "fibre-construction-totals",
-	"geography": ["Toronto"],
+	"geography": ["Toronto, ON"],
 	"tags": ["internet", "infrastructure", "policy"],
 	"documents": [
 		{

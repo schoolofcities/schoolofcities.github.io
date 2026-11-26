@@ -1,0 +1,19 @@
+{
+	"title": "Gentle density in Canadian cities",
+	"type": "project",
+	"url": "https://schoolofcities.github.io/gentle-density/",
+	"summary": "Maps, data, and analysis tracking how gentle density, such as accessory dwelling units, laneway and garden suites, rooming houses and small multiplexes, is permitted and built in Toronto and other Canadian cities.",
+	"authors": ["Jeff Allen"],
+	"published": "2022-12-02",
+	"geography": ["Canada", "Toronto, ON"],
+	"tags": ["housing", "land use", "zoning", "policy"],
+	"changelog": [
+		{ "date": "2023-02-15", "note": "Added: Tracking gentle density in Toronto" },
+		{ "date": "2024-01-15", "note": "Added: Reno-ductions: Loss of gentle density in Toronto" },
+		{ "date": "2024-01-15", "note": "Updated: Tracking gentle density in Toronto" },
+		{ "date": "2024-05-15", "note": "Added: Zoning for multi-tenant housing in Toronto" },
+		{ "date": "2024-11-15", "note": "Added: Gentle density across Canada: Tracking development of accessory dwelling units" },
+		{ "date": "2026-01-15", "note": "Added: Backyard housing in Toronto" },
+		{ "date": "2026-03-15", "note": "Added: Keeping up with the neighbours: Quantitative analysis of accessory dwelling unit permits in Toronto" }
+	]
+}

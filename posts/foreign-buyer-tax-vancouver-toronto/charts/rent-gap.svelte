@@ -1,6 +1,7 @@
 <script>
 	import { scaleLinear } from 'd3';
 	import data from '../data/rent-gap.csv';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	const regionOrder = ['B.C.', 'Ontario'];
 	const regionLabels = { 'B.C.': 'British Columbia', Ontario: 'Ontario' };
@@ -69,76 +70,78 @@
 	});
 </script>
 
-<div class="legend-title">
-	Estimated extra median rent growth in taxed areas compared to untaxed areas, relative to the year before the tax (%)
-</div>
+<ChartGraphic>
+	<div class="legend-title">
+		Estimated extra median rent growth in taxed areas compared to untaxed areas, relative to the year before the tax (%)
+	</div>
 
-<div class="legend">
-	{#each periodOrder as period}
-		{@const s = periodStyle[period]}
-		<div class="legend-item">
-			<svg class="legend-swatch" viewBox="0 0 14 14" width="14" height="14">
-				<circle cx="7" cy="7" r={s.dotR} fill={s.color} />
-			</svg>
-			{periodLabels[period]}
-		</div>
-	{/each}
-</div>
+	<div class="legend">
+		{#each periodOrder as period}
+			{@const s = periodStyle[period]}
+			<div class="legend-item">
+				<svg class="legend-swatch" viewBox="0 0 14 14" width="14" height="14">
+					<circle cx="7" cy="7" r={s.dotR} fill={s.color} />
+				</svg>
+				{periodLabels[period]}
+			</div>
+		{/each}
+	</div>
 
-<div class="panel-grid">
-	{#each panels as panel}
-		<div class="panel" style="width: {panelWidth}px;">
-			<svg viewBox="0 0 {panelWidth} {panelHeight}">
-				<text x={plotLeft} y={titleY} text-anchor="start" class="panel-title"
-					>{regionLabels[panel.region]}</text
-				>
-				<text x={plotLeft} y={subtitleY} text-anchor="start" class="panel-subtitle"
-					>{fbtInfo[panel.region]}</text
-				>
-
-				{#each yTicks as tick}
-					<line x1={plotLeft} x2={plotRight} y1={y(tick)} y2={y(tick)} class="gridline" />
-					<text x={plotLeft - 6} y={y(tick) + 3} class="axis-label" text-anchor="end"
-						>{tick}%</text
+	<div class="panel-grid">
+		{#each panels as panel}
+			<div class="panel" style="width: {panelWidth}px;">
+				<svg viewBox="0 0 {panelWidth} {panelHeight}">
+					<text x={plotLeft} y={titleY} text-anchor="start" class="panel-title"
+						>{regionLabels[panel.region]}</text
 					>
-				{/each}
-
-				<line x1={plotLeft} x2={plotRight} y1={y(0)} y2={y(0)} class="zero-line" />
-
-				{#each years as year}
-					<text x={x(year)} y={plotBottom + 16} class="axis-label" text-anchor="middle"
-						>{year}</text
+					<text x={plotLeft} y={subtitleY} text-anchor="start" class="panel-subtitle"
+						>{fbtInfo[panel.region]}</text
 					>
-				{/each}
 
-				{#each panel.points as p}
-					{#if !p.isBaseline}
-						<line x1={p.x} x2={p.x} y1={p.yLow} y2={p.yHigh} stroke={p.color} class="error-bar" />
-					{/if}
-					<g class="dot-group">
-						<circle
-							cx={p.x}
-							cy={p.y}
-							fill={p.color}
-							class="dot"
-							style="--r: {periodStyle[p.period].dotR}px;"
-						/>
-						<circle cx={p.x} cy={p.y} r="9" fill="transparent" class="hover-target">
-							<title>{fmt(p.value)}%</title>
-						</circle>
-					</g>
-				{/each}
+					{#each yTicks as tick}
+						<line x1={plotLeft} x2={plotRight} y1={y(tick)} y2={y(tick)} class="gridline" />
+						<text x={plotLeft - 6} y={y(tick) + 3} class="axis-label" text-anchor="end"
+							>{tick}%</text
+						>
+					{/each}
 
-				<text
-					x={panel.baselinePoint.x}
-					y={panel.baselinePoint.y + 22}
-					text-anchor="middle"
-					class="baseline-label">Baseline</text
-				>
-			</svg>
-		</div>
-	{/each}
-</div>
+					<line x1={plotLeft} x2={plotRight} y1={y(0)} y2={y(0)} class="zero-line" />
+
+					{#each years as year}
+						<text x={x(year)} y={plotBottom + 16} class="axis-label" text-anchor="middle"
+							>{year}</text
+						>
+					{/each}
+
+					{#each panel.points as p}
+						{#if !p.isBaseline}
+							<line x1={p.x} x2={p.x} y1={p.yLow} y2={p.yHigh} stroke={p.color} class="error-bar" />
+						{/if}
+						<g class="dot-group">
+							<circle
+								cx={p.x}
+								cy={p.y}
+								fill={p.color}
+								class="dot"
+								style="--r: {periodStyle[p.period].dotR}px;"
+							/>
+							<circle cx={p.x} cy={p.y} r="9" fill="transparent" class="hover-target">
+								<title>{fmt(p.value)}%</title>
+							</circle>
+						</g>
+					{/each}
+
+					<text
+						x={panel.baselinePoint.x}
+						y={panel.baselinePoint.y + 22}
+						text-anchor="middle"
+						class="baseline-label">Baseline</text
+					>
+				</svg>
+			</div>
+		{/each}
+	</div>
+</ChartGraphic>
 
 <style>
 	.panel-grid {

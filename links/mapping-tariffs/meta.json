@@ -1,0 +1,19 @@
+{
+	"title": "Mapping tariffs",
+	"type": "project",
+	"url": "https://mappingtariffs.org/mt/",
+	"summary": "Maps, rankings, and scenarios on how U.S. tariffs could affect jobs, businesses, and places across Canada.",
+	"authors": ["Tara Vinodrai", "Karen Chapple", "Jeff Allen", "Muhammad Khalis Bin Samion", "Aniket Kali", "Yihoi Jung", "Richard J. DiFrancesco", "Clara Turner"],
+	"published": "2025-05-15",
+	"geography": ["Canada", "United States"],
+	"tags": ["economy", "trade"],
+	"changelog": [
+		{ "date": "2025-10-15", "note": "Added: Mapping potential direct exposure of U.S. tariffs in Canada" },
+		{ "date": "2025-10-15", "note": "Added: Ranking Canadian urban areas by their potential direct exposure of U.S. tariffs" },
+		{ "date": "2026-05-12", "note": "Added: How much has Canadian travel to U.S. cities declined?" },
+		{ "date": "2026-09-15", "note": "Updated: Mapping potential direct exposure of U.S. tariffs in Canada" },
+		{ "date": "2026-09-15", "note": "Updated: Ranking Canadian urban areas by their potential direct exposure of U.S. tariffs" },
+		{ "date": "2026-11-15", "note": "Added: Mapping job impact scenarios due to U.S. tariffs in Canada" },
+		{ "date": "2026-11-15", "note": "Added: Ranking potential job impacts at the metropolitan scale based on scenario modelling" }
+	]
+}

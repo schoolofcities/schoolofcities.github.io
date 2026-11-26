@@ -1,0 +1,21 @@
+{
+	"title": "Mapping parking tickets in Toronto",
+	"type": "feature",
+	"url": "https://schoolofcities.github.io/parking-tickets-toronto/",
+	"summary": "Over 22.8 million parking tickets were issued in Toronto from 2011 to 2020, more than $1 billion in fines. This map shows where almost all of them were given.",
+	"authors": ["Jeff Allen"],
+	"published": "2022-07-26",
+	"geography": ["Toronto, ON"],
+	"tags": ["infrastructure", "parking", "driving", "local government", "enforcement"],
+	"documents": [
+		{
+			"relation": "from",
+			"type": "code",
+			"authors": ["School of Cities"],
+			"year": 2022,
+			"title": "Parking tickets Toronto",
+			"link": "https://github.com/schoolofcities/parking-tickets-toronto",
+			"linkType": "GitHub"
+		}
+	]
+}

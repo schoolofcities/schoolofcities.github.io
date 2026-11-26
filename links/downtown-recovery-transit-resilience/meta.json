@@ -1,0 +1,23 @@
+{
+	"title": "Transit-oriented communities and post-pandemic urban resilience in Toronto",
+	"type": "post",
+	"url": "https://downtownrecovery.com/blog/transit-resilience",
+	"summary": "Transit-oriented communities in Toronto, dense, mixed-use neighbourhoods near frequent public transit, recovered from the pandemic better than comparable neighbourhoods farther from transit.",
+	"authors": ["Amir Forouhar", "Ramesh Pokharel", "Karen Chapple", "Jeff Allen", "Isabeaux Graham"],
+	"published": "2025-07-15",
+	"geography": ["Toronto, ON"],
+	"tags": ["downtowns", "activity patterns", "economy", "public transit"],
+	"project": "downtown-recovery",
+	"documents": [
+		{
+			"relation": "from",
+			"type": "paper",
+			"authors": ["Amir Forouhar", "Karen Chapple", "Ramesh Pokharel", "Jeff Allen"],
+			"year": 2025,
+			"title": "Transit-driven resilience: Unraveling post-COVID-19 urban recovery dynamics",
+			"publication": "Journal of Transport Geography",
+			"link": "https://doi.org/10.1016/j.jtrangeo.2025.104327",
+			"linkType": "DOI"
+		}
+	]
+}

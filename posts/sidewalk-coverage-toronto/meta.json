@@ -6,7 +6,7 @@
 	"published": "2026-10-15",
 	"license": "CC-BY-4.0",
 	"protected": true,
-	"geography": ["Toronto"],
-	"tags": ["active travel","walking", "accessibility"],
+	"geography": ["Toronto, ON"],
+	"tags": ["walking", "accessibility"],
 	"documents": []
 }

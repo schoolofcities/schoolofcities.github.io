@@ -80,7 +80,7 @@ const RELATION_HEADINGS = [
 ];
 
 /** `relation` may be a single value or several; always read it as a list. */
-export function relationsOf(doc) {
+function relationsOf(doc) {
 	return [doc.relation ?? []].flat().filter((r) => RELATIONS.includes(r));
 }
 
@@ -108,34 +108,21 @@ export function documentGroups(documents = []) {
 }
 
 /**
- * The image a post represents itself with in a social card — the largest
- * exported PNG of one of its charts.
+ * The image a page represents itself with in a social card, in order:
  *
- * `cardImage` in meta.json names which chart to use. Without it the first chart
- * that has an export wins, which makes the card depend on the order charts
- * happen to be declared in — fine as a default, worth setting deliberately on a
- * post whose best chart isn't its first.
- *
- * A named chart that hasn't been exported falls through to that same default
- * rather than returning nothing, so setting `cardImage` before running
- * `npm run export-pngs` doesn't leave the post worse off than not setting it.
- * Undefined overall until at least one chart has been exported: a card with no
- * image beats a card pointing at a file that doesn't exist.
+ *   1. `card`, the post's own card.png (1200 × 630), when it has one. No alt
+ *      text: it's a designed image identifying the post, and platforms print
+ *      the title beside it.
+ *   2. Otherwise the largest exported PNG of the first chart in charts.js, with
+ *      that chart's alt text. On a figure page `charts` holds just that one
+ *      chart, so the card is the chart being shared.
+ *   3. Otherwise nothing: a card with no image beats one pointing at a file
+ *      that doesn't exist, e.g. before `npm run export-pngs` has run.
  */
-export function socialImage(charts = {}, cardImage) {
-	const pick = (chart) => {
-		const largest = chart?.images?.at(-1);
-		return largest ? { url: largest.url, alt: chart.alt } : undefined;
-	};
+export function socialImage(charts = {}, card) {
+	if (card) return { url: card };
 
-	if (cardImage) {
-		const named = pick(charts[cardImage]);
-		if (named) return named;
-	}
-
-	for (const chart of Object.values(charts)) {
-		const first = pick(chart);
-		if (first) return first;
-	}
-	return undefined;
+	const first = Object.values(charts)[0];
+	const largest = first?.images?.at(-1);
+	return largest ? { url: largest.url, alt: first.alt } : undefined;
 }

@@ -1,0 +1,14 @@
+{
+	"title": "Downtown recovery correlations",
+	"type": "explorer",
+	"url": "https://downtownrecovery.com/charts/correlations",
+	"summary": "Downtown recovery rates plotted against other urban variables, showing relationships that should not be read as causation.",
+	"authors": ["Karen Chapple", "Hannah Moore", "Michael Leong", "Daniel Huang", "Amir Forouhar", "Laura Schmahmann", "Joy Wang", "Jeff Allen"],
+	"published": "2023-06-27",
+	"geography": ["Canada", "United States"],
+	"tags": ["downtowns", "activity patterns", "economy"],
+	"project": "downtown-recovery",
+	"changelog": [
+		{ "date": "2023-10-16", "note": "Updated" }
+	]
+}

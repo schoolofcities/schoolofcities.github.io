@@ -1,6 +1,7 @@
 <script>
 	import { scaleLinear, format } from 'd3';
 	import data from '../data/canada-annual.csv';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	const fmt = format(',');
 
@@ -73,44 +74,46 @@
 	const narrow = layout({ width: 318, left: 30, plotH1: 100, plotH2: 70, barWidth: 24, narrow: true });
 </script>
 
-<div class="chart">
-	{#each [[wide, 'wide'], [narrow, 'narrow']] as [g, cls]}
-		<svg class={cls} viewBox="0 0 {g.width} {g.height}" aria-hidden="true">
-			<text x="0" y={g.title1} class="panel-title">New permitted dwellings from conversions</text>
-			{#each g.countTicks as t}
-				<line x1={g.left} x2={g.width} y1={t.y} y2={t.y} class="grid" />
-				<text x={g.left - 5} y={t.y + 4} text-anchor="end" class="tick">{t.label}</text>
-			{/each}
-			{#each g.bars as b}
-				<g class="year-bar">
-					{#if b.squares}
-						<path d={b.squares} class="bar" />
-					{:else}
-						<rect x={b.x} y={b.y} width={b.w} height={b.h} class="bar" />
-					{/if}
-					<text x={b.cx} y={b.y - 5} text-anchor="middle" class="count">{b.label}</text>
-				</g>
-				<text x={b.cx} y={g.base1 + 18} text-anchor="middle" class="year">{b.year}</text>
-			{/each}
-			<line x1={g.left} x2={g.width} y1={g.base1 + 0.5} y2={g.base1 + 0.5} class="axis" />
+<ChartGraphic>
+	<div class="chart">
+		{#each [[wide, 'wide'], [narrow, 'narrow']] as [g, cls]}
+			<svg class={cls} viewBox="0 0 {g.width} {g.height}" aria-hidden="true">
+				<text x="0" y={g.title1} class="panel-title">New permitted dwellings from conversions</text>
+				{#each g.countTicks as t}
+					<line x1={g.left} x2={g.width} y1={t.y} y2={t.y} class="grid" />
+					<text x={g.left - 5} y={t.y + 4} text-anchor="end" class="tick">{t.label}</text>
+				{/each}
+				{#each g.bars as b}
+					<g class="year-bar">
+						{#if b.squares}
+							<path d={b.squares} class="bar" />
+						{:else}
+							<rect x={b.x} y={b.y} width={b.w} height={b.h} class="bar" />
+						{/if}
+						<text x={b.cx} y={b.y - 5} text-anchor="middle" class="count">{b.label}</text>
+					</g>
+					<text x={b.cx} y={g.base1 + 18} text-anchor="middle" class="year">{b.year}</text>
+				{/each}
+				<line x1={g.left} x2={g.width} y1={g.base1 + 0.5} y2={g.base1 + 0.5} class="axis" />
 
-			<text x="0" y={g.title2} class="panel-title">Percent of all new permitted dwellings</text>
-			{#each g.pctTicks as t}
-				<line x1={g.left} x2={g.width} y1={t.y} y2={t.y} class="grid" />
-				<text x={g.left - 5} y={t.y + 4} text-anchor="end" class="tick">{t.label}</text>
-			{/each}
-			<polyline points={g.line} class="line" />
-			{#each g.bars as b}
-				<g class="year-bar">
-					<circle cx={b.cx} cy={b.pointY} r="4.5" class="dot" />
-					<text x={b.cx} y={b.pointY - 11} text-anchor="middle" class="share">{b.pct}</text>
-				</g>
-				<text x={b.cx} y={g.base2 + 18} text-anchor="middle" class="year">{b.year}</text>
-			{/each}
-			<line x1={g.left} x2={g.width} y1={g.base2 + 0.5} y2={g.base2 + 0.5} class="axis" />
-		</svg>
-	{/each}
-</div>
+				<text x="0" y={g.title2} class="panel-title">Percent of all new permitted dwellings</text>
+				{#each g.pctTicks as t}
+					<line x1={g.left} x2={g.width} y1={t.y} y2={t.y} class="grid" />
+					<text x={g.left - 5} y={t.y + 4} text-anchor="end" class="tick">{t.label}</text>
+				{/each}
+				<polyline points={g.line} class="line" />
+				{#each g.bars as b}
+					<g class="year-bar">
+						<circle cx={b.cx} cy={b.pointY} r="4.5" class="dot" />
+						<text x={b.cx} y={b.pointY - 11} text-anchor="middle" class="share">{b.pct}</text>
+					</g>
+					<text x={b.cx} y={g.base2 + 18} text-anchor="middle" class="year">{b.year}</text>
+				{/each}
+				<line x1={g.left} x2={g.width} y1={g.base2 + 0.5} y2={g.base2 + 0.5} class="axis" />
+			</svg>
+		{/each}
+	</div>
+</ChartGraphic>
 
 <style>
 	.chart {

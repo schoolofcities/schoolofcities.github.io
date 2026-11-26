@@ -11,5 +11,11 @@ export async function load({ params }) {
 	if (!post) throw error(404);
 
 	const body = bodies[`/posts/${params.slug}/+page.svelte`];
-	return { slug: params.slug, meta: post.meta, charts: post.charts, Body: (await body()).default };
+	return {
+		slug: params.slug,
+		meta: post.meta,
+		charts: post.charts,
+		card: post.card,
+		Body: (await body()).default
+	};
 }

@@ -1,0 +1,10 @@
+{
+	"title": "Vancouver public art map",
+	"type": "explorer",
+	"url": "https://schoolofcities.github.io/vancouver-public-art/map",
+	"summary": "An interactive map of the locations and details of public art installations in the City of Vancouver.",
+	"authors": ["Irene Chang", "Jeff Allen"],
+	"published": "2023-09-05",
+	"geography": ["Vancouver, BC"],
+	"tags": ["public art", "culture"]
+}

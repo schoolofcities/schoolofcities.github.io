@@ -18,6 +18,7 @@
 	import firstGenImmigrants from '../images/demographics-first-gen-immigrants.png';
 	import seniors from '../images/demographics-seniors.png';
 	import children from '../images/demographics-children.png';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	// Colours and breaks describe what the PNGs already show, so the legend can't
 	// disagree with the image unless the maps are re-exported without updating
@@ -32,33 +33,35 @@
 	];
 </script>
 
-<div class="grid">
-	{#each PANELS as panel}
-		<div class="panel">
-			<div class="panel-title">{panel.label} </div>
-			<div class="legend-row">
-				<div class="legend">
-					{#each panel.colors as color}
-						<div class="legend-segment" style="background: {color};"></div>
-					{/each}
-					{#each panel.breaks as brk, i}
-						<span class="legend-tick" style="left: {((i + 1) / panel.colors.length) * 100}%;"
-							>{brk}%</span
-						>
-					{/each}
+<ChartGraphic>
+	<div class="grid">
+		{#each PANELS as panel}
+			<div class="panel">
+				<div class="panel-title">{panel.label} </div>
+				<div class="legend-row">
+					<div class="legend">
+						{#each panel.colors as color}
+							<div class="legend-segment" style="background: {color};"></div>
+						{/each}
+						{#each panel.breaks as brk, i}
+							<span class="legend-tick" style="left: {((i + 1) / panel.colors.length) * 100}%;"
+								>{brk}%</span
+							>
+						{/each}
+					</div>
+					<div class="library-legend">
+						<span class="library-dot"></span>
+						<span>Public library</span>
+					</div>
 				</div>
-				<div class="library-legend">
-					<span class="library-dot"></span>
-					<span>Public library</span>
-				</div>
+				<!-- width/height are the display size; each file is 720x386, twice that
+				     in both directions, so it stays sharp on high-density screens. alt is
+				     empty because ChartFrame labels the figure as a whole. -->
+				<img class="panel-map" src={panel.src} width="360" height="193" alt="" />
 			</div>
-			<!-- width/height are the display size; each file is 720x386, twice that
-			     in both directions, so it stays sharp on high-density screens. alt is
-			     empty because ChartFrame labels the figure as a whole. -->
-			<img class="panel-map" src={panel.src} width="360" height="193" alt="" />
-		</div>
-	{/each}
-</div>
+		{/each}
+	</div>
+</ChartGraphic>
 
 <style>
 	.grid {
@@ -92,7 +95,6 @@
 		width: 100%;
 		height: auto;
 	}
-
 
 	.legend-row {
 		display: flex;

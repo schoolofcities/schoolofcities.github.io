@@ -1,6 +1,7 @@
 <script>
 	import { scaleTime } from 'd3';
 	import data from '../data/policy-timeline.csv';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	const width = 1080;
 	const height = 480;
@@ -99,44 +100,46 @@
 	});
 </script>
 
-<svg viewBox="0 0 {width} {height}">
-	{#each years as year}
-		<line
-			x1={x(new Date(`${year}-01-01`))}
-			x2={x(new Date(`${year}-01-01`))}
-			y1={20}
-			y2={axisY}
-			class="gridline"
-		/>
-	{/each}
+<ChartGraphic>
+	<svg viewBox="0 0 {width} {height}">
+		{#each years as year}
+			<line
+				x1={x(new Date(`${year}-01-01`))}
+				x2={x(new Date(`${year}-01-01`))}
+				y1={20}
+				y2={axisY}
+				class="gridline"
+			/>
+		{/each}
 
-	{#each yearLabels as yl}
-		<text x={yl.x} y={axisY + 20} class="year-label">{yl.year}</text>
-	{/each}
+		{#each yearLabels as yl}
+			<text x={yl.x} y={axisY + 20} class="year-label">{yl.year}</text>
+		{/each}
 
-	{#each rowOrder as row}
-		<line x1={plotLeft} x2={plotRight} y1={rowY[row]} y2={rowY[row]} class="gridline" />
-	{/each}
+		{#each rowOrder as row}
+			<line x1={plotLeft} x2={plotRight} y1={rowY[row]} y2={rowY[row]} class="gridline" />
+		{/each}
 
-	{#each rowOrder as row}
-		<line x1={rowLineStart[row]} x2={plotRight} y1={rowY[row]} y2={rowY[row]} class="row-line" />
-		<text x={4} y={rowY[row] + 4} class="row-label">{row}</text>
-	{/each}
+		{#each rowOrder as row}
+			<line x1={rowLineStart[row]} x2={plotRight} y1={rowY[row]} y2={rowY[row]} class="row-line" />
+			<text x={4} y={rowY[row] + 4} class="row-label">{row}</text>
+		{/each}
 
-	{#each events as d}
-		<line x1={d.x} x2={d.x} y1={d.leaderTopY} y2={d.leaderBottomY} class="leader-line" />
-		<circle cx={d.x} cy={d.baseY} r="5" class="event-dot" />
+		{#each events as d}
+			<line x1={d.x} x2={d.x} y1={d.leaderTopY} y2={d.leaderBottomY} class="leader-line" />
+			<circle cx={d.x} cy={d.baseY} r="5" class="event-dot" />
 
-		{#if d.lines.length === 2}
-			<text x={d.x} y={d.line1Y} text-anchor={d.anchor} class="event-label">{d.lines[0]}</text>
-			<text x={d.x} y={d.line2Y} text-anchor={d.anchor} class="event-label">{d.lines[1]}</text>
-		{:else}
-			<text x={d.x} y={d.line1Y} text-anchor={d.anchor} class="event-label">{d.lines[0]}</text>
-		{/if}
+			{#if d.lines.length === 2}
+				<text x={d.x} y={d.line1Y} text-anchor={d.anchor} class="event-label">{d.lines[0]}</text>
+				<text x={d.x} y={d.line2Y} text-anchor={d.anchor} class="event-label">{d.lines[1]}</text>
+			{:else}
+				<text x={d.x} y={d.line1Y} text-anchor={d.anchor} class="event-label">{d.lines[0]}</text>
+			{/if}
 
-		<text x={d.x} y={d.dateY} text-anchor={d.anchor} class="event-date">{d.date}</text>
-	{/each}
-</svg>
+			<text x={d.x} y={d.dateY} text-anchor={d.anchor} class="event-date">{d.date}</text>
+		{/each}
+	</svg>
+</ChartGraphic>
 
 <style>
 	svg {

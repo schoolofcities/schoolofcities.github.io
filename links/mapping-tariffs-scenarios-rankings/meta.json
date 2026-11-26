@@ -1,0 +1,11 @@
+{
+	"title": "Ranking potential job impacts at the metropolitan scale based on scenario modelling",
+	"type": "explorer",
+	"url": "https://mappingtariffs.org/mt/scenarios/rankings",
+	"summary": "Compare modelled job losses from U.S. tariffs across Canadian metropolitan areas and provinces, by scenario and type of effect.",
+	"authors": ["Tara Vinodrai", "Karen Chapple", "Richard J. DiFrancesco", "Aniket Kali", "Yihoi Jung", "Jeff Allen"],
+	"published": "2026-11-15",
+	"geography": ["Canada"],
+	"tags": ["economy", "trade"],
+	"project": "mapping-tariffs"
+}

@@ -1,5 +1,6 @@
 <script>
 	import overlapMap from '../images/fibre-overlap-qgis.png';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	// One 1080x580 map made in QGIS: streets where one company built in
 	// brandYellow, where more than one built in brandPurple. The key matches
@@ -33,14 +34,16 @@
 </script>
 
 <div class="overlap">
-	<div class="key">
-		{#each keyItems as item}
-			<div>
-				<span class="key-label">{item.label}</span>
-				<span class="key-underline" style="background: {item.colour};"></span>
-			</div>
-		{/each}
-	</div>
+	<ChartGraphic>
+		<div class="key">
+			{#each keyItems as item}
+				<div>
+					<span class="key-label">{item.label}</span>
+					<span class="key-underline" style="background: {item.colour};"></span>
+				</div>
+			{/each}
+		</div>
+	</ChartGraphic>
 	<div class="map">
 		<img src={overlapMap} width="1080" height="580" alt="" />
 		<div class="place-layer">

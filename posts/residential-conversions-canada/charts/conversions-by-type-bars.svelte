@@ -4,6 +4,7 @@
 	import singleToMultiple from '../images/conversion-single-to-multiple-legend.svg';
 	import multipleToMultiple from '../images/conversion-multiple-to-multiple-legend.svg';
 	import nonResToRes from '../images/conversion-non-residential-to-residential-legend.svg';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	const fmt = format(',');
 
@@ -93,47 +94,49 @@
 	</div>
 {/snippet}
 
-<div class="chart">
-	<div class="vertical">
-		<div class="vlegend">
-			<div class="vitems">
+<ChartGraphic>
+	<div class="chart">
+		<div class="vertical">
+			<div class="vlegend">
+				<div class="vitems">
+					{#each types as t}
+						<div class="vitem">
+							<img src={t.image} alt="" />
+							<span class="legend-label"><span class="swatch" style="background: {t.color};"></span>{t.label}</span>
+						</div>
+					{/each}
+				</div>
+			</div>
+			<div class="cols">
+				<div class="col-canada">
+					{@render column(canada)}
+					<span class="totals-label">Total permits issued for new dwellings from building conversions</span>
+				</div>
+				<div class="regions">
+					{#each rows as p}
+						{@render column(p)}
+					{/each}
+				</div>
+			</div>
+		</div>
+
+		<div class="horizontal">
+			<div class="legend">
 				{#each types as t}
-					<div class="vitem">
+					<div class="legend-item">
 						<img src={t.image} alt="" />
 						<span class="legend-label"><span class="swatch" style="background: {t.color};"></span>{t.label}</span>
 					</div>
 				{/each}
 			</div>
-		</div>
-		<div class="cols">
-			<div class="col-canada">
-				{@render column(canada)}
-				<span class="totals-label">Total permits issued for new dwellings from building conversions</span>
-			</div>
-			<div class="regions">
-				{#each rows as p}
-					{@render column(p)}
-				{/each}
-			</div>
-		</div>
-	</div>
 
-	<div class="horizontal">
-		<div class="legend">
-			{#each types as t}
-				<div class="legend-item">
-					<img src={t.image} alt="" />
-					<span class="legend-label"><span class="swatch" style="background: {t.color};"></span>{t.label}</span>
-				</div>
+			<div class="canada">{@render bar(canada)}</div>
+			{#each rows as p}
+				{@render bar(p)}
 			{/each}
 		</div>
-
-		<div class="canada">{@render bar(canada)}</div>
-		{#each rows as p}
-			{@render bar(p)}
-		{/each}
 	</div>
-</div>
+</ChartGraphic>
 
 <style>
 	.chart {

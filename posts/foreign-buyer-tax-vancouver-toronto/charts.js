@@ -17,6 +17,12 @@ const charts = {
 		subtitle: 'Key interventions in Ontario, British Columbia, and at the Federal level, 2015–2023',
 		source: 'Song, T. (2025). Anti-immigration and the politics of housing affordability: Examining the evolution and housing market impacts of Foreign Buyer Taxes in British Columbia and Ontario. Journal of Urban Affairs',
 		alt: 'Timeline chart showing foreign buyer tax and related housing policy changes in Ontario, British Columbia, and at the Federal level from 2015 to 2023',
+		description: [
+			'The timeline has ten events on three rows.',
+			'Ontario: April 20, 2017, a 15% foreign buyer tax in the Greater Golden Horseshoe. March 30, 2022, the tax raised to 20% and extended province-wide. October 25, 2022, raised to 25% province-wide.',
+			'British Columbia: June 1, 2015, the province starts collecting data on buyers’ citizenship. August 2, 2016, a 15% foreign buyer tax in Metro Vancouver. February 20, 2018, the tax raised to 20% and extended to five regions, and the Speculation and Vacancy Tax introduced. November 30, 2020, the Land Owner Transparency Registry launched.',
+			'Federal: October 1, 2019, a shared equity incentive for first-time homebuyers launched. January 1, 2022, a 1% tax on vacant foreign-owned homes. January 1, 2023, a two-year ban on foreign homebuyers.'
+		],
 		data: 'policy-timeline.csv',
 		widths: [1080],
 		graphicVerb: "adapted"

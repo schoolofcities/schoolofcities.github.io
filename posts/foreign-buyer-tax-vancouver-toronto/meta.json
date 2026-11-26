@@ -8,14 +8,7 @@
 	"published": "2026-09-08",
 	"license": "CC-BY-4.0",
 	"protected": false,
-	"cardImage": "rent-gap",
-	"geography": [
-		"Canada",
-		"British Columbia",
-		"Ontario",
-		"Vancouver",
-		"Toronto"
-	],
+	"geography": ["Canada", "British Columbia", "Ontario", "Vancouver, BC", "Toronto, ON"],
 	"tags": [
 		"housing",
 		"policy",

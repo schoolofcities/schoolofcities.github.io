@@ -25,23 +25,26 @@ npm run dev
 | Path | What lives there |
 | --- | --- |
 | `posts/<post-name>/` | One folder per post. The folder name is the page URL. |
+| `links/<item-name>/` | One folder per item hosted elsewhere (explorers, features, posts on other sites), listed on the home page alongside the posts. See [Catalogue metadata](#catalogue-metadata). |
 | `src/lib/` | Shared components (`ChartFrame`, `Header`, `Footer`, ...), global styles (`styles.css`) and helpers |
 | `src/routes/` | Site routes and layout |
 | `scripts/` | `validate.js`, PNG export and optimization, CSS stripping |
 | `static/` | Files served as-is |
+| `docs/` | Team guides: the [project workflow](docs/mapsviz-project-workflow.html) and the review checklists |
 | `.github/workflows/` | `check.yml` (runs on every PR) and `deploy.yml` (runs on push to `main`) |
 
 A post folder contains:
 
 | Item | Status | Purpose |
 | --- | --- | --- |
-| `meta.json` | Required | Title, type, summary, authors, published date, license, `protected` flag, related documents |
+| `meta.json` | Required | See [Catalogue metadata](#catalogue-metadata) |
 | `+page.svelte` | Required | Body content |
 | `charts.js` | Required | Chart metadata (ids, titles, sources, alt text, long descriptions, notes) |
 | `charts/` | Required | One `<chart-id>.svelte` per chart listed in `charts.js` |
 | `data/` | Optional | CSVs used by charts or offered for download |
 | `images/` | Optional | Static images, e.g. pre-rendered map PNGs |
 | `published/` | Generated | Exported PNGs, created by `npm run export-pngs` at the end. Do not edit by hand |
+| `card.png` | Optional | The post's card image, 1200 × 630, used as its social card. Until a post has one, the largest export of its first chart is used |
 
 For example:
 
@@ -60,6 +63,40 @@ posts/topic-geography/
   published/
     2026-09-08/
 ```
+
+## Catalogue metadata
+
+Every item on the home page, whether a post in `posts/` or a link in `links/`, has a `meta.json` with the same core fields, so they can be listed and filtered together.
+
+| Field | Posts | Links | What it is |
+| --- | --- | --- | --- |
+| `title` | Required | Required | Sentence case |
+| `type` | Required | Required | `post`, `feature`, `explorer` or `project`. Always `post` in `posts/`. A link can be any of the four: a post hosted on another site is a `post`, and a `project` is a standalone hub bringing several pieces of work together |
+| `summary` | Required | Required | One or two sentences leading with the finding, or with what the reader can do. Used on the home page tiles and as the page description |
+| `authors` | Required | Required | List of names |
+| `published` | Required | Required | ISO date (`YYYY-MM-DD`). For a link, the date the work first went live. For a project, the date its first piece went live, with later pieces in `changelog` |
+| `tags` | Required | Required | From `TAGS` in `src/lib/tags.js` |
+| `geography` | Required | Required | From `GEOGRAPHY` in `src/lib/tags.js`. Cities include their province, state or country so no two share a name: `Toronto, ON`, `Portland, OR`, `London, United Kingdom`. For a metro region, use its first-named city |
+| `changelog` | Optional | Optional | `[{ "date": "YYYY-MM-DD", "note": "..." }]`. The newest date is shown as the item's last update |
+| `documents` | Optional | Optional | Related work: papers, reports, repositories, datasets. See an existing post for the format |
+| `license` | Required | Optional | E.g. `CC-BY-4.0`. For a link, only if the external site states one |
+| `protected` | Required | Not allowed | `true` while a post is in development |
+| `url` | Not allowed | Required | The full address of the work |
+| `project` | Optional | Optional | The folder name of the project in `links/` this item is part of. Not allowed on a project itself |
+
+A link's folder holds just `meta.json` and `card.png`:
+
+```
+links/topic-geography/
+  meta.json
+  card.png
+```
+
+Name link folders the same way as posts (`kebab-case`, `topic-geography`, no dates). A name can't be used in both `posts/` and `links/`. When a linked item is ported into a post, move its folder from `links/` to `posts/` and add the post's files.
+
+**Card images.** Every link needs a `card.png`, and posts can have one. It is exactly 1200 × 630, the shape social platforms show shared links at, and is used as the item's home page thumbnail (and a post's social card). Keep the title off the image (it's shown alongside) and the important content toward the centre. It must be flat, with no transparency (flatten it onto a background colour first if needed), and quantised with `npm run optimize-pngs -- --path <file>`; validation fails otherwise. Design files stay outside the repo; only the exported `card.png` goes in.
+
+Validation checks all of the above.
 
 ## Checks
 
@@ -85,11 +122,12 @@ Please don't run `npm run build` and commit its output. `build/` is gitignored a
    - Set `"protected": true` in `meta.json` so the page is password protected while in development.
 
 4. Draft or edit the text and charts.
-   - Every chart uses the standard `ChartFrame` wrapper. Look at an existing post for examples.
+   - Every chart uses the standard `ChartFrame` wrapper, with `chartKey` set to its id, or validation fails. Look at an existing post for examples.
    - Use one component per chart, inside the `ChartFrame`. Chart ids are also `kebab-case`. The id is set in `charts.js` and is the chart's unique URL (for sharing and embedding).
    - Each component must be named `charts/<chart-id>.svelte` to match its id, or validation fails.
+   - Inside each chart component, wrap the drawn parts (SVGs, map images, legends, labels) in `<ChartGraphic>` from `$lib/ChartGraphic.svelte`. It hides them from screen readers, which get the chart's `alt` text instead, read straight after the subtitle. Keep interactive controls (buttons, toggles, search boxes) outside it so they stay usable, and use it as many times as needed when controls sit between drawn parts. A chart with no controls just wraps everything once. See `conversions-by-cma.svelte` for a chart with controls. Validation fails if a chart component doesn't use it.
    - If you add your own images to `images/` (e.g. exported from QGIS), optimize them now, not at the end: run `npm run optimize-pngs -- --post your-post-name`. It writes a `-opt.png` candidate next to each original. Check it looks right (thin lines, small dots and small text are most at risk), then re-run with `--accept` to replace the original.
-   - Check your work against the post review checklist (`notes/post-review-checklist.md`, kept alongside the project notes) covering chart design, accessibility, writing and metadata.
+   - Check your work against the [visualization review checklist](docs/visualization-review-checklist.md) (chart design, colour, accessibility) and the [writing review checklist](docs/writing-posts-review-checklist.md) (structure, voice, attribution).
 
 5. **Only edit files inside `posts/your-post-name/`.** If you find a bug or want a feature in the wider project, use Workflow 2 in a separate branch and PR.
 

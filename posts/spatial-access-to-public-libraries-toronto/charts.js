@@ -30,6 +30,15 @@ const charts = {
 		source: 'Census of Population, Statistics Canada (2021); Toronto Public Library',
 		alt:
 			"Six small maps of Toronto, each showing one population group's share of every census tract, with library locations marked: visible minority, low income, recent immigrants, first-generation immigrants, seniors, and children. Where each group is concentrated differs, but all are least present in the central corridor from downtown to the east end.",
+		description: [
+			'Each map shades census tracts in four classes, from the lowest to the highest share of residents in that group. Libraries are closest together downtown and in the older central city, and more spread out across the inner suburbs of Etobicoke, North York and Scarborough.',
+			'Visible minority (under 25% to over 75% of residents): highest across the north of the city, in northern Etobicoke, northern North York and most of Scarborough, and lowest in Midtown, the Beaches, and parts of Etobicoke.',
+			'Low income (under 30% to over 40%): highest in northern Etobicoke, parts of northern North York and northern Scarborough, with smaller pockets downtown and just east of the Don Valley, and lowest in Midtown and much of central and southern Etobicoke.',
+			'Recent immigrants (under 3% to over 9%): highest in parts of the northern suburbs and along the downtown waterfront, and lowest in Midtown, the west end and eastern Scarborough.',
+			'First-generation immigrants (under 35% to over 65%): a similar pattern to visible minority residents, highest across northern Etobicoke, North York and Scarborough, and lowest in the west and east ends near the lake.',
+			'Seniors aged 65 and over (under 15% to over 20%): in patches across the city, with higher shares in parts of Scarborough, North York and central Etobicoke, and lower shares downtown.',
+			'Children aged 0 to 14 (under 12% to over 16%): highest in the inner suburbs, especially Scarborough and northern and western Etobicoke, and lowest downtown and along the central waterfront.'
+		],
 		widths: [360, 720, 1080],
 		graphicVerb: 'created'
 	},

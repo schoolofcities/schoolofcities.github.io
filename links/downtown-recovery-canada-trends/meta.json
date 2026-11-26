@@ -1,0 +1,11 @@
+{
+	"title": "Canada recovery trends",
+	"type": "explorer",
+	"url": "https://downtownrecovery.com/charts/canada_trends",
+	"summary": "Year-over-year trends in cell phone activity, or footfall, showing how Canadian downtowns are faring.",
+	"authors": ["Karen Chapple", "Julia Greenberg", "Jeff Allen", "Irene Chang"],
+	"published": "2024-12-04",
+	"geography": ["Canada"],
+	"tags": ["downtowns", "activity patterns", "economy"],
+	"project": "downtown-recovery"
+}

@@ -1,6 +1,7 @@
 <script>
 	import { scaleLinear } from 'd3';
 	import data from '../data/homeownership-by-citizenship.csv';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	const cmaOrder = ['Vancouver CMA', 'Toronto CMA', 'Montreal CMA', 'Edmonton CMA'];
 	const fbtInfo = {
@@ -64,96 +65,98 @@
 	});
 </script>
 
-<div class="legend-title">
-	Share of population in an owner-occupied home, by citizenship status (%)
-</div>
+<ChartGraphic>
+	<div class="legend-title">
+		Share of population in an owner-occupied home, by citizenship status (%)
+	</div>
 
-<div class="legend">
-	{#each seriesOrder as name}
-		{@const s = seriesStyle[name]}
-		<div class="legend-item">
-			<svg class="legend-swatch" viewBox="0 0 24 10" width="24" height="10">
-				<line x1="0" x2="24" y1="5" y2="5" stroke={s.color} stroke-width={s.width} />
-				<circle
-					cx="12"
-					cy="5"
-					r={s.dotR}
-					fill={s.color}
-					stroke={s.dotStroke ?? 'none'}
-					stroke-width={s.dotStroke ? 1 : 0}
-				/>
-			</svg>
-			{name}
-		</div>
-	{/each}
-</div>
-
-<div class="panel-grid">
-	{#each panels as panel}
-		<div class="panel" style="width: {panelWidth}px;">
-			<svg viewBox="0 0 {panelWidth} {panelHeight}">
-				<text x={plotLeft} y={13} text-anchor="start" class="panel-title">{panel.cma}</text>
-				<text x={plotLeft} y={30} text-anchor="start" class="panel-subtitle"
-					>{fbtInfo[panel.cma]}</text
-				>
-
-				{#each yTicks as tick}
-					<line x1={plotLeft} x2={plotRight} y1={y(tick)} y2={y(tick)} class="gridline" />
-					<text x={plotLeft - 4} y={y(tick) + 3} class="axis-label" text-anchor="end"
-						>{tick}%</text
-					>
-				{/each}
-
-				{#each years as year, i}
-					<text x={x(year)} y={plotBottom + 16} class="axis-label" text-anchor="middle"
-						>{year}</text
-					>
-				{/each}
-
-				{#each panel.series as s}
-					<polyline
-						points={s.points.map((p) => `${p.x},${p.y}`).join(' ')}
-						fill="none"
-						stroke={s.color}
-						stroke-width={s.width}
+	<div class="legend">
+		{#each seriesOrder as name}
+			{@const s = seriesStyle[name]}
+			<div class="legend-item">
+				<svg class="legend-swatch" viewBox="0 0 24 10" width="24" height="10">
+					<line x1="0" x2="24" y1="5" y2="5" stroke={s.color} stroke-width={s.width} />
+					<circle
+						cx="12"
+						cy="5"
+						r={s.dotR}
+						fill={s.color}
+						stroke={s.dotStroke ?? 'none'}
+						stroke-width={s.dotStroke ? 1 : 0}
 					/>
+				</svg>
+				{name}
+			</div>
+		{/each}
+	</div>
 
-					{#each s.points as p}
-						<g class="dot-group">
-							<circle
-								cx={p.x}
-								cy={p.y}
-								fill={s.color}
-								stroke={s.dotStroke ?? 'none'}
-								stroke-width={s.dotStroke ? 1 : 0}
-								class="dot"
-								style="--r: {s.dotR}px;"
-							/>
-							<circle cx={p.x} cy={p.y} r="10" fill="transparent" class="hover-target">
-								<title>{s.name}, {p.year}: {fmt(p.value)}%</title>
-							</circle>
-						</g>
+	<div class="panel-grid">
+		{#each panels as panel}
+			<div class="panel" style="width: {panelWidth}px;">
+				<svg viewBox="0 0 {panelWidth} {panelHeight}">
+					<text x={plotLeft} y={13} text-anchor="start" class="panel-title">{panel.cma}</text>
+					<text x={plotLeft} y={30} text-anchor="start" class="panel-subtitle"
+						>{fbtInfo[panel.cma]}</text
+					>
 
-						{#if s.label}
-							{@const isBelow =
-								(panel.cma === 'Vancouver CMA' || panel.cma === 'Toronto CMA') &&
-								p.i === years.length - 1}
-							<text
-								x={p.x}
-								y={isBelow ? p.y + 16 : p.y - 10}
-								text-anchor="middle"
-								fill={s.color}
-								class="point-label"
-							>
-								{fmt(p.value)}%
-							</text>
-						{/if}
+					{#each yTicks as tick}
+						<line x1={plotLeft} x2={plotRight} y1={y(tick)} y2={y(tick)} class="gridline" />
+						<text x={plotLeft - 4} y={y(tick) + 3} class="axis-label" text-anchor="end"
+							>{tick}%</text
+						>
 					{/each}
-				{/each}
-			</svg>
-		</div>
-	{/each}
-</div>
+
+					{#each years as year}
+						<text x={x(year)} y={plotBottom + 16} class="axis-label" text-anchor="middle"
+							>{year}</text
+						>
+					{/each}
+
+					{#each panel.series as s}
+						<polyline
+							points={s.points.map((p) => `${p.x},${p.y}`).join(' ')}
+							fill="none"
+							stroke={s.color}
+							stroke-width={s.width}
+						/>
+
+						{#each s.points as p}
+							<g class="dot-group">
+								<circle
+									cx={p.x}
+									cy={p.y}
+									fill={s.color}
+									stroke={s.dotStroke ?? 'none'}
+									stroke-width={s.dotStroke ? 1 : 0}
+									class="dot"
+									style="--r: {s.dotR}px;"
+								/>
+								<circle cx={p.x} cy={p.y} r="10" fill="transparent" class="hover-target">
+									<title>{s.name}, {p.year}: {fmt(p.value)}%</title>
+								</circle>
+							</g>
+
+							{#if s.label}
+								{@const isBelow =
+									(panel.cma === 'Vancouver CMA' || panel.cma === 'Toronto CMA') &&
+									p.i === years.length - 1}
+								<text
+									x={p.x}
+									y={isBelow ? p.y + 16 : p.y - 10}
+									text-anchor="middle"
+									fill={s.color}
+									class="point-label"
+								>
+									{fmt(p.value)}%
+								</text>
+							{/if}
+						{/each}
+					{/each}
+				</svg>
+			</div>
+		{/each}
+	</div>
+</ChartGraphic>
 
 <style>
 	.panel-grid {

@@ -94,6 +94,11 @@
 
 /* base page and text styling */
 
+/* The min-width on body and main keeps the page at least 360px wide (the
+   smallest chart width): narrower screens scroll sideways rather than squash
+   the layout. It's 360px less the scrollbar's width: 100% is the width inside
+   any scrollbar, 100dvw the full viewport including it, so their difference
+   is the scrollbar. */
 body {
 	padding: 0px; 
 	margin: 0px;
@@ -112,7 +117,6 @@ main {
 }
 
 .text {
-	background-color: none;
 	max-width: 720px;
 	margin: 0 auto;
 	position: relative;
@@ -213,9 +217,9 @@ a:hover {
 	color: var(--brandMedBlue);
 }
 
+/* Default margins, so a list in post text gets the same gap above and below as
+   a paragraph does. */
 ul {
-	margin-top: -10px;
-	margin-bottom: -10px;
 	margin-left: 0px;
 	list-style-type: circle;
 }

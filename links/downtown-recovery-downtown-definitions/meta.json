@@ -1,0 +1,11 @@
+{
+	"title": "How does the definition of downtown affect its recovery rate?",
+	"type": "post",
+	"url": "https://downtownrecovery.com/blog/downtown-definitions",
+	"summary": "An interactive map and blog post on how recovery varies for different definitions of downtowns.",
+	"authors": ["Julia Greenberg", "Byeonghwa Jeong", "Jeff Allen", "Karen Chapple", "Sarah Smith"],
+	"published": "2023-11-27",
+	"geography": ["Canada", "United States"],
+	"tags": ["downtowns", "activity patterns", "economy"],
+	"project": "downtown-recovery"
+}

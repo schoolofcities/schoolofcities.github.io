@@ -1,6 +1,7 @@
 <script>
 	import { scaleLinear, group, sum } from 'd3';
 	import data from '../data/conversions-share-by-year.csv';
+	import ChartGraphic from '$lib/ChartGraphic.svelte';
 
 	// Scale 0% to 25%: the highest point is Toronto in 2022 (20.8%). Recheck if the data is updated.
 	const shown = 8;
@@ -45,47 +46,49 @@
 	const round = (p) => `${Math.round(p)}%`;
 </script>
 
-<div class="chart">
-	<div class="legend">
-		<span class="legend-item">
-			<svg width="26" height="12" aria-hidden="true">
-				<polygon points="0,12 0,4 26,2 26,12" class="area" />
-				<polyline points="0,4 26,2" class="line" />
-			</svg>
-			Region
-		</span>
-		<span class="legend-item">
-			<svg width="26" height="12" aria-hidden="true">
-				<polygon points="0,12 0,6 26,4 26,12" class="canada-area" />
-				<polyline points="0,6 26,4" class="canada" />
-			</svg>
-			Canada
-		</span>
-	</div>
-
-	<div class="grid">
-		{#each panels as p}
-			<div class="panel">
-				<div class="name">{p.name}</div>
-				<svg width={W} height={H} viewBox="0 0 {W} {H}" aria-hidden="true">
-					<line x1="0" x2={W} y1={base + 0.5} y2={base + 0.5} class="axis" />
-
-					<polygon points={canadaArea} class="canada-area" />
-					<polygon points={p.area} class="area" />
-					<polyline points={p.line} class="line" />
-					<polyline points={canadaLine} class="canada" />
-					<circle cx={p.first.x} cy={p.first.y} r="3.5" class="dot" />
-					<circle cx={p.last.x} cy={p.last.y} r="3.5" class="dot" />
-					<text x="0" y={p.first.y - 8} text-anchor="start" class="share">{round(p.first.pct)}</text>
-					<text x={W} y={p.last.y - 8} text-anchor="end" class="share">{round(p.last.pct)}</text>
-
-					<text x="0" y={base + 16} text-anchor="start" class="year">2018</text>
-					<text x={W} y={base + 16} text-anchor="end" class="year">2025</text>
+<ChartGraphic>
+	<div class="chart">
+		<div class="legend">
+			<span class="legend-item">
+				<svg width="26" height="12" aria-hidden="true">
+					<polygon points="0,12 0,4 26,2 26,12" class="area" />
+					<polyline points="0,4 26,2" class="line" />
 				</svg>
-			</div>
-		{/each}
+				Region
+			</span>
+			<span class="legend-item">
+				<svg width="26" height="12" aria-hidden="true">
+					<polygon points="0,12 0,6 26,4 26,12" class="canada-area" />
+					<polyline points="0,6 26,4" class="canada" />
+				</svg>
+				Canada
+			</span>
+		</div>
+
+		<div class="grid">
+			{#each panels as p}
+				<div class="panel">
+					<div class="name">{p.name}</div>
+					<svg width={W} height={H} viewBox="0 0 {W} {H}" aria-hidden="true">
+						<line x1="0" x2={W} y1={base + 0.5} y2={base + 0.5} class="axis" />
+
+						<polygon points={canadaArea} class="canada-area" />
+						<polygon points={p.area} class="area" />
+						<polyline points={p.line} class="line" />
+						<polyline points={canadaLine} class="canada" />
+						<circle cx={p.first.x} cy={p.first.y} r="3.5" class="dot" />
+						<circle cx={p.last.x} cy={p.last.y} r="3.5" class="dot" />
+						<text x="0" y={p.first.y - 8} text-anchor="start" class="share">{round(p.first.pct)}</text>
+						<text x={W} y={p.last.y - 8} text-anchor="end" class="share">{round(p.last.pct)}</text>
+
+						<text x="0" y={base + 16} text-anchor="start" class="year">2018</text>
+						<text x={W} y={base + 16} text-anchor="end" class="year">2025</text>
+					</svg>
+				</div>
+			{/each}
+		</div>
 	</div>
-</div>
+</ChartGraphic>
 
 <style>
 	.chart {

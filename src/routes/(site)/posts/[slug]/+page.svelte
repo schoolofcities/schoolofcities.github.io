@@ -10,12 +10,13 @@
 <PostMeta
 	meta={data.meta}
 	charts={data.charts}
+	card={data.card}
 	route="/posts/{data.slug}/"
 	noindex={data.meta.protected !== false}
 />
 
 <Password slug={data.slug} locked={data.meta.protected !== false}>
-	<Title meta={data.meta} slug={data.slug} />
+	<Title meta={data.meta} />
 	<Byline meta={data.meta} />
 	<data.Body />
 </Password>

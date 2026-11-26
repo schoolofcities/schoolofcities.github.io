@@ -1,0 +1,11 @@
+{
+	"title": "Gentle density across Canada: Tracking development of accessory dwelling units",
+	"type": "feature",
+	"url": "https://schoolofcities.github.io/gentle-density/adu-development-in-canadian-cities",
+	"summary": "Tracking development of accessory dwelling units across Canada by visualizing and mapping building permit data.",
+	"authors": ["Ahmad Al-Musa", "Priya Perwani", "Muhammad Khalis bin Samion", "Jeff Allen"],
+	"published": "2024-11-15",
+	"geography": ["Canada", "Calgary, AB", "Edmonton, AB", "Guelph, ON", "Halifax, NS", "Hamilton, ON", "Kingston, ON", "Kitchener, ON", "Mississauga, ON", "Moncton, NB", "Ottawa, ON", "Regina, SK", "Toronto, ON", "Vancouver, BC", "Victoria, BC", "Waterloo, ON", "Winnipeg, MB"],
+	"tags": ["housing", "land use", "zoning", "policy"],
+	"project": "gentle-density"
+}

@@ -1,0 +1,11 @@
+{
+	"title": "US downtown recovery trends",
+	"type": "explorer",
+	"url": "https://downtownrecovery.com/charts/us_trends",
+	"summary": "Trends in cell phone activity, or footfall, showing how US downtowns are faring after the pandemic.",
+	"authors": ["Karen Chapple", "Yihoi Jung", "Jeff Allen"],
+	"published": "2026-01-28",
+	"geography": ["United States"],
+	"tags": ["downtowns", "activity patterns", "economy"],
+	"project": "downtown-recovery"
+}

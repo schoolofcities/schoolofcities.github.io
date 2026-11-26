@@ -8,10 +8,7 @@
 	"published": "2026-10-22",
 	"license": "CC-BY-4.0",
 	"protected": false,
-	"cardImage": "turnout-by-election",
-	"geography": [
-		"Ontario"
-	],
+	"geography": ["Ontario"],
 	"tags": [
 		"elections", "local government", "democracy"
 	],

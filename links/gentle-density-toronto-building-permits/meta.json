@@ -1,0 +1,14 @@
+{
+	"title": "Tracking gentle density in Toronto",
+	"type": "post",
+	"url": "https://schoolofcities.github.io/gentle-density/toronto-building-permits",
+	"summary": "Visualizing a decade (2013 to 2023) of building permits for secondary suites and laneway and garden suites in Toronto.",
+	"authors": ["Jeff Allen", "Ahmad Al-Musa"],
+	"published": "2023-02-15",
+	"geography": ["Toronto, ON"],
+	"tags": ["housing", "land use", "zoning"],
+	"project": "gentle-density",
+	"changelog": [
+		{ "date": "2024-01-15", "note": "Updated" }
+	]
+}
